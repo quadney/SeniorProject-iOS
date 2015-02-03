@@ -80,8 +80,7 @@
 
 #pragma mark - CLLocationManagerDelegate methods
 
-- (void)locationManager:(CLLocationManager *)manager
-      didDetermineState:(CLRegionState)state
+- (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state
               forRegion:(CLRegion *)region {
     
     if(state == CLRegionStateInside)
@@ -114,7 +113,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation {
-    
+    // TODO
     
 }
 

@@ -29,12 +29,12 @@
     
     // check if the user already exists and if they have selected a university
     // if not then go to the university selection view controller
-//    if ( ![[ApplicationState sharedInstance] university] ) {
-//        //load the University selection controller
-//        SelectUniversityTableViewController *univSelectViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SelectUniversityVC"];
-//        
-//        [self presentViewController:univSelectViewController animated:YES completion: nil];
-//    }
+    if ( ![[ApplicationState sharedInstance] university] ) {
+        //load the University selection controller
+        SelectUniversityTableViewController *univSelectViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SelectUniversityVC"];
+        
+        [self presentViewController:univSelectViewController animated:YES completion: nil];
+    }
     
     RegionMapViewController *mapView = [self.storyboard instantiateViewControllerWithIdentifier:@"RegionMapViewController"];
     RegionTableViewController *tableView = [self.storyboard instantiateViewControllerWithIdentifier:@"RegionTableViewController"];

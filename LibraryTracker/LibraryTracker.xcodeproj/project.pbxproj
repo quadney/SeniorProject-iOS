@@ -147,8 +147,6 @@
 				C9A38A9B1A7F03400065DE8D /* SelectUniversityTableViewController.m */,
 				C9A38A9D1A7F095C0065DE8D /* ApplicationViewController.h */,
 				C9A38A9E1A7F095C0065DE8D /* ApplicationViewController.m */,
-				C97FF30C1A816E7A00F09F55 /* LocationMonitor.h */,
-				C97FF30D1A816E7A00F09F55 /* LocationMonitor.m */,
 			);
 			path = LibraryTracker;
 			sourceTree = "<group>";
@@ -182,6 +180,8 @@
 		C97FF30F1A817A4900F09F55 /* helpers */ = {
 			isa = PBXGroup;
 			children = (
+				C97FF30C1A816E7A00F09F55 /* LocationMonitor.h */,
+				C97FF30D1A816E7A00F09F55 /* LocationMonitor.m */,
 				C97FF3101A817A6100F09F55 /* JSONParser.h */,
 				C97FF3111A817A6100F09F55 /* JSONParser.m */,
 			);

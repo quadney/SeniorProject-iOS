@@ -10,4 +10,6 @@
 
 @interface JSONParser : NSObject
 
+- (void)parseJsonData:(NSData *)data;
+
 @end

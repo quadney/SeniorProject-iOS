@@ -1,0 +1,21 @@
+{
+    "university":[
+                  "University of Florida":{
+                        "Regions":[
+                                   "Library West"{
+                                        "longitude":"000",
+                                        "latitude":"000",
+                                        "Zones":[
+                
+                                        ]
+                                   },
+                                   "Marston Library":{
+                                   
+                                   }
+                        ]
+                  },
+                  "University of Central Florida":{
+                  
+                  }
+    ]
+}

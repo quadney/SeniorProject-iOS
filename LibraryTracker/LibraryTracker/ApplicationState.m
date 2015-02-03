@@ -8,21 +8,6 @@
 
 #import "ApplicationState.h"
 
-//import LocationState classes
-#import "NotInRegionLS.h"
-#import "Stationary.h"
-#import "Roaming.h"
-
-//import University information
-#import "University.h"
-
-@interface ApplicationState()
-
-@property (nonatomic, strong) LocationState *state;
-@property (nonatomic, strong) University *university;
-
-@end
-
 @implementation ApplicationState
 
 + (id)sharedInstance {

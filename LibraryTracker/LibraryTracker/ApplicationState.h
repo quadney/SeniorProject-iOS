@@ -8,9 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
+//import LocationState classes
+#import "NotInRegionLS.h"
+#import "Stationary.h"
+#import "Roaming.h"
+
+//import University information
+#import "University.h"
 
 @interface ApplicationState : NSObject
 
 + (id)sharedInstance;
+@property (nonatomic, strong) LocationState *state; //TODO double check that this is proper
+@property (nonatomic, strong) University *university;
 
 @end

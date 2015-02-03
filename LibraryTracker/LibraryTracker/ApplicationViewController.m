@@ -7,9 +7,18 @@
 //
 
 #import "ApplicationViewController.h"
+#import "RegionMapViewController.h"
+#import "RegionTableViewController.h"
+#import "ApplicationState.h"
+#import "SelectUniversityTableViewController.h"
 
 @interface ApplicationViewController ()
+// this view controller controls the UISegmentedControl thing, and based on the state of the UISegmentControl,
+// changes which {Map or Table} View Controller to use.
+
 @property (weak, nonatomic) IBOutlet UISegmentedControl *viewSegmentControl;
+@property (copy, nonatomic) NSArray *viewControllers;   // view controllers to switch between
+@property (strong, nonatomic) UIViewController *currentViewController;
 
 @end
 
@@ -17,22 +26,80 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    // check if the user already exists and if they have selected a university
+    // if not then go to the university selection view controller
+//    if ( ![[ApplicationState sharedInstance] university] ) {
+//        //load the University selection controller
+//        SelectUniversityTableViewController *univSelectViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SelectUniversityVC"];
+//        
+//        [self presentViewController:univSelectViewController animated:YES completion: nil];
+//    }
+    
+    RegionMapViewController *mapView = [self.storyboard instantiateViewControllerWithIdentifier:@"RegionMapViewController"];
+    RegionTableViewController *tableView = [self.storyboard instantiateViewControllerWithIdentifier:@"RegionTableViewController"];
+    
+    self.viewControllers = [[NSArray alloc] initWithObjects:mapView, tableView, nil];
+    
+    self.viewSegmentControl.selectedSegmentIndex = 0;   //start on the Map view
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)cycleFromViewController:(UIViewController *)oldVC toViewController:(UIViewController *)newVC {
+    if (oldVC == newVC) return;
+    
+    if (newVC) {
+        // Set the new view controller frame (in this case to be the size of the available screen bounds)
+        // Calulate any other frame animations here (e.g. for the oldVC)
+        newVC.view.frame = CGRectMake(CGRectGetMinX(self.view.bounds), CGRectGetMinY(self.view.bounds), CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds));
+        
+        // Check the oldVC is non-nil otherwise expect a crash: NSInvalidArgumentException
+        if (oldVC) {
+            
+            // Start both the view controller transitions
+            [oldVC willMoveToParentViewController:nil];
+            [self addChildViewController:newVC];
+            
+            // Swap the view controllers
+            // No frame animations in this code but these would go in the animations block
+            [self transitionFromViewController:oldVC
+                              toViewController:newVC
+                                      duration:0.25
+                                       options:UIViewAnimationOptionLayoutSubviews
+                                    animations:^{}
+                                    completion:^(BOOL finished) {
+                                        // Finish both the view controller transitions
+                                        [oldVC removeFromParentViewController];
+                                        [newVC didMoveToParentViewController:self];
+                                        // Store a reference to the current controller
+                                        self.currentViewController = newVC;
+                                    }];
+            
+        } else {
+            // Otherwise we are adding a view controller for the first time
+            // Start the view controller transition
+            [self addChildViewController:newVC];
+            
+            // Add the new view controller view to the ciew hierarchy
+            [self.view addSubview:newVC.view];
+            
+            // End the view controller transition
+            [newVC didMoveToParentViewController:self];
+            
+            // Store a reference to the current controller
+            self.currentViewController = newVC;
+        }
+    }
 }
 
-/*
-#pragma mark - Navigation
+- (IBAction)changedView:(UISegmentedControl *)sender {
+    NSUInteger index = sender.selectedSegmentIndex;
+    
+    if (UISegmentedControlNoSegment != index) {
+        UIViewController *incomingViewController = [self.viewControllers objectAtIndex:index];
+        [self cycleFromViewController:self.currentViewController toViewController:incomingViewController];
+    }
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
 }
-*/
 
 @end

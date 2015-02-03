@@ -14,6 +14,8 @@
 		C9330D161A7EF96A00B792E8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9330D141A7EF96A00B792E8 /* LaunchScreen.xib */; };
 		C9330D221A7EF96A00B792E8 /* LibraryTrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9330D211A7EF96A00B792E8 /* LibraryTrackerTests.m */; };
 		C9330D2C1A7EF98900B792E8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9330D2B1A7EF98900B792E8 /* CoreLocation.framework */; };
+		C97FF30E1A816E7A00F09F55 /* LocationMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = C97FF30D1A816E7A00F09F55 /* LocationMonitor.m */; };
+		C97FF3121A817A6100F09F55 /* JSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C97FF3111A817A6100F09F55 /* JSONParser.m */; };
 		C9A38A961A7F02700065DE8D /* RegionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A38A951A7F02700065DE8D /* RegionTableViewController.m */; };
 		C9A38A991A7F02AB0065DE8D /* RegionMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A38A981A7F02AB0065DE8D /* RegionMapViewController.m */; };
 		C9A38A9C1A7F03400065DE8D /* SelectUniversityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A38A9B1A7F03400065DE8D /* SelectUniversityTableViewController.m */; };
@@ -53,6 +55,10 @@
 		C9330D201A7EF96A00B792E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9330D211A7EF96A00B792E8 /* LibraryTrackerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibraryTrackerTests.m; sourceTree = "<group>"; };
 		C9330D2B1A7EF98900B792E8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		C97FF30C1A816E7A00F09F55 /* LocationMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationMonitor.h; sourceTree = "<group>"; };
+		C97FF30D1A816E7A00F09F55 /* LocationMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationMonitor.m; sourceTree = "<group>"; };
+		C97FF3101A817A6100F09F55 /* JSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONParser.h; sourceTree = "<group>"; };
+		C97FF3111A817A6100F09F55 /* JSONParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONParser.m; sourceTree = "<group>"; };
 		C9A38A941A7F02700065DE8D /* RegionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegionTableViewController.h; sourceTree = "<group>"; };
 		C9A38A951A7F02700065DE8D /* RegionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegionTableViewController.m; sourceTree = "<group>"; };
 		C9A38A971A7F02AB0065DE8D /* RegionMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegionMapViewController.h; sourceTree = "<group>"; };
@@ -125,6 +131,7 @@
 		C9330D041A7EF96A00B792E8 /* LibraryTracker */ = {
 			isa = PBXGroup;
 			children = (
+				C97FF30F1A817A4900F09F55 /* helpers */,
 				C9A38AA41A7F0A080065DE8D /* Models */,
 				C9330D091A7EF96A00B792E8 /* AppDelegate.h */,
 				C9330D0A1A7EF96A00B792E8 /* AppDelegate.m */,
@@ -140,6 +147,8 @@
 				C9A38A9B1A7F03400065DE8D /* SelectUniversityTableViewController.m */,
 				C9A38A9D1A7F095C0065DE8D /* ApplicationViewController.h */,
 				C9A38A9E1A7F095C0065DE8D /* ApplicationViewController.m */,
+				C97FF30C1A816E7A00F09F55 /* LocationMonitor.h */,
+				C97FF30D1A816E7A00F09F55 /* LocationMonitor.m */,
 			);
 			path = LibraryTracker;
 			sourceTree = "<group>";
@@ -168,6 +177,15 @@
 				C9330D201A7EF96A00B792E8 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C97FF30F1A817A4900F09F55 /* helpers */ = {
+			isa = PBXGroup;
+			children = (
+				C97FF3101A817A6100F09F55 /* JSONParser.h */,
+				C97FF3111A817A6100F09F55 /* JSONParser.m */,
+			);
+			name = helpers;
 			sourceTree = "<group>";
 		};
 		C9A38AA41A7F0A080065DE8D /* Models */ = {
@@ -317,11 +335,13 @@
 				C9A38A961A7F02700065DE8D /* RegionTableViewController.m in Sources */,
 				C9330D0B1A7EF96A00B792E8 /* AppDelegate.m in Sources */,
 				C9A38AB71A7F0E110065DE8D /* InRegionLS.m in Sources */,
+				C97FF3121A817A6100F09F55 /* JSONParser.m in Sources */,
 				C9A38A9F1A7F095C0065DE8D /* ApplicationViewController.m in Sources */,
 				C9A38AAA1A7F0BE40065DE8D /* Zone.m in Sources */,
 				C9A38A991A7F02AB0065DE8D /* RegionMapViewController.m in Sources */,
 				C9A38AAD1A7F0D560065DE8D /* University.m in Sources */,
 				C9A38ABD1A7F0E3A0065DE8D /* Stationary.m in Sources */,
+				C97FF30E1A816E7A00F09F55 /* LocationMonitor.m in Sources */,
 				C9330D081A7EF96A00B792E8 /* main.m in Sources */,
 				C9A38AB41A7F0E030065DE8D /* NotInRegionLS.m in Sources */,
 			);

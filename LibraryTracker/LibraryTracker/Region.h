@@ -11,8 +11,9 @@
 
 @interface Region : CLCircularRegion
 
-@property NSString *regionName;
 @property NSMutableArray *zones;
 @property long *currentPopulation;
+
+- (id)initWithIdentifier:(NSString *)name center:(CLLocation *)center radius:(CLLocationDistance)radius zones:(NSMutableArray *)zones;
 
 @end

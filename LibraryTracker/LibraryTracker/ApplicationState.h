@@ -22,4 +22,6 @@
 @property (nonatomic, strong) LocationState *state; //TODO double check that this is proper
 @property (nonatomic, strong) University *university;
 
+- (NSArray *)getRegions;
+
 @end

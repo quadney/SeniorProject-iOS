@@ -27,4 +27,8 @@
     return self;
 }
 
+- (NSArray *)getRegions {
+    return [self.university regions];
+}
+
 @end

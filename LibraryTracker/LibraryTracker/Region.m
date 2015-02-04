@@ -10,4 +10,10 @@
 
 @implementation Region
 
+- (id)initWithIdentifier:(NSString *)name center:(CLLocation *)center radius:(CLLocationDistance)radius zones:(NSMutableArray *)zones {
+    self = [super initWithCenter:center.coordinate radius:radius identifier:name];
+    self.zones = zones;
+    return self;
+}
+
 @end

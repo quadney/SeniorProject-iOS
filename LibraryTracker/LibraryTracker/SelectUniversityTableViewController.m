@@ -7,8 +7,8 @@
 //
 
 #import "SelectUniversityTableViewController.h"
-#import "University.h"
 #import "ApplicationState.h"
+#import "Region.h"
 
 @interface SelectUniversityTableViewController ()
 
@@ -21,10 +21,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    UIEdgeInsets inset = UIEdgeInsetsMake(20, 0, 0, 0);
+    self.tableView.contentInset = inset;
+
+    
+    Region *libraryWest = [[Region alloc] initWithIdentifier:@"Library West"
+                                                      center:[[CLLocation alloc] initWithLatitude:29.647890
+                                                                                        longitude:-82.343854]
+                                                      radius:50.0
+                                                       zones:nil];
+    Region *marstonLibrary = [[Region alloc] initWithIdentifier:@"Marston Library"
+                                                      center:[[CLLocation alloc] initWithLatitude:29.647940
+                                                                                        longitude:-82.343885]
+                                                      radius:50.0
+                                                       zones:nil];
+    
     University *uf = [[University alloc] initWithName:@"University of Florida"
                                              location:[[CLLocation alloc] initWithLatitude:29.64363
                                                                                  longitude:-82.35493]
-                                              regions:nil];
+                                              regions:@[libraryWest, marstonLibrary]];
+    
     self.universities = [[NSMutableArray alloc] initWithObjects:uf, nil];
         
     [self.tableView reloadData];

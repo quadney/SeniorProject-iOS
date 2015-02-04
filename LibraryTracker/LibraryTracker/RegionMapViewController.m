@@ -9,6 +9,7 @@
 #import "RegionMapViewController.h"
 #import "ApplicationState.h"
 #import <MapKit/MapKit.h>
+#import "LocationMonitor.h"
 
 @interface RegionMapViewController () <MKMapViewDelegate>
 
@@ -37,25 +38,13 @@
 
         [self.map setCenterCoordinate:univLoc.coordinate animated:YES];
         [self.map setRegion:coordinateRegion animated:YES];
+        
+        //[LocationMonitor sharedLocation]
+        [self.map setShowsUserLocation:YES];
     }
     else {
         NSLog(@"Map not loaded");
     }
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

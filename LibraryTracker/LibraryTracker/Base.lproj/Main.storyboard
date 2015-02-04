@@ -11,9 +11,17 @@
             <objects>
                 <tableViewController storyboardIdentifier="SelectUniversityVC" id="d1f-LN-1hu" customClass="SelectUniversityTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="VbA-Av-Qiw">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <inset key="scrollIndicatorInsets" minX="0.0" minY="20" maxX="0.0" maxY="0.0"/>
+                        <navigationBar key="tableHeaderView" contentMode="scaleToFill" id="TWL-Na-0rU">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <items>
+                                <navigationItem title="Select University" id="Yeu-vj-yj8"/>
+                            </items>
+                        </navigationBar>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UniversityCell" id="qWR-fa-Boj">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -102,12 +110,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="libraryCell" rowHeight="85" id="DZY-qB-arJ">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RegionCell" rowHeight="85" id="DZY-qB-arJ" customClass="RegionTableViewCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DZY-qB-arJ" id="oSg-Gs-tTw">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Library Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1qL-QU-TRu">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Region Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1qL-QU-TRu">
                                             <rect key="frame" x="16" y="32" width="517" height="24"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -132,6 +140,11 @@
                                         <constraint firstItem="1qL-QU-TRu" firstAttribute="top" secondItem="oSg-Gs-tTw" secondAttribute="topMargin" constant="24" id="p5E-4G-psI"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="regionColorView" destination="qlT-Mf-2jZ" id="HXY-aJ-36L"/>
+                                    <outlet property="regionLabel" destination="1qL-QU-TRu" id="N2B-lb-pko"/>
+                                    <segue destination="duj-he-Oyn" kind="show" id="ldm-Go-DEQ"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -139,11 +152,47 @@
                             <outlet property="delegate" destination="FWX-bJ-Usp" id="i0Z-SH-73C"/>
                         </connections>
                     </tableView>
-                    <nil key="simulatedTopBarMetrics"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gIQ-42-l3Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="223" y="-128"/>
+        </scene>
+        <!--Region Detail View Controller-->
+        <scene sceneID="tuC-7k-vV5">
+            <objects>
+                <viewController id="duj-he-Oyn" customClass="RegionDetailViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zzs-Mu-PLs"/>
+                        <viewControllerLayoutGuide type="bottom" id="ICR-Mp-Uxk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="u1Y-QR-iqv">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Region Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ora-5B-YZ0">
+                                <rect key="frame" x="16" y="86" width="568" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="pHo-ES-f4t"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Ora-5B-YZ0" firstAttribute="trailing" secondItem="u1Y-QR-iqv" secondAttribute="trailingMargin" id="KTb-SV-E3k"/>
+                            <constraint firstAttribute="centerX" secondItem="Ora-5B-YZ0" secondAttribute="centerX" id="ZUz-T4-hPd"/>
+                            <constraint firstItem="Ora-5B-YZ0" firstAttribute="top" secondItem="zzs-Mu-PLs" secondAttribute="bottom" constant="22" id="fHb-T8-VXk"/>
+                            <constraint firstItem="Ora-5B-YZ0" firstAttribute="leading" secondItem="u1Y-QR-iqv" secondAttribute="leadingMargin" id="l6g-hZ-wlz"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rS2-LX-pIu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="998" y="-128"/>
         </scene>
         <!--Region Map View Controller-->
         <scene sceneID="znV-Na-vaR">
@@ -197,7 +246,7 @@
                     </toolbar>
                     <connections>
                         <segue destination="Hsq-0P-nZd" kind="relationship" relationship="rootViewController" id="KU8-zl-vh4"/>
-                        <segue destination="d1f-LN-1hu" kind="presentation" id="xwk-ph-NNK"/>
+                        <segue destination="d1f-LN-1hu" kind="presentation" identifier="selectUniversitySegue" id="xwk-ph-NNK"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EwT-mi-wCF" userLabel="First Responder" sceneMemberID="firstResponder"/>

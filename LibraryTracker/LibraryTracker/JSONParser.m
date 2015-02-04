@@ -12,9 +12,7 @@
 
 
 - (void)parseJsonData:(NSData *)data {
-    NSDictionary *jsonDictionay = [NSJSONSerialization JSONObjectWithData:data
-                                                                  options:0
-                                                                    error:nil];
+    //NSDictionary *jsonDictionay = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
     
 }
 

@@ -8,7 +8,7 @@
 
 #import "LocationMonitor.h"
 
-@implementation LocationMonitor
+@implementation LocationMonitor 
 
 #pragma mark - Singleton init methods
 

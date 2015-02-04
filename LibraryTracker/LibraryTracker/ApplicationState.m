@@ -21,7 +21,8 @@
 
 - (id)init {
     if (self = [super init]) {
-        
+        // set the LocationState to be the default
+        self.state = [[NotInRegionLS alloc] init];
     }
     return self;
 }

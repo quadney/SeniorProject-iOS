@@ -7,10 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 
 @interface University : NSObject
 
-@property NSMutableArray *regions;
+@property NSArray *regions;
 @property NSString *name;
+@property CLLocation *location;
+
+- (id)initWithName:(NSString *)name location:(CLLocation *)location regions:(NSArray *)regions;
 
 @end

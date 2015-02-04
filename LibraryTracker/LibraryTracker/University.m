@@ -10,4 +10,13 @@
 
 @implementation University
 
+- (id)initWithName:(NSString *)name location:(CLLocation *)location regions:(NSArray *)regions {
+    if (self = [super init]) {
+        self.name = name;
+        self.location = location;
+        self.regions = regions;
+    }
+    return self;
+}
+
 @end

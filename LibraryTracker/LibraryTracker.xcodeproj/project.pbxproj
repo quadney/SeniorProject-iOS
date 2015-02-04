@@ -30,6 +30,7 @@
 		C9A38ABA1A7F0E2F0065DE8D /* Roaming.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A38AB91A7F0E2F0065DE8D /* Roaming.m */; };
 		C9A38ABD1A7F0E3A0065DE8D /* Stationary.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A38ABC1A7F0E3A0065DE8D /* Stationary.m */; };
 		C9A38AC01A7F0E7F0065DE8D /* ApplicationState.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A38ABF1A7F0E7F0065DE8D /* ApplicationState.m */; };
+		C9E9C1221A81C8F400317FB8 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = C9E9C1211A81C8F400317FB8 /* test.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,7 +60,6 @@
 		C97FF30D1A816E7A00F09F55 /* LocationMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationMonitor.m; sourceTree = "<group>"; };
 		C97FF3101A817A6100F09F55 /* JSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONParser.h; sourceTree = "<group>"; };
 		C97FF3111A817A6100F09F55 /* JSONParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONParser.m; sourceTree = "<group>"; };
-		C97FF3131A817E6900F09F55 /* test.geojson */ = {isa = PBXFileReference; lastKnownFileType = text; path = test.geojson; sourceTree = "<group>"; };
 		C9A38A941A7F02700065DE8D /* RegionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegionTableViewController.h; sourceTree = "<group>"; };
 		C9A38A951A7F02700065DE8D /* RegionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegionTableViewController.m; sourceTree = "<group>"; };
 		C9A38A971A7F02AB0065DE8D /* RegionMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegionMapViewController.h; sourceTree = "<group>"; };
@@ -87,6 +87,7 @@
 		C9A38ABC1A7F0E3A0065DE8D /* Stationary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stationary.m; sourceTree = "<group>"; };
 		C9A38ABE1A7F0E7F0065DE8D /* ApplicationState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationState.h; sourceTree = "<group>"; };
 		C9A38ABF1A7F0E7F0065DE8D /* ApplicationState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationState.m; sourceTree = "<group>"; };
+		C9E9C1211A81C8F400317FB8 /* test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,9 +156,9 @@
 		C9330D051A7EF96A00B792E8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C9E9C1211A81C8F400317FB8 /* test.json */,
 				C9330D061A7EF96A00B792E8 /* Info.plist */,
 				C9330D071A7EF96A00B792E8 /* main.m */,
-				C97FF3131A817E6900F09F55 /* test.geojson */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -310,6 +311,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9330D111A7EF96A00B792E8 /* Main.storyboard in Resources */,
+				C9E9C1221A81C8F400317FB8 /* test.json in Resources */,
 				C9330D161A7EF96A00B792E8 /* LaunchScreen.xib in Resources */,
 				C9330D131A7EF96A00B792E8 /* Images.xcassets in Resources */,
 			);

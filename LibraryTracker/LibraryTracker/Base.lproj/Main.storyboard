@@ -7,22 +7,31 @@
     </dependencies>
     <scenes>
         <!--Select University Table View Controller-->
-        <scene sceneID="mMb-p0-Ug2">
+        <scene sceneID="Hsi-mL-KAN">
             <objects>
-                <tableViewController storyboardIdentifier="SelectUniversityVC" id="kXS-C7-ymq" customClass="SelectUniversityTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="EhC-Rt-6GK">
+                <tableViewController storyboardIdentifier="SelectUniversityVC" id="d1f-LN-1hu" customClass="SelectUniversityTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="VbA-Av-Qiw">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UniversityCell" id="qWR-fa-Boj">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qWR-fa-Boj" id="gtW-oN-EwQ">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="kXS-C7-ymq" id="Oke-bU-XOL"/>
-                            <outlet property="delegate" destination="kXS-C7-ymq" id="ayn-q6-Vql"/>
+                            <outlet property="dataSource" destination="d1f-LN-1hu" id="xQF-ef-mMA"/>
+                            <outlet property="delegate" destination="d1f-LN-1hu" id="eUb-Vw-CRM"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ysj-qw-TUY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="O2G-5H-maO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-470" y="-452"/>
+            <point key="canvasLocation" x="-470" y="-476"/>
         </scene>
         <!--Application View Controller-->
         <scene sceneID="wUK-hP-qsD">
@@ -130,7 +139,7 @@
                             <outlet property="delegate" destination="FWX-bJ-Usp" id="i0Z-SH-73C"/>
                         </connections>
                     </tableView>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <nil key="simulatedTopBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gIQ-42-l3Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -148,7 +157,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cz1-Bg-VzB">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" pitchEnabled="NO" showsUserLocation="YES" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cz1-Bg-VzB">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </mapView>
                         </subviews>
@@ -166,6 +175,9 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="map" destination="cz1-Bg-VzB" id="tRL-hV-trT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wel-LK-k7G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -185,6 +197,7 @@
                     </toolbar>
                     <connections>
                         <segue destination="Hsq-0P-nZd" kind="relationship" relationship="rootViewController" id="KU8-zl-vh4"/>
+                        <segue destination="d1f-LN-1hu" kind="presentation" id="xwk-ph-NNK"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EwT-mi-wCF" userLabel="First Responder" sceneMemberID="firstResponder"/>

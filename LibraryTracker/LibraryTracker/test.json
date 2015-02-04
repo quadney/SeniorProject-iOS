@@ -1,19 +1,16 @@
 {
-    "university":[
-                  "University of Florida":{
-                        "Regions":[
-                                   "Library West"{
-                                        "longitude":"000",
-                                        "latitude":"000",
-                                        "Zones":[
-                
-                                        ]
-                                   },
+ "university":[
+                  { "name": "University of Florida":[
+                            { "name": "Library West", "longitude":"000", "latitude":"000",
+                    "zones":[
+                        {"name":"First Floor", "altitude":"WIFI_IDENTIFIER"},
+                        {"name":"Second Floor", "altitude":"..."}
+                    ]
+                                                    ]},
                                    "Marston Library":{
                                    
                                    }
-                        ]
-                  },
+                                                      }],
                   "University of Central Florida":{
                   
                   }

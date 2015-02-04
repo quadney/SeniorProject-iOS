@@ -7,8 +7,13 @@
 //
 
 #import "RegionMapViewController.h"
+#import "ApplicationState.h"
+#import <MapKit/MapKit.h>
 
-@interface RegionMapViewController ()
+@interface RegionMapViewController () <MKMapViewDelegate>
+
+@property (weak, nonatomic) IBOutlet MKMapView *map;
+
 
 @end
 
@@ -17,6 +22,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    if ([[ApplicationState sharedInstance] university]) {
+        CLLocation *univLoc = [[[ApplicationState sharedInstance] university] location];
+        
+        // need to make a span in order to have proper zoomed-in area
+        MKCoordinateSpan span;
+        span.latitudeDelta=.05;
+        span.longitudeDelta=.05;
+        
+        //set Region to be display on MKMapView
+        MKCoordinateRegion coordinateRegion;
+        coordinateRegion.center = univLoc.coordinate;
+        coordinateRegion.span = span;
+
+        [self.map setCenterCoordinate:univLoc.coordinate animated:YES];
+        [self.map setRegion:coordinateRegion animated:YES];
+    }
+    else {
+        NSLog(@"Map not loaded");
+    }
 }
 
 - (void)didReceiveMemoryWarning {

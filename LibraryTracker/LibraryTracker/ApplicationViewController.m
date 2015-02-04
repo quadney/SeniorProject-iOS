@@ -27,14 +27,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // check if the user already exists and if they have selected a university
-    // if not then go to the university selection view controller
     if ( ![[ApplicationState sharedInstance] university] ) {
+        NSLog(@"presenting select university view controller");
         //load the University selection controller
-        SelectUniversityTableViewController *univSelectViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SelectUniversityVC"];
+        SelectUniversityTableViewController *univ = [self.storyboard instantiateViewControllerWithIdentifier:@"SelectUniversityVC"];
         
-        [self presentViewController:univSelectViewController animated:YES completion: nil];
+        [self.parentViewController presentViewController:univ animated:YES completion:^{
+            NSLog(@"university selection was completed");
+        }];
+        //I think I need to use the completion block?
     }
+
     
     RegionMapViewController *mapView = [self.storyboard instantiateViewControllerWithIdentifier:@"RegionMapViewController"];
     RegionTableViewController *tableView = [self.storyboard instantiateViewControllerWithIdentifier:@"RegionTableViewController"];

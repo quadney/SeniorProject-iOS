@@ -35,7 +35,6 @@
         [self.parentViewController presentViewController:univ animated:YES completion:^{
             NSLog(@"university selection was completed");
         }];
-        //I think I need to use the completion block?
     }
 
     

@@ -11,6 +11,7 @@
 #import "RegionTableViewController.h"
 #import "ApplicationState.h"
 #import "SelectUniversityTableViewController.h"
+#import "LocationMonitor.h"
 
 @interface ApplicationViewController ()
 // this view controller controls the UISegmentedControl thing, and based on the state of the UISegmentControl,
@@ -27,13 +28,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // if university is not selected
     if ( ![[ApplicationState sharedInstance] university] ) {
-        NSLog(@"presenting select university view controller");
         //load the University selection controller
         SelectUniversityTableViewController *univ = [self.storyboard instantiateViewControllerWithIdentifier:@"SelectUniversityVC"];
         
         [self.parentViewController presentViewController:univ animated:YES completion:^{
-            NSLog(@"university selection was completed");
+            //when the university is selected, we need to add the University's Regions to the geofence
+            [[LocationMonitor sharedLocation] addRegions:[[[ApplicationState sharedInstance] university] regions]];
         }];
     }
 

@@ -17,8 +17,35 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    UILocalNotification *notification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+    
+    if (notification) {
+        [self showAlarm:notification.alertBody];
+        NSLog(@"AppDelegate didFinishLaunchingWithOptions");
+        application.applicationIconBadgeNumber = 0;
+    }
+
     return YES;
 }
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    
+    [self showAlarm:notification.alertBody];
+    application.applicationIconBadgeNumber = 0;
+    NSLog(@"AppDelegate didReceiveLocalNotification %@", notification.userInfo);
+}
+
+- (void)showAlarm:(NSString *)text {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Alarm"
+                                                        message:text
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+    [alertView show];
+}
+
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

@@ -70,6 +70,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [[ApplicationState sharedInstance] setUniversity:[self.universities objectAtIndex:indexPath.row]];
+    
+    //when the university is selected, we need to add the University's Regions to the geofence
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

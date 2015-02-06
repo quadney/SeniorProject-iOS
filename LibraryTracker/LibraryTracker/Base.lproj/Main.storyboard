@@ -237,14 +237,29 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Population: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w7K-ny-Qsf">
+                                <rect key="frame" x="16" y="161" width="568" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="w7K-ny-Qsf" firstAttribute="top" secondItem="Ora-5B-YZ0" secondAttribute="bottom" constant="31" id="0OZ-up-IdP"/>
+                            <constraint firstItem="w7K-ny-Qsf" firstAttribute="leading" secondItem="u1Y-QR-iqv" secondAttribute="leadingMargin" id="EUs-R4-yz3"/>
                             <constraint firstItem="Ora-5B-YZ0" firstAttribute="trailing" secondItem="u1Y-QR-iqv" secondAttribute="trailingMargin" id="KTb-SV-E3k"/>
+                            <constraint firstItem="w7K-ny-Qsf" firstAttribute="trailing" secondItem="u1Y-QR-iqv" secondAttribute="trailingMargin" id="ThF-fU-cH1"/>
+                            <constraint firstItem="Ora-5B-YZ0" firstAttribute="top" secondItem="zzs-Mu-PLs" secondAttribute="bottom" constant="66" id="Y1l-lM-dsr"/>
                             <constraint firstAttribute="centerX" secondItem="Ora-5B-YZ0" secondAttribute="centerX" id="ZUz-T4-hPd"/>
                             <constraint firstItem="Ora-5B-YZ0" firstAttribute="top" secondItem="zzs-Mu-PLs" secondAttribute="bottom" constant="22" id="fHb-T8-VXk"/>
                             <constraint firstItem="Ora-5B-YZ0" firstAttribute="leading" secondItem="u1Y-QR-iqv" secondAttribute="leadingMargin" id="l6g-hZ-wlz"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="fHb-T8-VXk"/>
+                            </mask>
+                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rS2-LX-pIu" userLabel="First Responder" sceneMemberID="firstResponder"/>

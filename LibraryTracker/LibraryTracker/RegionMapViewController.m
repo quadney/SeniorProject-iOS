@@ -47,4 +47,8 @@
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    NSLog(@"Regions monitoring: %@", [[[LocationMonitor sharedLocation] locationManager] monitoredRegions]);
+}
+
 @end

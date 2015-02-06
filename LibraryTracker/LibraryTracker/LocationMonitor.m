@@ -8,6 +8,7 @@
 
 #import "LocationMonitor.h"
 #import <UIKit/UIKit.h>
+#import "ApplicationState.h"
 
 @interface LocationMonitor()
 
@@ -68,22 +69,24 @@
 // call this method when setting a new university or whatever
 - (void)addRegions:(NSArray *)regions {
     // clear out the current regions that it's monitoring
-    [self clearRegionsMonitoring];
+    //[self clearRegionsMonitoring];
     
     // add each of the regions
     for (CLRegion *region in regions) {
         // start tracking the region
         NSLog(@"Adding Region: %@", region.identifier);
-        if(![CLLocationManager isMonitoringAvailableForClass:region.class]) {
-            NSLog(@"Region monitoring is not available for region");
-        }
+        
         [self.locationManager startMonitoringForRegion:region];
     }
+    
+    NSLog(@"Regions tracking: %@", [self.locationManager monitoredRegions]);
+    
+    // check if already in a region
+    [self checkIfAlreadyInRegion];
 }
 
 - (void)clearRegionsMonitoring {
-    NSArray *currentRegions = [[self.locationManager monitoredRegions] allObjects];
-    for(CLRegion *region in currentRegions) {
+    for(CLRegion *region in [[self.locationManager monitoredRegions] allObjects]) {
         [self.locationManager stopMonitoringForRegion:region];
     }
 }
@@ -95,6 +98,18 @@
     
     [self.locationManager stopUpdatingLocation];
     return self.currentLocation;
+}
+
+- (void)checkIfAlreadyInRegion {
+    [self getCurrentLocation];
+    for (CLRegion *region in [self.locationManager monitoredRegions]) {
+        
+        // TYPE CASTING DON'T HATE ME
+        if ([(CLCircularRegion *)region containsCoordinate:self.currentLocation.coordinate]) {
+            NSLog(@"Already in the Region: %@", region.identifier);
+            [self locationManager:self.locationManager didEnterRegion:region];
+        }
+    }
 }
 
 
@@ -109,16 +124,22 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region {
+    
     NSLog(@"Started monitoring %@ region", region.identifier);
 }
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
+    
     [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"Entered Region: %@", region.identifier]];
     
     NSLog(@"Entered Region - %@", region.identifier);
+    
+    // when user enters region - need to change user state to Roaming
+    [[ApplicationState sharedInstance] userEnteredRegion:(CLCircularRegion *)region];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
+    
     [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"Exited Region: %@", region.identifier]];
     
     NSLog(@"Exited Region - %@", region.identifier);
@@ -132,10 +153,9 @@
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 }
 
-- (void)locationManager:(CLLocationManager *)manager
-     didUpdateLocations:(NSArray *)locations {
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     self.currentLocation = [locations objectAtIndex:0];
-    NSLog(@"Current location: lat: %f, long: %f", self.currentLocation.coordinate.latitude, self.currentLocation.coordinate.longitude);
+    NSLog(@"Regions tracking: %@", [self.locationManager monitoredRegions]);
 }
 
 @end

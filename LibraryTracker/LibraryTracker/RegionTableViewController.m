@@ -53,6 +53,11 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    // send the Region to the next view
+    // TODO
+}
+
 /*
 #pragma mark - Navigation
 

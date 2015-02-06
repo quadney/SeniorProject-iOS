@@ -8,6 +8,7 @@
 
 #import "ApplicationState.h"
 #import "ModelFactory.h"
+#import "LocationMonitor.h"
 
 @implementation ApplicationState
 
@@ -28,15 +29,37 @@
     return self;
 }
 
+- (void)setUniversity:(University *)university {
+    // don't forget to do this
+    _university = university;
+    
+    // when the university is set, we want to start the region monitoring of the associated Regions
+    [[LocationMonitor sharedLocation] addRegions:[[NSArray alloc] initWithArray:[self.university regions]]];
+}
+
 - (NSMutableArray *)getRegions {
     return [self.university regions];
 }
 
 - (void)addRegionWithName:(NSString *)name location:(CLLocation *)location radius:(CLLocationDistance)radius {
+    // add the region to the university
     [self.university addRegion:[[ModelFactory sharedInstance] createRegionWithName:name
                                                                           location:location
                                                                             radius:radius
                                                                              zones:nil]];
+    
+    // update the Location Monitor with the new region
+    // this needs to be looked at or redesigned - I have a feeling it's convoluted. or redesign the whole thing
+    // don't want this be an evil god object :(
+    [[LocationMonitor sharedLocation] addRegions:[[NSArray alloc] initWithArray:[self getRegions]]];
+}
+
+- (void)userEnteredRegion:(CLCircularRegion *)region {
+    //[self.state userEnteredRegion:region];
+}
+
+- (void)userExitedRegion:(CLCircularRegion *)region {
+    
 }
 
 @end

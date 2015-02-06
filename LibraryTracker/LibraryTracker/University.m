@@ -11,6 +11,8 @@
 @implementation University
 
 - (id)initWithName:(NSString *)name location:(CLLocation *)location regions:(NSArray *)regions {
+    // I think I should make this class a singleton...
+    
     if (self = [super init]) {
         self.name = name;
         self.location = location;

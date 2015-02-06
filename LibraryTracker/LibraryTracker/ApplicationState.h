@@ -24,5 +24,7 @@
 
 - (NSMutableArray *)getRegions;
 - (void)addRegionWithName:(NSString *)name location:(CLLocation *)location radius:(CLLocationDistance)radius;
+- (void)userEnteredRegion:(CLCircularRegion *)region;
+- (void)userExitedRegion:(CLCircularRegion *)region;
 
 @end

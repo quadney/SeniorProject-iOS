@@ -14,9 +14,13 @@
     if (self = [super init]) {
         self.name = name;
         self.location = location;
-        self.regions = regions;
+        self.regions = [[NSMutableArray alloc] initWithArray:regions];
     }
     return self;
+}
+
+- (void)addRegion:(Region *)region {
+    [self.regions addObject:region];
 }
 
 @end

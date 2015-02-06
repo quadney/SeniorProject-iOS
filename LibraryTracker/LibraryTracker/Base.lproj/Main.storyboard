@@ -63,13 +63,13 @@
                                 <segment title="Map"/>
                                 <segment title="List"/>
                             </segments>
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="changedView:" destination="Hsq-0P-nZd" eventType="valueChanged" id="J9b-gc-Ehy"/>
                             </connections>
                         </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" title="Settings" id="kaD-pg-39A">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="l9K-I2-la7" kind="show" id="7xV-LZ-ffm"/>
                             </connections>
@@ -168,7 +168,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Region Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1qL-QU-TRu">
-                                            <rect key="frame" x="16" y="32" width="517" height="24"/>
+                                            <rect key="frame" x="16" y="9" width="517" height="67"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
@@ -187,10 +187,16 @@
                                         <constraint firstItem="1qL-QU-TRu" firstAttribute="leading" secondItem="oSg-Gs-tTw" secondAttribute="leadingMargin" constant="8" id="7Wo-wm-KRX"/>
                                         <constraint firstItem="qlT-Mf-2jZ" firstAttribute="leading" secondItem="1qL-QU-TRu" secondAttribute="trailing" constant="8" id="Kkz-YD-Yf6"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="qlT-Mf-2jZ" secondAttribute="trailing" constant="8" id="SIb-bG-tCc"/>
+                                        <constraint firstItem="1qL-QU-TRu" firstAttribute="top" secondItem="oSg-Gs-tTw" secondAttribute="topMargin" constant="1" id="csu-2D-0Bi"/>
                                         <constraint firstItem="qlT-Mf-2jZ" firstAttribute="top" secondItem="oSg-Gs-tTw" secondAttribute="topMargin" constant="16" id="eum-Wd-Ncw"/>
                                         <constraint firstAttribute="centerY" secondItem="qlT-Mf-2jZ" secondAttribute="centerY" constant="-3" id="jvl-If-D9c"/>
-                                        <constraint firstItem="1qL-QU-TRu" firstAttribute="top" secondItem="oSg-Gs-tTw" secondAttribute="topMargin" constant="24" id="p5E-4G-psI"/>
+                                        <constraint firstItem="1qL-QU-TRu" firstAttribute="bottom" secondItem="oSg-Gs-tTw" secondAttribute="bottomMargin" id="zXy-XG-pUz"/>
                                     </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="1jb-TI-el0"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="regionColorView" destination="qlT-Mf-2jZ" id="HXY-aJ-36L"/>
@@ -205,11 +211,10 @@
                         </connections>
                     </tableView>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gIQ-42-l3Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="223" y="-128"/>
+            <point key="canvasLocation" x="223" y="-130"/>
         </scene>
         <!--Region Detail View Controller-->
         <scene sceneID="tuC-7k-vV5">
@@ -284,10 +289,10 @@
             </objects>
             <point key="canvasLocation" x="223" y="555"/>
         </scene>
-        <!--View Controller-->
+        <!--Add Region View Controller-->
         <scene sceneID="4Hy-q0-a3s">
             <objects>
-                <viewController id="gCX-BA-Lf1" sceneMemberID="viewController">
+                <viewController id="gCX-BA-Lf1" customClass="AddRegionViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ain-0O-UNA"/>
                         <viewControllerLayoutGuide type="bottom" id="bay-h4-Q1y"/>
@@ -302,7 +307,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rty-wt-qq8">
-                                <rect key="frame" x="140" y="321" width="320" height="44"/>
+                                <rect key="frame" x="16" y="321" width="568" height="44"/>
                                 <color key="backgroundColor" red="0.98794680830000003" green="0.3155837655" blue="0.36877763270000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="9uc-YC-3VQ"/>
@@ -312,9 +317,37 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="dQF-dq-Is1"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="getCurrentLocationWasPressed:" destination="gCX-BA-Lf1" eventType="touchUpInside" id="FeA-1N-rX7"/>
+                                </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location (lat/long)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N9z-pk-AN4">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location (lat/long)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="N9z-pk-AN4">
                                 <rect key="frame" x="16" y="269" width="568" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kza-Q2-LKi">
+                                <rect key="frame" x="16" y="536" width="568" height="44"/>
+                                <color key="backgroundColor" red="0.0" green="0.1548536137" blue="0.32378229749999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="1py-ch-poK"/>
+                                </constraints>
+                                <state key="normal" title="Add Region">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="addRegionWasPressed:" destination="gCX-BA-Lf1" eventType="touchUpInside" id="0wt-PE-Xdh"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Region Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M7e-fJ-DFD">
+                                <rect key="frame" x="16" y="94" width="109" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -322,16 +355,36 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Rty-wt-qq8" firstAttribute="leading" secondItem="u9x-4D-F4G" secondAttribute="leadingMargin" id="3Zi-BR-enb"/>
                             <constraint firstItem="mBV-8P-OmZ" firstAttribute="leading" secondItem="u9x-4D-F4G" secondAttribute="leadingMargin" id="3az-TB-xqV"/>
+                            <constraint firstItem="kza-Q2-LKi" firstAttribute="leading" secondItem="u9x-4D-F4G" secondAttribute="leadingMargin" id="6fE-wx-N6c"/>
                             <constraint firstItem="N9z-pk-AN4" firstAttribute="top" secondItem="mBV-8P-OmZ" secondAttribute="bottom" constant="116" id="AFa-bS-T8C"/>
                             <constraint firstItem="Rty-wt-qq8" firstAttribute="top" secondItem="N9z-pk-AN4" secondAttribute="bottom" constant="31" id="COd-zv-Rrs"/>
+                            <constraint firstItem="Rty-wt-qq8" firstAttribute="top" secondItem="mBV-8P-OmZ" secondAttribute="bottom" constant="168" id="F0g-ig-g8q"/>
                             <constraint firstItem="N9z-pk-AN4" firstAttribute="leading" secondItem="u9x-4D-F4G" secondAttribute="leadingMargin" id="IHG-FR-WB1"/>
+                            <constraint firstItem="Rty-wt-qq8" firstAttribute="trailing" secondItem="u9x-4D-F4G" secondAttribute="trailingMargin" id="LCQ-7e-M1H"/>
                             <constraint firstItem="mBV-8P-OmZ" firstAttribute="trailing" secondItem="u9x-4D-F4G" secondAttribute="trailingMargin" id="QCY-af-YUl"/>
+                            <constraint firstItem="bay-h4-Q1y" firstAttribute="top" secondItem="kza-Q2-LKi" secondAttribute="bottom" constant="20" id="RGG-Q3-x79"/>
                             <constraint firstItem="N9z-pk-AN4" firstAttribute="trailing" secondItem="u9x-4D-F4G" secondAttribute="trailingMargin" id="TZ2-0R-J6k"/>
+                            <constraint firstAttribute="centerX" secondItem="kza-Q2-LKi" secondAttribute="centerX" id="Upp-qi-7d9"/>
                             <constraint firstItem="mBV-8P-OmZ" firstAttribute="top" secondItem="Ain-0O-UNA" secondAttribute="bottom" constant="59" id="gFa-xD-yV7"/>
+                            <constraint firstItem="kza-Q2-LKi" firstAttribute="trailing" secondItem="u9x-4D-F4G" secondAttribute="trailingMargin" id="hfr-Sj-fi0"/>
                             <constraint firstAttribute="centerX" secondItem="Rty-wt-qq8" secondAttribute="centerX" id="kA3-4W-3mr"/>
+                            <constraint firstItem="M7e-fJ-DFD" firstAttribute="leading" secondItem="u9x-4D-F4G" secondAttribute="leadingMargin" id="nzx-lK-F6l"/>
+                            <constraint firstItem="mBV-8P-OmZ" firstAttribute="top" secondItem="M7e-fJ-DFD" secondAttribute="bottom" constant="8" id="vqf-G9-8dB"/>
+                            <constraint firstItem="Rty-wt-qq8" firstAttribute="top" secondItem="N9z-pk-AN4" secondAttribute="bottom" constant="31" id="wyu-Xs-1Fb"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="AFa-bS-T8C"/>
+                                <exclude reference="COd-zv-Rrs"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <connections>
+                        <outlet property="currentLocationLabel" destination="N9z-pk-AN4" id="ZrV-wW-Q7h"/>
+                        <outlet property="regionTextField" destination="mBV-8P-OmZ" id="2d8-CK-N6B"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RXi-fz-qrt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -341,8 +394,8 @@
         <scene sceneID="Dk8-1c-Q94">
             <objects>
                 <navigationController extendedLayoutIncludesOpaqueBars="YES" id="UUz-Kf-oRs" sceneMemberID="viewController">
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="27a-Gt-xwa">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="27a-Gt-xwa">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

@@ -14,6 +14,6 @@
 @property NSMutableArray *zones;
 @property long *currentPopulation;
 
-- (id)initWithIdentifier:(NSString *)name center:(CLLocation *)center radius:(CLLocationDistance)radius zones:(NSMutableArray *)zones;
+- (id)initWithIdentifier:(NSString *)name center:(CLLocation *)center radius:(CLLocationDistance)radius zones:(NSArray *)zones;
 
 @end

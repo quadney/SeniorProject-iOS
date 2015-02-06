@@ -10,4 +10,13 @@
 
 @implementation Zone
 
+- (id)initWithName:(NSString *)name wifiRouter:(NSString *)wifiRouterIdentity {
+    if (self = [super init]) {
+        self.name = name;
+        self.wifiRouterIdentifier = wifiRouterIdentity;
+        self.currentPopulation = 0;
+    }
+    return self;
+}
+
 @end

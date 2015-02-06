@@ -22,6 +22,7 @@
 @property (nonatomic, strong) LocationState *state; //TODO double check that this is proper
 @property (nonatomic, strong) University *university;
 
-- (NSArray *)getRegions;
+- (NSMutableArray *)getRegions;
+- (void)addRegionWithName:(NSString *)name location:(CLLocation *)location radius:(CLLocationDistance)radius;
 
 @end

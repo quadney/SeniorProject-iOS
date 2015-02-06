@@ -9,6 +9,12 @@
 #import "LocationMonitor.h"
 #import <UIKit/UIKit.h>
 
+@interface LocationMonitor()
+
+@property (strong, nonatomic) CLLocation *currentLocation;
+
+@end
+
 @implementation LocationMonitor 
 
 #pragma mark - Singleton init methods
@@ -31,6 +37,12 @@
         self.locationManager = [[CLLocationManager alloc] init];
         self.locationManager.delegate = self;
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+            [self.locationManager requestAlwaysAuthorization];
+
+        
+        [self.locationManager startUpdatingLocation];
     }
     return self;
 }
@@ -38,20 +50,13 @@
 // method to check whether there is permissions for location monitoring
 // this is important!
 - (BOOL)checkLocationManagerPermissions {
-    //TODO display this information to the user in an alert view
-    if(![CLLocationManager locationServicesEnabled])
-    {
+    if(![CLLocationManager locationServicesEnabled]) {
         NSLog(@"You need to enable Location Services");
         return  FALSE;
     }
-    if(![CLLocationManager isMonitoringAvailableForClass:self.class])
-    {
-        NSLog(@"Region monitoring is not available for this Class");
-        return  FALSE;
-    }
+    
     if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied ||
-       [CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted  )
-    {
+       [CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted  ) {
         NSLog(@"You need to authorize Location Services for the APP");
         return  FALSE;
     }
@@ -69,6 +74,9 @@
     for (CLRegion *region in regions) {
         // start tracking the region
         NSLog(@"Adding Region: %@", region.identifier);
+        if(![CLLocationManager isMonitoringAvailableForClass:region.class]) {
+            NSLog(@"Region monitoring is not available for region");
+        }
         [self.locationManager startMonitoringForRegion:region];
     }
 }
@@ -80,62 +88,54 @@
     }
 }
 
+- (CLLocation *)getCurrentLocation {
+    if ([self checkLocationManagerPermissions]) {
+        [self.locationManager startUpdatingLocation];
+    }
+    
+    [self.locationManager stopUpdatingLocation];
+    return self.currentLocation;
+}
+
+
 #pragma mark - CLLocationManagerDelegate methods
 
-- (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state
+- (void)locationManager:(CLLocationManager *)manager
+      didDetermineState:(CLRegionState)state
               forRegion:(CLRegion *)region {
+    //use this if the user is already in a region
+    NSLog(@"Region State - %@", region.identifier);
     
-    UILocalNotification *notification = [[UILocalNotification alloc] init];
-    
-    if(state == CLRegionStateInside)
-    {
-        NSLog(@"##Entered Region - %@", region.identifier);
-        notification.alertBody = [NSString stringWithFormat:@"Entered Region: %@", region.identifier];
-    }
-    else if(state == CLRegionStateOutside)
-    {
-        NSLog(@"##Exited Region - %@", region.identifier);
-        notification.alertBody = [NSString stringWithFormat:@"Exited Region: %@", region.identifier];
-    }
-    else{
-        NSLog(@"##Unknown state  Region - %@", region.identifier);
-        notification.alertBody = [NSString stringWithFormat:@"Unknown State: %@", region.identifier];
-    }
-    
-    notification.applicationIconBadgeNumber = 1;
-    notification.fireDate = [[NSDate date] dateByAddingTimeInterval:5];
-    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region {
-    
     NSLog(@"Started monitoring %@ region", region.identifier);
 }
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
-    UILocalNotification *notification = [[UILocalNotification alloc] init];
-    notification.alertBody = [NSString stringWithFormat:@"Entered Region: %@", region.identifier];
-    notification.fireDate = [[NSDate date] dateByAddingTimeInterval:5];
-    notification.applicationIconBadgeNumber = 1;
-    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+    [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"Entered Region: %@", region.identifier]];
     
     NSLog(@"Entered Region - %@", region.identifier);
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
-    UILocalNotification *notification = [[UILocalNotification alloc] init];
-    notification.alertBody = [NSString stringWithFormat:@"Exited Region: %@", region.identifier];
-    notification.fireDate = [[NSDate date] dateByAddingTimeInterval:5];
-    notification.applicationIconBadgeNumber = 1;
-    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+    [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"Exited Region: %@", region.identifier]];
     
     NSLog(@"Exited Region - %@", region.identifier);
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation
-           fromLocation:(CLLocation *)oldLocation {
-    // TODO
-    
+- (void)createLocalNotificationWithAlertBody:(NSString *)alert {
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    notification.alertBody = alert;
+    notification.fireDate = [[NSDate date] dateByAddingTimeInterval:5];
+    notification.applicationIconBadgeNumber = 1;
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+}
+
+- (void)locationManager:(CLLocationManager *)manager
+     didUpdateLocations:(NSArray *)locations {
+    self.currentLocation = [locations objectAtIndex:0];
+    NSLog(@"Current location: lat: %f, long: %f", self.currentLocation.coordinate.latitude, self.currentLocation.coordinate.longitude);
 }
 
 @end

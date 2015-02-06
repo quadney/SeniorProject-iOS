@@ -8,13 +8,15 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import "Region.h"
 
 @interface University : NSObject
 
-@property NSArray *regions;
+@property NSMutableArray *regions;
 @property NSString *name;
 @property CLLocation *location;
 
 - (id)initWithName:(NSString *)name location:(CLLocation *)location regions:(NSArray *)regions;
+- (void)addRegion:(Region *)region;
 
 @end

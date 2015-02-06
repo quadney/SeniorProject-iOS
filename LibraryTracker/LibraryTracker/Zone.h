@@ -14,4 +14,6 @@
 @property NSString *wifiRouterIdentifier;   //or altitude, in that case it would be a float, still undecided
 @property int currentPopulation;
 
+- (id)initWithName:(NSString *)name wifiRouter:(NSString *)wifiRouterIdentity;
+
 @end

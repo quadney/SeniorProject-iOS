@@ -19,7 +19,6 @@
 - (void)addRegions:(NSArray *)regions;
 - (void)clearRegionsMonitoring;
 
-// method to check whether there is permissions for location monitoring
-- (BOOL)checkLocationManagerPermissions;
+- (CLLocation *)getCurrentLocation;
 
 @end

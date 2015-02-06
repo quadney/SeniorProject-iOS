@@ -21,10 +21,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIEdgeInsets inset = UIEdgeInsetsMake(64, 0, 0, 0);
-    self.tableView.contentInset = inset;
-
-    
     self.regions = [[NSArray alloc] init];
     if ([[ApplicationState sharedInstance] university]) {
         self.regions = [[ApplicationState sharedInstance] getRegions];

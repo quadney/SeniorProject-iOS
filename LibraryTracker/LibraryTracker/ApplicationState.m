@@ -7,6 +7,7 @@
 //
 
 #import "ApplicationState.h"
+#import "ModelFactory.h"
 
 @implementation ApplicationState
 
@@ -27,8 +28,15 @@
     return self;
 }
 
-- (NSArray *)getRegions {
+- (NSMutableArray *)getRegions {
     return [self.university regions];
+}
+
+- (void)addRegionWithName:(NSString *)name location:(CLLocation *)location radius:(CLLocationDistance)radius {
+    [self.university addRegion:[[ModelFactory sharedInstance] createRegionWithName:name
+                                                                          location:location
+                                                                            radius:radius
+                                                                             zones:nil]];
 }
 
 @end

@@ -10,4 +10,8 @@
 
 @interface LocationState : NSObject
 
+- (void)enteredRegion;
+- (void)regionConfirmed;
+- (void)exitedRegion;
+
 @end

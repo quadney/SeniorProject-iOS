@@ -10,4 +10,16 @@
 
 @implementation NotInRegionLS
 
+- (void)enteredRegion {
+    //when user enters region from not in region, set the current region to be Roaming
+    //self = [[Roaming alloc] init];
+}
+- (void)regionConfirmed; {
+    
+}
+
+- (void)exitedRegion {
+    
+}
+
 @end

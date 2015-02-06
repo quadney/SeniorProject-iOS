@@ -10,4 +10,16 @@
 
 @implementation LocationState
 
+- (void)enteredRegion {
+    
+}
+
+- (void)regionConfirmed {
+    
+}
+
+- (void)exitedRegion {
+    
+}
+
 @end

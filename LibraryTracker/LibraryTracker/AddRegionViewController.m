@@ -9,11 +9,13 @@
 #import "AddRegionViewController.h"
 #import "ApplicationState.h"
 #import "LocationMonitor.h"
+#import <GoogleMaps/GoogleMaps.h>
 
-@interface AddRegionViewController ()
+@interface AddRegionViewController () <GMSMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *regionTextField;
 @property (weak, nonatomic) IBOutlet UILabel *currentLocationLabel;
+@property (strong, nonatomic) IBOutlet GMSMapView *mapView;
 
 @end
 
@@ -25,12 +27,27 @@
     self.parentViewController.title = @"Add Region";
     self.currentLocationLabel.text = @"";
     [self enableBackgroundTapToDismissKeyboard];
+    
+    
+    NSLog(@"Configuring Google Maps");
+    [self configureGoogleMapsWithLocation:[self getUserLocation] zoomLevel:6];
 }
 
-- (IBAction)getCurrentLocationWasPressed:(id)sender {
-    CLLocationCoordinate2D loc = [[LocationMonitor sharedLocation] getCurrentLocation].coordinate;
+- (CLLocationCoordinate2D)getUserLocation {
     
-    self.currentLocationLabel.text = [[NSString alloc] initWithFormat:@"Latitude: %f\nLongitude: %f", loc.latitude, loc.longitude];
+    return [[LocationMonitor sharedLocation] getCurrentLocation].coordinate;
+}
+
+- (void)configureGoogleMapsWithLocation:(CLLocationCoordinate2D)location zoomLevel:(int)zoom {
+//    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:location.latitude
+//                                                            longitude:location.longitude
+//                                                                 zoom:zoom];
+//    self.mapView = [[GMSMapView alloc] init];
+    self.mapView.myLocationEnabled = YES;
+    self.mapView.mapType = kGMSTypeNormal;
+    self.mapView.delegate = self;
+    
+    self.currentLocationLabel.text = [[NSString alloc] initWithFormat:@"Latitude: %f\nLongitude: %f", location.latitude, location.longitude];
 }
 
 - (IBAction)addRegionWasPressed:(id)sender {

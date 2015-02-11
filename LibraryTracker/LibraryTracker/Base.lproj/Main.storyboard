@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="UUz-Kf-oRs">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="UUz-Kf-oRs">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -50,7 +50,7 @@
                         <viewControllerLayoutGuide type="bottom" id="bce-XT-GV9"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="nnd-aN-fgm">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -92,7 +92,7 @@
                         <viewControllerLayoutGuide type="bottom" id="0Rt-Cx-lpL"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Nvq-UM-LEm">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="idw-Rp-tbh">
@@ -179,22 +179,43 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="43" id="3me-qs-aIh"/>
                                                 <constraint firstAttribute="width" constant="43" id="DGZ-54-1Pe"/>
+                                                <constraint firstAttribute="width" constant="43" id="qEa-0e-P0Q"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="3me-qs-aIh"/>
+                                                    <exclude reference="DGZ-54-1Pe"/>
+                                                </mask>
+                                            </variation>
                                         </view>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="centerY" secondItem="1qL-QU-TRu" secondAttribute="centerY" constant="-2" id="1jb-TI-el0"/>
+                                        <constraint firstItem="1qL-QU-TRu" firstAttribute="leading" secondItem="oSg-Gs-tTw" secondAttribute="leadingMargin" constant="8" id="36Q-Dw-Iz1"/>
+                                        <constraint firstItem="qlT-Mf-2jZ" firstAttribute="leading" secondItem="1qL-QU-TRu" secondAttribute="trailing" constant="8" id="5v4-m9-Tk6"/>
                                         <constraint firstItem="1qL-QU-TRu" firstAttribute="leading" secondItem="oSg-Gs-tTw" secondAttribute="leadingMargin" constant="8" id="7Wo-wm-KRX"/>
+                                        <constraint firstItem="1qL-QU-TRu" firstAttribute="bottom" secondItem="oSg-Gs-tTw" secondAttribute="bottomMargin" id="JcT-mN-2cv"/>
                                         <constraint firstItem="qlT-Mf-2jZ" firstAttribute="leading" secondItem="1qL-QU-TRu" secondAttribute="trailing" constant="8" id="Kkz-YD-Yf6"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="qlT-Mf-2jZ" secondAttribute="trailing" constant="8" id="SIb-bG-tCc"/>
                                         <constraint firstItem="1qL-QU-TRu" firstAttribute="top" secondItem="oSg-Gs-tTw" secondAttribute="topMargin" constant="1" id="csu-2D-0Bi"/>
                                         <constraint firstItem="qlT-Mf-2jZ" firstAttribute="top" secondItem="oSg-Gs-tTw" secondAttribute="topMargin" constant="16" id="eum-Wd-Ncw"/>
                                         <constraint firstAttribute="centerY" secondItem="qlT-Mf-2jZ" secondAttribute="centerY" constant="-3" id="jvl-If-D9c"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="qlT-Mf-2jZ" secondAttribute="trailing" constant="8" id="olo-OV-pEt"/>
+                                        <constraint firstItem="qlT-Mf-2jZ" firstAttribute="top" secondItem="oSg-Gs-tTw" secondAttribute="topMargin" constant="16" id="qQx-YQ-Zn2"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="qlT-Mf-2jZ" secondAttribute="bottom" constant="9" id="roj-Dj-tMQ"/>
+                                        <constraint firstItem="1qL-QU-TRu" firstAttribute="top" secondItem="oSg-Gs-tTw" secondAttribute="topMargin" constant="1" id="tgW-z4-VMv"/>
                                         <constraint firstItem="1qL-QU-TRu" firstAttribute="bottom" secondItem="oSg-Gs-tTw" secondAttribute="bottomMargin" id="zXy-XG-pUz"/>
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
                                             <exclude reference="1jb-TI-el0"/>
+                                            <exclude reference="7Wo-wm-KRX"/>
+                                            <exclude reference="csu-2D-0Bi"/>
+                                            <exclude reference="zXy-XG-pUz"/>
+                                            <exclude reference="Kkz-YD-Yf6"/>
+                                            <exclude reference="SIb-bG-tCc"/>
+                                            <exclude reference="eum-Wd-Ncw"/>
+                                            <exclude reference="jvl-If-D9c"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
@@ -278,26 +299,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" pitchEnabled="NO" showsUserLocation="YES" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cz1-Bg-VzB">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uog-6r-VSJ" customClass="GMSMapView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                            </mapView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="RDU-j5-Tuo" firstAttribute="top" secondItem="cz1-Bg-VzB" secondAttribute="bottom" id="BuJ-el-qOL"/>
-                            <constraint firstItem="cz1-Bg-VzB" firstAttribute="top" secondItem="hSw-IZ-O1z" secondAttribute="bottom" constant="-20" id="EVc-6L-IZq"/>
-                            <constraint firstItem="cz1-Bg-VzB" firstAttribute="leading" secondItem="oTu-hE-uhw" secondAttribute="leadingMargin" constant="-16" id="QKo-Db-Tux"/>
-                            <constraint firstItem="cz1-Bg-VzB" firstAttribute="trailing" secondItem="oTu-hE-uhw" secondAttribute="trailingMargin" constant="16" id="lo6-k1-eVq"/>
-                            <constraint firstItem="cz1-Bg-VzB" firstAttribute="top" secondItem="hSw-IZ-O1z" secondAttribute="bottom" id="rpA-3k-gPO"/>
+                            <constraint firstItem="Uog-6r-VSJ" firstAttribute="leading" secondItem="oTu-hE-uhw" secondAttribute="leadingMargin" constant="-16" id="C1j-oX-rh7"/>
+                            <constraint firstItem="RDU-j5-Tuo" firstAttribute="top" secondItem="Uog-6r-VSJ" secondAttribute="bottom" id="JqZ-aJ-aqH"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Uog-6r-VSJ" secondAttribute="trailing" constant="-16" id="ivd-jB-GIC"/>
+                            <constraint firstItem="Uog-6r-VSJ" firstAttribute="top" secondItem="hSw-IZ-O1z" secondAttribute="bottom" constant="-20" id="jqU-Yw-kcv"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="rpA-3k-gPO"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
-                        <outlet property="map" destination="cz1-Bg-VzB" id="tRL-hV-trT"/>
+                        <outlet property="mapView" destination="Uog-6r-VSJ" id="cyX-iD-6bu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wel-LK-k7G" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -313,7 +329,7 @@
                         <viewControllerLayoutGuide type="bottom" id="bay-h4-Q1y"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="u9x-4D-F4G">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mBV-8P-OmZ">
@@ -321,32 +337,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rty-wt-qq8">
-                                <rect key="frame" x="16" y="321" width="568" height="44"/>
-                                <color key="backgroundColor" red="0.98794680830000003" green="0.3155837655" blue="0.36877763270000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="9uc-YC-3VQ"/>
-                                    <constraint firstAttribute="width" constant="320" id="dQF-dq-Is1"/>
-                                </constraints>
-                                <state key="normal" title="Get Current Location">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="dQF-dq-Is1"/>
-                                    </mask>
-                                </variation>
-                                <connections>
-                                    <action selector="getCurrentLocationWasPressed:" destination="gCX-BA-Lf1" eventType="touchUpInside" id="FeA-1N-rX7"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location (lat/long)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="N9z-pk-AN4">
-                                <rect key="frame" x="16" y="269" width="568" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kza-Q2-LKi">
                                 <rect key="frame" x="16" y="536" width="568" height="44"/>
                                 <color key="backgroundColor" red="0.0" green="0.1548536137" blue="0.32378229749999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -367,37 +357,46 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ucH-JJ-xSa" customClass="GMSMapView">
+                                <rect key="frame" x="16" y="184" width="568" height="266"/>
+                                <color key="backgroundColor" red="0.57172580429999997" green="0.85980583850000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location (lat/long)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="N9z-pk-AN4">
+                                <rect key="frame" x="16" y="472" width="568" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Rty-wt-qq8" firstAttribute="leading" secondItem="u9x-4D-F4G" secondAttribute="leadingMargin" id="3Zi-BR-enb"/>
+                            <constraint firstItem="ucH-JJ-xSa" firstAttribute="top" secondItem="mBV-8P-OmZ" secondAttribute="bottom" constant="31" id="1wT-Kd-xA7"/>
                             <constraint firstItem="mBV-8P-OmZ" firstAttribute="leading" secondItem="u9x-4D-F4G" secondAttribute="leadingMargin" id="3az-TB-xqV"/>
+                            <constraint firstItem="kza-Q2-LKi" firstAttribute="top" secondItem="N9z-pk-AN4" secondAttribute="bottom" constant="43" id="6Fk-hs-QzG"/>
                             <constraint firstItem="kza-Q2-LKi" firstAttribute="leading" secondItem="u9x-4D-F4G" secondAttribute="leadingMargin" id="6fE-wx-N6c"/>
                             <constraint firstItem="N9z-pk-AN4" firstAttribute="top" secondItem="mBV-8P-OmZ" secondAttribute="bottom" constant="116" id="AFa-bS-T8C"/>
-                            <constraint firstItem="Rty-wt-qq8" firstAttribute="top" secondItem="N9z-pk-AN4" secondAttribute="bottom" constant="31" id="COd-zv-Rrs"/>
-                            <constraint firstItem="Rty-wt-qq8" firstAttribute="top" secondItem="mBV-8P-OmZ" secondAttribute="bottom" constant="168" id="F0g-ig-g8q"/>
                             <constraint firstItem="N9z-pk-AN4" firstAttribute="leading" secondItem="u9x-4D-F4G" secondAttribute="leadingMargin" id="IHG-FR-WB1"/>
-                            <constraint firstItem="Rty-wt-qq8" firstAttribute="trailing" secondItem="u9x-4D-F4G" secondAttribute="trailingMargin" id="LCQ-7e-M1H"/>
+                            <constraint firstItem="N9z-pk-AN4" firstAttribute="top" secondItem="ucH-JJ-xSa" secondAttribute="bottom" constant="22" id="Lqo-0Z-E2O"/>
                             <constraint firstItem="mBV-8P-OmZ" firstAttribute="trailing" secondItem="u9x-4D-F4G" secondAttribute="trailingMargin" id="QCY-af-YUl"/>
                             <constraint firstItem="bay-h4-Q1y" firstAttribute="top" secondItem="kza-Q2-LKi" secondAttribute="bottom" constant="20" id="RGG-Q3-x79"/>
                             <constraint firstItem="N9z-pk-AN4" firstAttribute="trailing" secondItem="u9x-4D-F4G" secondAttribute="trailingMargin" id="TZ2-0R-J6k"/>
+                            <constraint firstItem="ucH-JJ-xSa" firstAttribute="trailing" secondItem="u9x-4D-F4G" secondAttribute="trailingMargin" id="UQV-Nb-0cH"/>
                             <constraint firstAttribute="centerX" secondItem="kza-Q2-LKi" secondAttribute="centerX" id="Upp-qi-7d9"/>
+                            <constraint firstItem="ucH-JJ-xSa" firstAttribute="leading" secondItem="u9x-4D-F4G" secondAttribute="leadingMargin" id="fdr-h8-Pdl"/>
                             <constraint firstItem="mBV-8P-OmZ" firstAttribute="top" secondItem="Ain-0O-UNA" secondAttribute="bottom" constant="59" id="gFa-xD-yV7"/>
                             <constraint firstItem="kza-Q2-LKi" firstAttribute="trailing" secondItem="u9x-4D-F4G" secondAttribute="trailingMargin" id="hfr-Sj-fi0"/>
-                            <constraint firstAttribute="centerX" secondItem="Rty-wt-qq8" secondAttribute="centerX" id="kA3-4W-3mr"/>
                             <constraint firstItem="M7e-fJ-DFD" firstAttribute="leading" secondItem="u9x-4D-F4G" secondAttribute="leadingMargin" id="nzx-lK-F6l"/>
                             <constraint firstItem="mBV-8P-OmZ" firstAttribute="top" secondItem="M7e-fJ-DFD" secondAttribute="bottom" constant="8" id="vqf-G9-8dB"/>
-                            <constraint firstItem="Rty-wt-qq8" firstAttribute="top" secondItem="N9z-pk-AN4" secondAttribute="bottom" constant="31" id="wyu-Xs-1Fb"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="AFa-bS-T8C"/>
-                                <exclude reference="COd-zv-Rrs"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
                         <outlet property="currentLocationLabel" destination="N9z-pk-AN4" id="ZrV-wW-Q7h"/>
+                        <outlet property="mapView" destination="ucH-JJ-xSa" id="cha-he-rKg"/>
                         <outlet property="regionTextField" destination="mBV-8P-OmZ" id="2d8-CK-N6B"/>
                     </connections>
                 </viewController>

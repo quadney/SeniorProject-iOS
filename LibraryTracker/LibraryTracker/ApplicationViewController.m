@@ -39,14 +39,14 @@
         }];
     }
 
-    
     RegionMapViewController *mapView = [self.storyboard instantiateViewControllerWithIdentifier:@"RegionMapViewController"];
     RegionTableViewController *tableView = [self.storyboard instantiateViewControllerWithIdentifier:@"RegionTableViewController"];
     
     self.viewControllers = [[NSArray alloc] initWithObjects:mapView, tableView, nil];
-    
     self.viewSegmentControl.selectedSegmentIndex = 0;   //start on the Map view
+    self.currentViewController = [self.viewControllers objectAtIndex:self.viewSegmentControl.selectedSegmentIndex];
     
+    [self cycleFromViewController:nil toViewController:self.currentViewController];
 }
 
 - (void)cycleFromViewController:(UIViewController *)oldVC toViewController:(UIViewController *)newVC {

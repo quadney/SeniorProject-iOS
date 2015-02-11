@@ -26,20 +26,40 @@
 
     
     Region *libraryWest = [[Region alloc] initWithIdentifier:@"Library West"
-                                                      center:[[CLLocation alloc] initWithLatitude:29.647890
-                                                                                        longitude:-82.343854]
+                                                      center:[[CLLocation alloc] initWithLatitude:29.651339
+                                                                                        longitude:-82.342832]
                                                       radius:50.0
                                                        zones:nil];
     Region *marstonLibrary = [[Region alloc] initWithIdentifier:@"Marston Library"
-                                                      center:[[CLLocation alloc] initWithLatitude:29.647940
-                                                                                        longitude:-82.343885]
+                                                      center:[[CLLocation alloc] initWithLatitude:29.647996
+                                                                                        longitude:-82.343905]
                                                       radius:50.0
                                                        zones:nil];
+    Region *archLibrary = [[Region alloc] initWithIdentifier:@"Architecture and Fine Arts Library"
+                                                      center:[[CLLocation alloc] initWithLatitude:29.648167
+                                                                                        longitude:-82.340596]
+                                                      radius:50.0
+                                                       zones:nil];
+    Region *educationLibrary = [[Region alloc] initWithIdentifier:@"Education Library"
+                                                      center:[[CLLocation alloc] initWithLatitude:29.646653
+                                                                                        longitude:-82.337705]
+                                                      radius:50.0
+                                                       zones:nil];
+    Region *lawLibrary = [[Region alloc] initWithIdentifier:@"Law Library"
+                                                     center:[[CLLocation alloc] initWithLatitude:29.649803
+                                                                                       longitude:-82.359152]
+                                                     radius:50.0
+                                                      zones:nil];
+    Region *smathers = [[Region alloc] initWithIdentifier:@"Smather's Library"
+                                                   center:[[CLLocation alloc] initWithLatitude:29.650825
+                                                                                     longitude:-82.341754]
+                                                   radius:50.0
+                                                    zones:nil];
     
     University *uf = [[University alloc] initWithName:@"University of Florida"
                                              location:[[CLLocation alloc] initWithLatitude:29.64363
                                                                                  longitude:-82.35493]
-                                              regions:@[libraryWest, marstonLibrary]];
+                                              regions:@[libraryWest, marstonLibrary, archLibrary, educationLibrary, lawLibrary, smathers]];
     
     self.universities = [[NSMutableArray alloc] initWithObjects:uf, nil];
         

@@ -74,18 +74,19 @@
     // add each of the regions
     for (CLRegion *region in regions) {
         // start tracking the region
-        NSLog(@"Adding Region: %@", region.identifier);
+        //NSLog(@"Adding Region: %@", region.identifier);
         
         [self.locationManager startMonitoringForRegion:region];
     }
     
-    NSLog(@"Regions tracking: %@", [self.locationManager monitoredRegions]);
+    //NSLog(@"Regions tracking: %@", [self.locationManager monitoredRegions]);
     
     // check if already in a region
     [self checkIfAlreadyInRegion];
 }
 
 - (void)clearRegionsMonitoring {
+    NSLog(@"Clearing the current regions monitoring");
     for(CLRegion *region in [[self.locationManager monitoredRegions] allObjects]) {
         [self.locationManager stopMonitoringForRegion:region];
     }
@@ -155,7 +156,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     self.currentLocation = [locations objectAtIndex:0];
-    NSLog(@"Regions tracking: %@", [self.locationManager monitoredRegions]);
+    //NSLog(@"Regions tracking: %@", [self.locationManager monitoredRegions]);
 }
 
 @end

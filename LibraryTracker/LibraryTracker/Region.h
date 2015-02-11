@@ -12,7 +12,8 @@
 @interface Region : CLCircularRegion
 
 @property NSMutableArray *zones;
-@property long *currentPopulation;
+@property long currentPopulation;
+@property long capacity;
 
 - (id)initWithIdentifier:(NSString *)name center:(CLLocation *)center radius:(CLLocationDistance)radius zones:(NSArray *)zones;
 

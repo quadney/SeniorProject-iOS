@@ -8,14 +8,11 @@
 
 #import "RegionMapViewController.h"
 #import "ApplicationState.h"
-#import <MapKit/MapKit.h>
+#import <GoogleMaps/GoogleMaps.h>
 #import "LocationMonitor.h"
 
-@interface RegionMapViewController () <MKMapViewDelegate>
-
-@property (weak, nonatomic) IBOutlet MKMapView *map;
-
-
+@interface RegionMapViewController () <GMSMapViewDelegate>
+@property (strong, nonatomic) IBOutlet GMSMapView *mapView;
 @end
 
 @implementation RegionMapViewController
@@ -24,31 +21,43 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     if ([[ApplicationState sharedInstance] university]) {
-        CLLocation *univLoc = [[[ApplicationState sharedInstance] university] location];
         
-        // need to make a span in order to have proper zoomed-in area
-        MKCoordinateSpan span;
-        span.latitudeDelta=.05;
-        span.longitudeDelta=.05;
-        
-        //set Region to be display on MKMapView
-        MKCoordinateRegion coordinateRegion;
-        coordinateRegion.center = univLoc.coordinate;
-        coordinateRegion.span = span;
-
-        [self.map setCenterCoordinate:univLoc.coordinate animated:YES];
-        [self.map setRegion:coordinateRegion animated:YES];
-        
-        //[LocationMonitor sharedLocation]
-        [self.map setShowsUserLocation:YES];
+        [self configureGoogleMapsWithLocation:[[[ApplicationState sharedInstance] university] location]
+                                    zoomLevel:15
+                                         name:[[[ApplicationState sharedInstance] university] name]];
+        [self placeGoogleMapMarkers:[[ApplicationState sharedInstance] getRegions]];
     }
     else {
         NSLog(@"Map not loaded");
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [self viewDidLoad];     // let's try this out, I don't think this should be good practice though
+}
+
+- (void)configureGoogleMapsWithLocation:(CLLocation *)location zoomLevel:(int)zoom name:(NSString *)name {
+    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:location.coordinate.latitude
+                                                            longitude:location.coordinate.longitude
+                                                                 zoom:zoom];
+    self.mapView.camera = camera;
+    self.mapView.myLocationEnabled = YES;
+    self.mapView.settings.compassButton = YES;
+    self.mapView.settings.myLocationButton = YES;
+    self.mapView.delegate = self;
+}
+
+- (void)placeGoogleMapMarkers:(NSMutableArray *)markerLocations {
+    for (Region *region in markerLocations) {
+        GMSCircle *circle = [GMSCircle circleWithPosition:region.center radius:region.radius];
+        circle.fillColor = [UIColor colorWithRed:1.0 green:0 blue:0 alpha:.5];
+            // this will change when I have more stuff set up
+        circle.map = self.mapView;
+    }
+}
+
 - (void)viewDidAppear:(BOOL)animated {
-    NSLog(@"Regions monitoring: %@", [[[LocationMonitor sharedLocation] locationManager] monitoredRegions]);
+    //NSLog(@"Regions monitoring: %@", [[[LocationMonitor sharedLocation] locationManager] monitoredRegions]);
 }
 
 @end

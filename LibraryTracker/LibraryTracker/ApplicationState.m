@@ -42,7 +42,7 @@
     _university = university;
     
     // when the university is set, we want to start the region monitoring of the associated Regions
-    [[LocationMonitor sharedLocation] addRegions:[[NSArray alloc] initWithArray:[self.university regions]]];
+    [[LocationMonitor sharedLocation] addRegions:[self getRegions]];
 }
 
 - (NSMutableArray *)getRegions {

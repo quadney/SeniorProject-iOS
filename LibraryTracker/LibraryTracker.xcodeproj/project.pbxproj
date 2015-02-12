@@ -192,6 +192,7 @@
 		C9330D041A7EF96A00B792E8 /* LibraryTracker */ = {
 			isa = PBXGroup;
 			children = (
+				C9D864241A8D561C00010DF7 /* Settings */,
 				C918C0751A82D06E00821BC7 /* Detail View Controllers */,
 				C97FF30F1A817A4900F09F55 /* helpers */,
 				C9A38AA41A7F0A080065DE8D /* Models */,
@@ -209,12 +210,6 @@
 				C9A38A9B1A7F03400065DE8D /* SelectUniversityTableViewController.m */,
 				C9A38A9D1A7F095C0065DE8D /* ApplicationViewController.h */,
 				C9A38A9E1A7F095C0065DE8D /* ApplicationViewController.m */,
-				C96EEDC81A8476410010DC90 /* AddRegionViewController.h */,
-				C96EEDC91A8476410010DC90 /* AddRegionViewController.m */,
-				C9EBA40A1A8D2A4E0041C68B /* AddZoneViewController.h */,
-				C9EBA40B1A8D2A4E0041C68B /* AddZoneViewController.m */,
-				C9EBA40D1A8D31A70041C68B /* KeyboardViewController.h */,
-				C9EBA40E1A8D31A70041C68B /* KeyboardViewController.m */,
 			);
 			path = LibraryTracker;
 			sourceTree = "<group>";
@@ -290,6 +285,19 @@
 				C9A38ABC1A7F0E3A0065DE8D /* Studying.m */,
 			);
 			name = LocationState;
+			sourceTree = "<group>";
+		};
+		C9D864241A8D561C00010DF7 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				C96EEDC81A8476410010DC90 /* AddRegionViewController.h */,
+				C96EEDC91A8476410010DC90 /* AddRegionViewController.m */,
+				C9EBA40A1A8D2A4E0041C68B /* AddZoneViewController.h */,
+				C9EBA40B1A8D2A4E0041C68B /* AddZoneViewController.m */,
+				C9EBA40D1A8D31A70041C68B /* KeyboardViewController.h */,
+				C9EBA40E1A8D31A70041C68B /* KeyboardViewController.m */,
+			);
+			name = Settings;
 			sourceTree = "<group>";
 		};
 		C9DF5F3F1A8BB89400DBCBE6 /* Frameworks */ = {

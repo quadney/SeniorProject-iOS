@@ -33,10 +33,7 @@
         //load the University selection controller
         SelectUniversityTableViewController *univ = [self.storyboard instantiateViewControllerWithIdentifier:@"SelectUniversityVC"];
         
-        [self.parentViewController presentViewController:univ animated:YES completion:^{
-            //when the university is selected, we need to add the University's Regions to the geofence
-            [[LocationMonitor sharedLocation] addRegions:[[[ApplicationState sharedInstance] university] regions]];
-        }];
+        [self.parentViewController presentViewController:univ animated:YES completion:nil];
     }
 
     RegionMapViewController *mapView = [self.storyboard instantiateViewControllerWithIdentifier:@"RegionMapViewController"];

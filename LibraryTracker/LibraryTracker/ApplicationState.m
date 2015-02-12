@@ -16,13 +16,21 @@
     static ApplicationState *applicationStateInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        applicationStateInstance = [[self alloc] init];
+        applicationStateInstance = [[self alloc] initPrivate];
     });
     return applicationStateInstance;
 }
 
 - (id)init {
-    if (self = [super init]) {
+    @throw [NSException exceptionWithName:@"Singleton"
+                                   reason:@"Use: [ApplicationState sharedState]"
+                                 userInfo:nil];
+    return nil;
+}
+
+- (id)initPrivate {
+    self = [super init];
+    if (self) {
         // set the LocationState to be the default
         self.state = [[NotInRegionLS alloc] init];
     }
@@ -38,12 +46,12 @@
 }
 
 - (NSMutableArray *)getRegions {
-    return [self.university regions];
+    return [[self.university regions] copy];
 }
 
 - (void)addRegionWithName:(NSString *)name location:(CLLocation *)location radius:(CLLocationDistance)radius {
     // add the region to the university
-    [self.university addRegion:[[ModelFactory sharedInstance] createRegionWithName:name
+    [self.university addRegion:[[ModelFactory modelStore] createRegionWithName:name
                                                                           location:location
                                                                             radius:radius
                                                                              zones:nil]];
@@ -55,11 +63,19 @@
 }
 
 - (void)userEnteredRegion:(CLCircularRegion *)region {
-    //[self.state userEnteredRegion:region];
+    NSLog(@"Applicaton State: UserEnteredLocation");
+    //convert CLCircularRegion to Region? make sure that it is in fact a Region
+    if (![region isKindOfClass:Region.class]) {
+        NSLog(@"regions is not Region.class, %@", region.identifier);
+    }
+    [self.state enteredRegion:(Region *)region];
+    // when user enters region, their state becomes "Roaming"
+    // if after a while the user stays in a particular location, then they become Stationary
 }
 
 - (void)userExitedRegion:(CLCircularRegion *)region {
-    
+    // when user exits a region, then state goes to NotInRegion
+    [self.state exitedRegion];
 }
 
 @end

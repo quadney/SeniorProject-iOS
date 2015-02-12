@@ -10,7 +10,7 @@
 
 @implementation ModelFactory
 
-+ (id)sharedInstance {
++ (id)modelStore {
     static ModelFactory *modelFactoryInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

@@ -10,16 +10,22 @@
 
 @implementation LocationState
 
-- (void)enteredRegion {
-    
+- (void)enteredRegion:(Region *)region {
+    @throw [NSException exceptionWithName:@"AbstractClass"
+                                   reason:@"This method must be overridden in subclasses"
+                                 userInfo:nil];
 }
 
 - (void)regionConfirmed {
-    
+    @throw [NSException exceptionWithName:@"AbstractClass"
+                                   reason:@"This method must be overridden in subclasses"
+                                 userInfo:nil];
 }
 
 - (void)exitedRegion {
-    
+    @throw [NSException exceptionWithName:@"AbstractClass"
+                                   reason:@"This method must be overridden in subclasses"
+                                 userInfo:nil];
 }
 
 @end

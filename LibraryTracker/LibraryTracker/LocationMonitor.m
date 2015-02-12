@@ -48,6 +48,8 @@
     return self;
 }
 
+#pragma mark - Permission check methods
+
 // method to check whether there is permissions for location monitoring
 // this is important!
 - (BOOL)checkLocationManagerPermissions {
@@ -64,31 +66,23 @@
     return TRUE;
 }
 
-#pragma mark - Region Monitoring methods
+#pragma mark - LocationMonitor - Region Monitoring methods
 
-// call this method when setting a new university or whatever
+// call this method when setting a new university
 - (void)addRegions:(NSArray *)regions {
     // clear out the current regions that it's monitoring
-    //[self clearRegionsMonitoring];
+    [self clearRegionsMonitoring];
     
     // add each of the regions
-    for (CLRegion *region in regions) {
-        // start tracking the region
-        //NSLog(@"Adding Region: %@", region.identifier);
-        
-        [self.locationManager startMonitoringForRegion:region];
-    }
-    
-    //NSLog(@"Regions tracking: %@", [self.locationManager monitoredRegions]);
+    [self addRegionsToMonitor:regions];
     
     // check if already in a region
     [self checkIfAlreadyInRegion];
 }
 
-- (void)clearRegionsMonitoring {
-    NSLog(@"Clearing the current regions monitoring");
-    for(CLRegion *region in [[self.locationManager monitoredRegions] allObjects]) {
-        [self.locationManager stopMonitoringForRegion:region];
+- (void)addRegionsToMonitor:(NSArray *)regions {
+    for (CLCircularRegion *region in regions) {
+        [self.locationManager startMonitoringForRegion:region];
     }
 }
 
@@ -101,39 +95,32 @@
     return self.currentLocation;
 }
 
+- (void)clearRegionsMonitoring {
+    NSLog(@"Clearing the current regions monitoring");
+    for(CLRegion *region in [[self.locationManager monitoredRegions] allObjects]) {
+        [self.locationManager stopMonitoringForRegion:region];
+    }
+}
 - (void)checkIfAlreadyInRegion {
     [self getCurrentLocation];
-    for (CLRegion *region in [self.locationManager monitoredRegions]) {
-        
-        // TYPE CASTING DON'T HATE ME
-        if ([(CLCircularRegion *)region containsCoordinate:self.currentLocation.coordinate]) {
+    for (CLCircularRegion *region in [self.locationManager monitoredRegions]) {
+        if ([region containsCoordinate:self.currentLocation.coordinate]) {
             NSLog(@"Already in the Region: %@", region.identifier);
             [self locationManager:self.locationManager didEnterRegion:region];
         }
     }
 }
 
-
-#pragma mark - CLLocationManagerDelegate methods
-
-- (void)locationManager:(CLLocationManager *)manager
-      didDetermineState:(CLRegionState)state
-              forRegion:(CLRegion *)region {
-    //use this if the user is already in a region
-    NSLog(@"Region State - %@", region.identifier);
-    
-}
+#pragma mark - CLLocationManagerDelegate - Region monitoring methods
 
 - (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region {
     
-    NSLog(@"Started monitoring %@ region", region.identifier);
+    NSLog(@"Started monitoring %@", region.identifier);
 }
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
     
     [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"Entered Region: %@", region.identifier]];
-    
-    NSLog(@"Entered Region - %@", region.identifier);
     
     // when user enters region - need to change user state to Roaming
     [[ApplicationState sharedInstance] userEnteredRegion:(CLCircularRegion *)region];
@@ -143,8 +130,24 @@
     
     [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"Exited Region: %@", region.identifier]];
     
-    NSLog(@"Exited Region - %@", region.identifier);
+    // when user exits region - need to change user state to NotInRegion
+    [[ApplicationState sharedInstance] userExitedRegion:(CLCircularRegion *)region];
 }
+
+#pragma mark - CLLocationManagerDelegate methods - CurrentLocation stuff
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    self.currentLocation = [locations objectAtIndex:0];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {
+    //use this if the user is already in a region
+    NSLog(@"User already in region - %@", region.identifier);
+    
+    [self locationManager:self.locationManager didEnterRegion:region];
+}
+
+#pragma mark - Local Notification Methods
 
 - (void)createLocalNotificationWithAlertBody:(NSString *)alert {
     UILocalNotification *notification = [[UILocalNotification alloc] init];
@@ -152,11 +155,6 @@
     notification.fireDate = [[NSDate date] dateByAddingTimeInterval:5];
     notification.applicationIconBadgeNumber = 1;
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-}
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    self.currentLocation = [locations objectAtIndex:0];
-    //NSLog(@"Regions tracking: %@", [self.locationManager monitoredRegions]);
 }
 
 @end

@@ -1,13 +1,13 @@
 //
-//  Stationary.m
+//  Studying.h
 //  LibraryTracker
 //
 //  Created by Sydney Richardson on 2/1/15.
 //  Copyright (c) 2015 Sydney Richardson. All rights reserved.
 //
 
-#import "Stationary.h"
+#import "InRegionLS.h"
 
-@implementation Stationary
+@interface Studying : InRegionLS
 
 @end

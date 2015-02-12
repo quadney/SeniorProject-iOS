@@ -10,7 +10,7 @@
 
 //import LocationState classes
 #import "NotInRegionLS.h"
-#import "Stationary.h"
+#import "Studying.h"
 #import "Roaming.h"
 
 //import University information
@@ -19,7 +19,7 @@
 @interface ApplicationState : NSObject
 
 + (id)sharedInstance;
-@property (nonatomic, strong) LocationState *state; //TODO double check that this is proper
+@property (nonatomic, strong) LocationState *state; 
 @property (nonatomic, strong) University *university;
 
 - (NSMutableArray *)getRegions;

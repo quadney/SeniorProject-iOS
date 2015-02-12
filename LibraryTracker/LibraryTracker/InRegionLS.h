@@ -10,4 +10,8 @@
 
 @interface InRegionLS : LocationState
 
+@property (strong, nonatomic) Region *userCurrentRegion;
+
+- (id)initWithRegion:(Region *)region;
+
 @end

@@ -7,19 +7,32 @@
 //
 
 #import "NotInRegionLS.h"
+#import "Roaming.h"
 
 @implementation NotInRegionLS
 
-- (void)enteredRegion {
+- (void)enteredRegion:(Region *)region {
     //when user enters region from not in region, set the current region to be Roaming
-    //self = [[Roaming alloc] init];
+    NSLog(@"NotInRegion - enteringRegion");
+    self.userState = [[Roaming alloc] initWithRegion:region];
+    NSLog(@"%@", self.userState);
+    
 }
 - (void)regionConfirmed; {
-    
+    @throw [NSException exceptionWithName:@"IllegalState"
+                                   reason:@"User cannot be confirmed in a region is they are not in a region"
+                                 userInfo:nil];
 }
 
 - (void)exitedRegion {
-    
+    // invalid state
+    @throw [NSException exceptionWithName:@"IllegalState"
+                                   reason:@"User cannot exit a region if they are not in a region"
+                                 userInfo:nil];
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"NotInRegion, userState: %@", self.userState];
 }
 
 @end

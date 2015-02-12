@@ -10,4 +10,12 @@
 
 @implementation InRegionLS
 
+- (id)initWithRegion:(Region *)region {
+    self = [super init];
+    if (self) {
+        self.userCurrentRegion = region;
+    }
+    return self;
+}
+
 @end

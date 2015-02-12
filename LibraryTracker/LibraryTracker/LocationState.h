@@ -7,10 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Region.h"
 
 @interface LocationState : NSObject
 
-- (void)enteredRegion;
+@property LocationState *userState;
+- (void)enteredRegion:(Region *)region;
 - (void)regionConfirmed;
 - (void)exitedRegion;
 

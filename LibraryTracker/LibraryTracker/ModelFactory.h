@@ -13,7 +13,7 @@
 
 @interface ModelFactory : NSObject
 
-+ (id)sharedInstance;
++ (id)modelStore;
 
 - (University *)createUniversityWithName:(NSString *)name location:(CLLocation *)location regions:(NSArray *)regions;
 - (Region *)createRegionWithName:(NSString *)name location:(CLLocation *)location radius:(CLLocationDistance)radius zones:(NSArray *)zones;

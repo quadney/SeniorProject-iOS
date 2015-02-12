@@ -13,7 +13,7 @@
 
 @property NSMutableArray *zones;
 @property long currentPopulation;
-@property long capacity;
+@property long totalCapacity;
 
 - (id)initWithIdentifier:(NSString *)name center:(CLLocation *)center radius:(CLLocationDistance)radius zones:(NSArray *)zones;
 

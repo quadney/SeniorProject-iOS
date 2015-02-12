@@ -13,6 +13,7 @@
 
 @property LocationState *userState;
 - (void)enteredRegion:(Region *)region;
+- (Region *)getRegion;
 - (void)regionConfirmed;
 - (void)exitedRegion;
 

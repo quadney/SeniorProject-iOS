@@ -46,7 +46,8 @@
 		C9E2FB161A8B2ADE0045F801 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E2FB151A8B2ADE0045F801 /* SystemConfiguration.framework */; };
 		C9E2FB1B1A8B32300045F801 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C9E2FB1A1A8B32300045F801 /* GoogleMaps.bundle */; };
 		C9E9C1221A81C8F400317FB8 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = C9E9C1211A81C8F400317FB8 /* test.json */; };
-		C9EB32C21A82CADF004D3FC5 /* RegionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9EB32C11A82CADF004D3FC5 /* RegionTableViewCell.m */; };
+		C9EBA40C1A8D2A4E0041C68B /* AddZoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9EBA40B1A8D2A4E0041C68B /* AddZoneViewController.m */; };
+		C9EBA40F1A8D31A70041C68B /* KeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9EBA40E1A8D31A70041C68B /* KeyboardViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,8 +124,10 @@
 		C9E2FB151A8B2ADE0045F801 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C9E2FB1A1A8B32300045F801 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		C9E9C1211A81C8F400317FB8 /* test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test.json; sourceTree = "<group>"; };
-		C9EB32C01A82CADF004D3FC5 /* RegionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegionTableViewCell.h; sourceTree = "<group>"; };
-		C9EB32C11A82CADF004D3FC5 /* RegionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegionTableViewCell.m; sourceTree = "<group>"; };
+		C9EBA40A1A8D2A4E0041C68B /* AddZoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddZoneViewController.h; sourceTree = "<group>"; };
+		C9EBA40B1A8D2A4E0041C68B /* AddZoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddZoneViewController.m; sourceTree = "<group>"; };
+		C9EBA40D1A8D31A70041C68B /* KeyboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardViewController.h; sourceTree = "<group>"; };
+		C9EBA40E1A8D31A70041C68B /* KeyboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,10 +209,12 @@
 				C9A38A9B1A7F03400065DE8D /* SelectUniversityTableViewController.m */,
 				C9A38A9D1A7F095C0065DE8D /* ApplicationViewController.h */,
 				C9A38A9E1A7F095C0065DE8D /* ApplicationViewController.m */,
-				C9EB32C01A82CADF004D3FC5 /* RegionTableViewCell.h */,
-				C9EB32C11A82CADF004D3FC5 /* RegionTableViewCell.m */,
 				C96EEDC81A8476410010DC90 /* AddRegionViewController.h */,
 				C96EEDC91A8476410010DC90 /* AddRegionViewController.m */,
+				C9EBA40A1A8D2A4E0041C68B /* AddZoneViewController.h */,
+				C9EBA40B1A8D2A4E0041C68B /* AddZoneViewController.m */,
+				C9EBA40D1A8D31A70041C68B /* KeyboardViewController.h */,
+				C9EBA40E1A8D31A70041C68B /* KeyboardViewController.m */,
 			);
 			path = LibraryTracker;
 			sourceTree = "<group>";
@@ -418,6 +423,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9A38AC01A7F0E7F0065DE8D /* ApplicationState.m in Sources */,
+				C9EBA40C1A8D2A4E0041C68B /* AddZoneViewController.m in Sources */,
 				C918C0781A82D09800821BC7 /* RegionDetailViewController.m in Sources */,
 				C9A38AB11A7F0DE30065DE8D /* LocationState.m in Sources */,
 				C9A38AA71A7F0A740065DE8D /* Region.m in Sources */,
@@ -427,6 +433,7 @@
 				C9330D0B1A7EF96A00B792E8 /* AppDelegate.m in Sources */,
 				C96EEDCA1A8476410010DC90 /* AddRegionViewController.m in Sources */,
 				C9A38AB71A7F0E110065DE8D /* InRegionLS.m in Sources */,
+				C9EBA40F1A8D31A70041C68B /* KeyboardViewController.m in Sources */,
 				C97FF3121A817A6100F09F55 /* JSONParser.m in Sources */,
 				C9A38A9F1A7F095C0065DE8D /* ApplicationViewController.m in Sources */,
 				C9A38AAA1A7F0BE40065DE8D /* Zone.m in Sources */,
@@ -436,7 +443,6 @@
 				C97FF30E1A816E7A00F09F55 /* LocationMonitor.m in Sources */,
 				C9330D081A7EF96A00B792E8 /* main.m in Sources */,
 				C9A38AB41A7F0E030065DE8D /* NotInRegionLS.m in Sources */,
-				C9EB32C21A82CADF004D3FC5 /* RegionTableViewCell.m in Sources */,
 				C96EEDCD1A8479E30010DC90 /* ModelFactory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

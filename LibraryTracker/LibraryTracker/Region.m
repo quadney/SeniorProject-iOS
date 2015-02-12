@@ -16,4 +16,17 @@
     return self;
 }
 
+- (id)initWithCLCircularRegion:(CLCircularRegion *)circle {
+    self = [self initWithIdentifier:circle.identifier
+                             center:[[CLLocation alloc] initWithLatitude:circle.center.latitude
+                                                               longitude:circle.center.longitude]
+                             radius:circle.radius
+                              zones:nil];
+    return self;
+}
+
+- (void)addZone:(Zone *)zone {
+    [self.zones addObject:zone];
+}
+
 @end

@@ -18,4 +18,8 @@
     return self;
 }
 
+- (Region *)getRegion {
+    return self.userCurrentRegion;
+}
+
 @end

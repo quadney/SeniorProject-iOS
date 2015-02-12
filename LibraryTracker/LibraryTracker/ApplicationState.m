@@ -49,6 +49,10 @@
     return [[self.university regions] copy];
 }
 
+- (Region *)getUserCurrentRegion {
+    return [self.state getRegion];
+}
+
 - (void)addRegionWithName:(NSString *)name location:(CLLocation *)location radius:(CLLocationDistance)radius {
     // add the region to the university
     [self.university addRegion:[[ModelFactory modelStore] createRegionWithName:name
@@ -62,20 +66,30 @@
     [[LocationMonitor sharedLocation] addRegions:[[NSArray alloc] initWithArray:[self getRegions]]];
 }
 
+- (void)addZoneWithName:(NSString *)name wifiIdentifier:(NSString *)wifiInfo {
+    if ([self.state getRegion] != nil) {
+        [[self.state getRegion] addZone:[[ModelFactory modelStore] createZoneWithName:name
+                                                                 wifiRouterIdentifier:wifiInfo]];
+    }
+    else {
+        NSLog(@"User not in Region, can't add zone");
+    }
+}
+
 - (void)userEnteredRegion:(CLCircularRegion *)region {
     NSLog(@"Applicaton State: UserEnteredLocation");
     //convert CLCircularRegion to Region? make sure that it is in fact a Region
     if (![region isKindOfClass:Region.class]) {
         NSLog(@"regions is not Region.class, %@", region.identifier);
     }
-    [self.state enteredRegion:(Region *)region];
+    self.state = [[Roaming alloc] initWithRegion:[[Region alloc] initWithCLCircularRegion:region]];
     // when user enters region, their state becomes "Roaming"
     // if after a while the user stays in a particular location, then they become Stationary
 }
 
 - (void)userExitedRegion:(CLCircularRegion *)region {
     // when user exits a region, then state goes to NotInRegion
-    [self.state exitedRegion];
+    self.state = [[NotInRegionLS alloc] init];
 }
 
 @end

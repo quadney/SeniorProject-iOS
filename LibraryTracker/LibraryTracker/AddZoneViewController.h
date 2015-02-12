@@ -1,14 +1,14 @@
 //
-//  AddRegionViewController.h
+//  AddZoneViewController.h
 //  LibraryTracker
 //
-//  Created by Sydney Richardson on 2/5/15.
+//  Created by Sydney Richardson on 2/12/15.
 //  Copyright (c) 2015 Sydney Richardson. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import "KeyboardViewController.h"
 
-@interface AddRegionViewController : KeyboardViewController
+@interface AddZoneViewController : KeyboardViewController
 
 @end

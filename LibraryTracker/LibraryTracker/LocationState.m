@@ -16,6 +16,10 @@
                                  userInfo:nil];
 }
 
+- (Region *)getRegion {
+    @throw [NSException exceptionWithName:@"InvalidState" reason:@"User not in Region" userInfo:nil];
+}
+
 - (void)regionConfirmed {
     @throw [NSException exceptionWithName:@"AbstractClass"
                                    reason:@"This method must be overridden in subclasses"
@@ -26,6 +30,10 @@
     @throw [NSException exceptionWithName:@"AbstractClass"
                                    reason:@"This method must be overridden in subclasses"
                                  userInfo:nil];
+}
+
+- (NSString *)description {
+    return @"LocationState - Abstract class";
 }
 
 @end

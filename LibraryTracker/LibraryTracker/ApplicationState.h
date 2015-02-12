@@ -23,7 +23,10 @@
 @property (nonatomic, strong) University *university;
 
 - (NSMutableArray *)getRegions;
+- (Region *)getUserCurrentRegion;
+    //review to make sure this is good OOP, this functionality is also only for developer purposes so maybe it's okay
 - (void)addRegionWithName:(NSString *)name location:(CLLocation *)location radius:(CLLocationDistance)radius;
+- (void)addZoneWithName:(NSString *)name wifiIdentifier:(NSString *)wifiInfo;
 - (void)userEnteredRegion:(CLCircularRegion *)region;
 - (void)userExitedRegion:(CLCircularRegion *)region;
 

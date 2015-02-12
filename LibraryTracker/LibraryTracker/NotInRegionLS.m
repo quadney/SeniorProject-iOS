@@ -13,11 +13,12 @@
 
 - (void)enteredRegion:(Region *)region {
     //when user enters region from not in region, set the current region to be Roaming
-    NSLog(@"NotInRegion - enteringRegion");
+    NSLog(@"NotInRegion - entering Region now");
     self.userState = [[Roaming alloc] initWithRegion:region];
     NSLog(@"%@", self.userState);
     
 }
+
 - (void)regionConfirmed; {
     @throw [NSException exceptionWithName:@"IllegalState"
                                    reason:@"User cannot be confirmed in a region is they are not in a region"
@@ -32,7 +33,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"NotInRegion, userState: %@", self.userState];
+    return @"User is not in a Region";
 }
 
 @end

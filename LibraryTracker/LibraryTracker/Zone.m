@@ -15,6 +15,7 @@
         self.name = name;
         self.wifiRouterIdentifier = wifiRouterIdentity;
         self.currentPopulation = 0;
+        self.totalCapacity = 0;
     }
     return self;
 }

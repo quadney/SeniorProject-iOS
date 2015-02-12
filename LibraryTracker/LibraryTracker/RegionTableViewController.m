@@ -7,7 +7,6 @@
 //
 
 #import "RegionTableViewController.h"
-#import "RegionTableViewCell.h"
 #import "ApplicationState.h"
 
 @interface RegionTableViewController ()
@@ -45,17 +44,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    RegionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RegionCell" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RegionCell" forIndexPath:indexPath];
     
-    cell.regionLabel.text = [[self.regions objectAtIndex:indexPath.row] identifier];
+    cell.textLabel.text = [[self.regions objectAtIndex:indexPath.row] identifier];
     //TODO set the color for the view indicator
+    cell.contentView.backgroundColor = [UIColor colorWithRed:1.0 green:0 blue:0 alpha:.5];
+    cell.textLabel.backgroundColor = [UIColor colorWithRed:1.0 green:0 blue:0 alpha:.5];
     
     return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // send the Region to the next view
-    // TODO
 }
 
 /*

@@ -26,8 +26,6 @@
     // Do any additional setup after loading the view.
     self.parentViewController.title = @"Add Region";
     self.currentLocationLabel.text = @"";
-    [self enableBackgroundTapToDismissKeyboard];
-    
     
     NSLog(@"Configuring Google Maps");
     [self configureGoogleMapsWithLocation:[self getUserLocation] zoomLevel:6];
@@ -39,10 +37,6 @@
 }
 
 - (void)configureGoogleMapsWithLocation:(CLLocationCoordinate2D)location zoomLevel:(int)zoom {
-//    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:location.latitude
-//                                                            longitude:location.longitude
-//                                                                 zoom:zoom];
-//    self.mapView = [[GMSMapView alloc] init];
     self.mapView.myLocationEnabled = YES;
     self.mapView.mapType = kGMSTypeNormal;
     self.mapView.delegate = self;
@@ -56,16 +50,6 @@
                                                 location:[[LocationMonitor sharedLocation] getCurrentLocation]
                                                   radius:50];
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)enableBackgroundTapToDismissKeyboard {
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                                 action:@selector(backgroundWasTapped:)];
-    [self.view addGestureRecognizer:tapGesture];
-}
-
-- (void)backgroundWasTapped:(UITapGestureRecognizer *)tapGesture {
-    [self.view endEditing:YES];
 }
 
 @end

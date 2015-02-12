@@ -18,6 +18,7 @@
     // probably having to do with threads and shit
     
     self = [super initWithRegion:region];
+    
     return self;
 }
 
@@ -38,7 +39,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"Roaming - userState: %@, region: %@", self.userState, self.userCurrentRegion.identifier];
+    return [NSString stringWithFormat:@"Roaming - user is in the region: %@", self.userCurrentRegion.identifier];
 }
 
 @end

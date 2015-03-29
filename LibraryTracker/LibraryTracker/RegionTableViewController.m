@@ -8,10 +8,9 @@
 
 #import "RegionTableViewController.h"
 #import "ApplicationState.h"
+#import "RegionDetailViewController.h"
 
 @interface RegionTableViewController ()
-
-@property (strong, nonatomic) NSArray *regions;
 
 @end
 
@@ -20,14 +19,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.regions = [[NSArray alloc] init];
-    if ([[ApplicationState sharedInstance] university]) {
-        self.regions = [[ApplicationState sharedInstance] getRegions];
-    }
-    
     [self.tableView reloadData];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [self.tableView reloadData];
+}
 
 #pragma mark - Table view data source
 
@@ -39,29 +36,32 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
     // Return the number of rows in the section.
-    return [self.regions count];
+    return [[[ApplicationState sharedInstance] getRegions] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RegionCell" forIndexPath:indexPath];
     
-    cell.textLabel.text = [[self.regions objectAtIndex:indexPath.row] identifier];
+    cell.textLabel.text = [[[[ApplicationState sharedInstance] getRegions] objectAtIndex:indexPath.row] identifier];
+    
     //TODO set the color for the view indicator
-    cell.contentView.backgroundColor = [UIColor colorWithRed:1.0 green:0 blue:0 alpha:.5];
-    cell.textLabel.backgroundColor = [UIColor colorWithRed:1.0 green:0 blue:0 alpha:.5];
+    cell.contentView.backgroundColor =  [UIColor colorWithRed:1.0 green:0 blue:0 alpha:.5];
+    cell.textLabel.backgroundColor =    [UIColor colorWithRed:0.0 green:0 blue:0 alpha:0.0];
     
     return cell;
 }
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    
+    if ([segue.identifier isEqualToString:@"RegionDetailSegue"]) {
+        RegionDetailViewController *detail = (RegionDetailViewController *)[segue destinationViewController];
+        detail.regionIndex = [[self.tableView indexPathForSelectedRow] row];
+    }
+    
 }
-*/
 
 @end

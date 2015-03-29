@@ -10,9 +10,9 @@
 
 @implementation Region
 
-- (id)initWithIdentifier:(NSString *)name center:(CLLocation *)center radius:(CLLocationDistance)radius zones:(NSArray *)zones {
+- (id)initWithIdentifier:(NSString *)name center:(CLLocation *)center radius:(CLLocationDistance)radius idNumber:(int)idNum{
     self = [super initWithCenter:center.coordinate radius:radius identifier:name];
-    self.zones = [[NSMutableArray alloc] initWithArray:zones];
+    self.idNum = idNum;
     return self;
 }
 
@@ -21,12 +21,8 @@
                              center:[[CLLocation alloc] initWithLatitude:circle.center.latitude
                                                                longitude:circle.center.longitude]
                              radius:circle.radius
-                              zones:nil];
+                           idNumber:nil];
     return self;
-}
-
-- (void)addZone:(Zone *)zone {
-    [self.zones addObject:zone];
 }
 
 @end

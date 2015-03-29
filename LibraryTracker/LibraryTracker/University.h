@@ -15,8 +15,9 @@
 @property NSMutableArray *regions;
 @property NSString *name;
 @property CLLocation *location;
+@property int idNum;
 
-- (id)initWithName:(NSString *)name location:(CLLocation *)location regions:(NSArray *)regions;
+- (id)initWithName:(NSString *)name location:(CLLocation *)location regions:(NSArray *)regions idNumber:(int)idNum;
 - (void)addRegion:(Region *)region;
 
 @end

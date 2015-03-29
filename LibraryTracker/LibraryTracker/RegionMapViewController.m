@@ -50,10 +50,8 @@
 - (void)placeGoogleMapMarkers:(NSMutableArray *)markerLocations {
     //remove the markers that were there before
     [self.mapView clear];
-    NSLog(@"Number of Regions in markerlocations: %i", [markerLocations count]);
     int i = 0;
     for (Region *region in markerLocations) {
-        NSLog(@"i: %i, %@", i, region.identifier);
         GMSCircle *circle = [GMSCircle circleWithPosition:region.center radius:region.radius];
         circle.fillColor = [UIColor colorWithRed:1.0 green:0 blue:0 alpha:.5];
             // this will change when I have more stuff set up

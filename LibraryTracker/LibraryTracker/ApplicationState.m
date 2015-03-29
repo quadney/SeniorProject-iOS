@@ -46,34 +46,26 @@
 }
 
 - (NSMutableArray *)getRegions {
-    return [[self.university regions] copy];
+    return [self.university regions];
 }
 
 - (Region *)getUserCurrentRegion {
+//    Region *stateRegion = [self.state getRegion];
+//    Region *reg = [self.university regions];
     return [self.state getRegion];
 }
 
-- (void)addRegionWithName:(NSString *)name location:(CLLocation *)location radius:(CLLocationDistance)radius {
+- (void)addRegionWithName:(NSString *)name location:(CLLocation *)location radius:(CLLocationDistance)radius idNumber:(int)idNum {
     // add the region to the university
     [self.university addRegion:[[ModelFactory modelStore] createRegionWithName:name
-                                                                          location:location
-                                                                            radius:radius
-                                                                             zones:nil]];
+                                                                      location:location
+                                                                        radius:radius
+                                                                      idNumber:idNum]];
     
     // update the Location Monitor with the new region
     // this needs to be looked at or redesigned - I have a feeling it's convoluted. or redesign the whole thing
     // don't want this be an evil god object :(
     [[LocationMonitor sharedLocation] addRegions:[[NSArray alloc] initWithArray:[self getRegions]]];
-}
-
-- (void)addZoneWithName:(NSString *)name wifiIdentifier:(NSString *)wifiInfo {
-    if ([self.state getRegion] != nil) {
-        [[self.state getRegion] addZone:[[ModelFactory modelStore] createZoneWithName:name
-                                                                 wifiRouterIdentifier:wifiInfo]];
-    }
-    else {
-        NSLog(@"User not in Region, can't add zone");
-    }
 }
 
 - (void)userEnteredRegion:(CLCircularRegion *)region {

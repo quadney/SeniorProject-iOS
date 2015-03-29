@@ -8,16 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
-#import "Zone.h"
 
 @interface Region : CLCircularRegion
 
-@property NSMutableArray *zones;
-@property long currentPopulation;
-@property long totalCapacity;
+@property int currentPopulation;
+@property int totalCapacity;
+@property int idNum;
 
-- (id)initWithIdentifier:(NSString *)name center:(CLLocation *)center radius:(CLLocationDistance)radius zones:(NSArray *)zones;
+- (id)initWithIdentifier:(NSString *)name center:(CLLocation *)center radius:(CLLocationDistance)radius idNumber:(int)idNum;
 - (id)initWithCLCircularRegion:(CLCircularRegion *)circle;
-- (void)addZone:(Zone *)zone;
 
 @end

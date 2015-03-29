@@ -15,7 +15,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *regionTextField;
 @property (weak, nonatomic) IBOutlet UILabel *currentLocationLabel;
-@property (strong, nonatomic) IBOutlet GMSMapView *mapView;
+@property (weak, nonatomic) IBOutlet GMSMapView *mapView;
 
 @end
 
@@ -24,10 +24,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.parentViewController.title = @"Add Region";
+    self.parentViewController.navigationItem.title = @"Add Region";
     self.currentLocationLabel.text = @"";
     
-    NSLog(@"Configuring Google Maps");
     [self configureGoogleMapsWithLocation:[self getUserLocation] zoomLevel:6];
 }
 

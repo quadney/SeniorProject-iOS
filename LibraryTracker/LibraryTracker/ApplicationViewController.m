@@ -28,6 +28,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // open up NSURLSession
+    
     // if university is not selected
     if ( ![[ApplicationState sharedInstance] university] ) {
         //load the University selection controller
@@ -47,6 +49,9 @@
 }
 
 - (void)cycleFromViewController:(UIViewController *)oldVC toViewController:(UIViewController *)newVC {
+    // Give credit where credit is due: thanks stackoverflow #sorrynotsorry #imonadeadlineandtaking15credits
+    // http://stackoverflow.com/questions/11422845/changing-view-controller-when-segmented-control-changes
+    
     if (oldVC == newVC) return;
     
     if (newVC) {

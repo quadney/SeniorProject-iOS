@@ -24,7 +24,6 @@
 		C9A38A9C1A7F03400065DE8D /* SelectUniversityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A38A9B1A7F03400065DE8D /* SelectUniversityTableViewController.m */; };
 		C9A38A9F1A7F095C0065DE8D /* ApplicationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A38A9E1A7F095C0065DE8D /* ApplicationViewController.m */; };
 		C9A38AA71A7F0A740065DE8D /* Region.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A38AA61A7F0A740065DE8D /* Region.m */; };
-		C9A38AAA1A7F0BE40065DE8D /* Zone.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A38AA91A7F0BE40065DE8D /* Zone.m */; };
 		C9A38AAD1A7F0D560065DE8D /* University.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A38AAC1A7F0D560065DE8D /* University.m */; };
 		C9A38AB11A7F0DE30065DE8D /* LocationState.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A38AB01A7F0DE30065DE8D /* LocationState.m */; };
 		C9A38AB41A7F0E030065DE8D /* NotInRegionLS.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A38AB31A7F0E030065DE8D /* NotInRegionLS.m */; };
@@ -46,7 +45,6 @@
 		C9E2FB161A8B2ADE0045F801 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E2FB151A8B2ADE0045F801 /* SystemConfiguration.framework */; };
 		C9E2FB1B1A8B32300045F801 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C9E2FB1A1A8B32300045F801 /* GoogleMaps.bundle */; };
 		C9E9C1221A81C8F400317FB8 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = C9E9C1211A81C8F400317FB8 /* test.json */; };
-		C9EBA40C1A8D2A4E0041C68B /* AddZoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9EBA40B1A8D2A4E0041C68B /* AddZoneViewController.m */; };
 		C9EBA40F1A8D31A70041C68B /* KeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9EBA40E1A8D31A70041C68B /* KeyboardViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -94,8 +92,6 @@
 		C9A38AA21A7F09ED0065DE8D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C9A38AA51A7F0A740065DE8D /* Region.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Region.h; sourceTree = "<group>"; };
 		C9A38AA61A7F0A740065DE8D /* Region.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Region.m; sourceTree = "<group>"; };
-		C9A38AA81A7F0BE40065DE8D /* Zone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Zone.h; sourceTree = "<group>"; };
-		C9A38AA91A7F0BE40065DE8D /* Zone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Zone.m; sourceTree = "<group>"; };
 		C9A38AAB1A7F0D560065DE8D /* University.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = University.h; sourceTree = "<group>"; };
 		C9A38AAC1A7F0D560065DE8D /* University.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = University.m; sourceTree = "<group>"; };
 		C9A38AAF1A7F0DE30065DE8D /* LocationState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationState.h; sourceTree = "<group>"; };
@@ -124,8 +120,6 @@
 		C9E2FB151A8B2ADE0045F801 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C9E2FB1A1A8B32300045F801 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		C9E9C1211A81C8F400317FB8 /* test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test.json; sourceTree = "<group>"; };
-		C9EBA40A1A8D2A4E0041C68B /* AddZoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddZoneViewController.h; sourceTree = "<group>"; };
-		C9EBA40B1A8D2A4E0041C68B /* AddZoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddZoneViewController.m; sourceTree = "<group>"; };
 		C9EBA40D1A8D31A70041C68B /* KeyboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardViewController.h; sourceTree = "<group>"; };
 		C9EBA40E1A8D31A70041C68B /* KeyboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -196,6 +190,8 @@
 				C918C0751A82D06E00821BC7 /* Detail View Controllers */,
 				C97FF30F1A817A4900F09F55 /* helpers */,
 				C9A38AA41A7F0A080065DE8D /* Models */,
+				C9A38ABE1A7F0E7F0065DE8D /* ApplicationState.h */,
+				C9A38ABF1A7F0E7F0065DE8D /* ApplicationState.m */,
 				C9330D091A7EF96A00B792E8 /* AppDelegate.h */,
 				C9330D0A1A7EF96A00B792E8 /* AppDelegate.m */,
 				C9330D0F1A7EF96A00B792E8 /* Main.storyboard */,
@@ -260,12 +256,8 @@
 				C9A38AAE1A7F0DD30065DE8D /* LocationState */,
 				C9A38AA51A7F0A740065DE8D /* Region.h */,
 				C9A38AA61A7F0A740065DE8D /* Region.m */,
-				C9A38AA81A7F0BE40065DE8D /* Zone.h */,
-				C9A38AA91A7F0BE40065DE8D /* Zone.m */,
 				C9A38AAB1A7F0D560065DE8D /* University.h */,
 				C9A38AAC1A7F0D560065DE8D /* University.m */,
-				C9A38ABE1A7F0E7F0065DE8D /* ApplicationState.h */,
-				C9A38ABF1A7F0E7F0065DE8D /* ApplicationState.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -292,8 +284,6 @@
 			children = (
 				C96EEDC81A8476410010DC90 /* AddRegionViewController.h */,
 				C96EEDC91A8476410010DC90 /* AddRegionViewController.m */,
-				C9EBA40A1A8D2A4E0041C68B /* AddZoneViewController.h */,
-				C9EBA40B1A8D2A4E0041C68B /* AddZoneViewController.m */,
 				C9EBA40D1A8D31A70041C68B /* KeyboardViewController.h */,
 				C9EBA40E1A8D31A70041C68B /* KeyboardViewController.m */,
 			);
@@ -431,7 +421,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9A38AC01A7F0E7F0065DE8D /* ApplicationState.m in Sources */,
-				C9EBA40C1A8D2A4E0041C68B /* AddZoneViewController.m in Sources */,
 				C918C0781A82D09800821BC7 /* RegionDetailViewController.m in Sources */,
 				C9A38AB11A7F0DE30065DE8D /* LocationState.m in Sources */,
 				C9A38AA71A7F0A740065DE8D /* Region.m in Sources */,
@@ -444,7 +433,6 @@
 				C9EBA40F1A8D31A70041C68B /* KeyboardViewController.m in Sources */,
 				C97FF3121A817A6100F09F55 /* JSONParser.m in Sources */,
 				C9A38A9F1A7F095C0065DE8D /* ApplicationViewController.m in Sources */,
-				C9A38AAA1A7F0BE40065DE8D /* Zone.m in Sources */,
 				C9A38A991A7F02AB0065DE8D /* RegionMapViewController.m in Sources */,
 				C9A38AAD1A7F0D560065DE8D /* University.m in Sources */,
 				C9A38ABD1A7F0E3A0065DE8D /* Studying.m in Sources */,

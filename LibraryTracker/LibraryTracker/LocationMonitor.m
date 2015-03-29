@@ -45,6 +45,8 @@
         
         [self.locationManager startUpdatingLocation];
     }
+    
+    [self getCurrentWiFiName];
     return self;
 }
 
@@ -92,8 +94,30 @@
     }
     
     [self.locationManager stopUpdatingLocation];
+    
+   
+
     return self.currentLocation;
 }
+
+- (NSString *)getCurrentWiFiName {
+//    NSString *ssid = @"NO WIFI!";
+//    NSArray *ifs = (__bridge_transfer id)CNCopySupportedInterfaces();
+//    if ([ifs count] > 0) {
+//        for (NSString *ifname in ifs) {
+//            NSDictionary *info = (__bridge_transfer id)CNCopyCurrentNetworkInfo((__bridge CFStringRef)ifname);
+//            
+//            if (info[@"SSID"]) {
+//                ssid = info[@"SSID"];
+//            }
+//        }
+//    }
+//    
+//    return ssid;
+    return @"";
+}
+
+
 
 - (void)clearRegionsMonitoring {
     NSLog(@"Clearing the current regions monitoring");

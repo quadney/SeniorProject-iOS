@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Region.h"
 
 @interface RegionDetailViewController : UIViewController
+
+@property int regionIndex;
 
 @end

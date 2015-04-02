@@ -27,9 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // open up NSURLSession
-    
+        
     // if university is not selected
     if ( ![[ApplicationState sharedInstance] university] ) {
         //load the University selection controller

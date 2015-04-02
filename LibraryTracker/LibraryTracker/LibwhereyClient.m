@@ -17,9 +17,24 @@
     static LibwhereyClient *libwhereyClientInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        libwhereyClientInstance = [[self alloc] init];
+        libwhereyClientInstance = [[self alloc] initPrivate];
     });
     return libwhereyClientInstance;
+}
+
+- (id)init {
+    @throw [NSException exceptionWithName:@"Singleton"
+                                   reason:@"Use: [LibwhereyClient sharedClient]"
+                                 userInfo:nil];
+    return nil;
+}
+
+- (id)initPrivate {
+    self = [super init];
+    if (self) {
+        // do special things here if I need to...
+    }
+    return self;
 }
 
 - (NSURLSession *)session {
@@ -28,7 +43,7 @@
         NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
         
         // Configure Session Configuration
-        [sessionConfiguration setHTTPAdditionalHeaders:@{ @"Accept" : @"application/json" }];
+        //[sessionConfiguration setHTTPAdditionalHeaders:@{ @"Accept" : @"application/json" }];
         
         // Initialize Session
         _session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
@@ -52,7 +67,7 @@
             }
         }
         else {
-            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+           // NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             // want this to go to the appropriate JSON parser, which can turn this data into the correct classes which correlate to this project
         }
     }];
@@ -74,11 +89,12 @@
     self.dataTask = [self.session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error) {
             if (error.code != -999) {
-                NSLog(@"%@", error);
+                NSLog(@"THERE WAS AN ERROR: %@", error);
             }
         }
         else {
-            NSArray *results = [self universityWithJSONData:data];
+            NSJSONSerialization *jsonData = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+            NSArray *results = [self universityWithJSONData:jsonData];
             
             if (completionBlock) {
                 completionBlock(YES, nil, results);
@@ -98,6 +114,39 @@
 }
 
 - (void)getRegionsFromUniversityWithId:(int)universityId completion:(RegionsRequestCompletionBlock)completionBlock {
+    // THIS IS A VIOLATION OF DRY BUT I DON'T KNOW (or have the time) to make it better #itsokaythoughtcauseIhavetherestofmylifetogetbetter, #right ?
+    NSURL *url = [NSURL URLWithString:[self getRegionsWithUniversityId:universityId]];
+    
+    if (self.dataTask) {
+        // dataTask is already alive, need to stop it
+        [self.dataTask cancel];
+    }
+    
+    self.dataTask = [self.session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error) {
+            if (error.code != -999) {
+                NSLog(@"THERE WAS AN ERROR: %@", error);
+            }
+        }
+        else {
+            NSJSONSerialization *jsonData = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+            NSArray *results = [self regionsWithJSONData:jsonData];
+            
+            if (completionBlock) {
+                completionBlock(YES, nil, results);
+            }
+            
+            else {
+                if (completionBlock) {
+                    completionBlock(NO, nil, nil);
+                }
+            }
+        }
+    }];
+    
+    if (self.dataTask) {
+        [self.dataTask resume];
+    }
     
 }
 
@@ -139,26 +188,27 @@
 
 #pragma mark - Parsers - these also need to move when I know how to move them, sigh
 
-- (NSArray *)regionWithJSONData:(id)jsonData {
-    // TODO
+- (NSArray *)regionsWithJSONData:(NSJSONSerialization *)jsonData {
     // the result of this should look like this:
-    //
+    /* [{"id":3,
+        "identifier":"Architecture and Fine Arts Library", "latitude":29.648167, "longitude":-82.340596, "current_population":0, "total_capacity":0, "created_at":"2015-03-29T21:56:16.734Z", "updated_at":"2015-03-29T21:56:16.734Z", "university_id":1}...] */
     NSMutableArray *regions = [[NSMutableArray alloc] init];
-//    for (NSDictionary *obj in jsonData) {
-////        [regions addObject:[[Region alloc] initWithIdentifier:[obj objectForKey:@"identifier"]
-////                                                       center:[[CLLocation alloc] initWithLatitude:[obj objectForKey:@"latitiude"]
-////                                                                                         longitude:[obj objectForKey:@"longitude"]]
-////                                                       radius:50.0
-////                                                     idNumber:(int)[obj objectForKey:@"id"]]];
-//    }
+    for (NSDictionary *obj in jsonData) {
+        [regions addObject:[[Region alloc] initWithIdentifier:[obj objectForKey:@"identifier"]
+                                               centerLatitude:[[obj objectForKey:@"latitude"] floatValue]
+                                              centerLongitude:[[obj objectForKey:@"longitude"] floatValue]
+                                                       radius:50.0
+                                                     idNumber:[[obj objectForKey:@"id"] integerValue]]];
+    }
     
     return [NSArray arrayWithArray:regions];
 }
 
-- (NSArray *)universityWithJSONData:(id)jsonData {
+- (NSArray *)universityWithJSONData:(NSJSONSerialization *)jsonData {
     // the result of this should look like this:
     // [{"id":1,"name":"University of Florida", "created_at":"2015-03-16T22:06:43.359Z", "updated_at":"2015-04-02T17:35:44.349Z", "latitude":29.64363, "longitude":-82.35493}]
     NSMutableArray *universities = [[NSMutableArray alloc] init];
+    
     for (NSDictionary *obj in jsonData) {
         [universities addObject:[[University alloc] initWithName:[obj objectForKey:@"name"]
                                                         latitude:[[obj objectForKey:@"latitude"] floatValue]

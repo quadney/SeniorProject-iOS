@@ -45,9 +45,9 @@
 
 - (IBAction)addRegionWasPressed:(id)sender {
     // add Region to the model (this should be done in the backend when ready)
-    [[ApplicationState sharedInstance] addRegionWithName:self.regionTextField.text
-                                                location:[[LocationMonitor sharedLocation] getCurrentLocation]
-                                                  radius:50];
+//    [[ApplicationState sharedInstance] addRegionWithName:self.regionTextField.text
+//                                                location:[[LocationMonitor sharedLocation] getCurrentLocation]
+//                                                  radius:50];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

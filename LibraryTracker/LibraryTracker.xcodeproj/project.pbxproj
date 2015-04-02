@@ -188,24 +188,15 @@
 			children = (
 				C9D864241A8D561C00010DF7 /* Settings */,
 				C918C0751A82D06E00821BC7 /* Detail View Controllers */,
+				C933823F1ACDCDB800378B7B /* View Controllers */,
 				C97FF30F1A817A4900F09F55 /* helpers */,
 				C9A38AA41A7F0A080065DE8D /* Models */,
-				C9A38ABE1A7F0E7F0065DE8D /* ApplicationState.h */,
-				C9A38ABF1A7F0E7F0065DE8D /* ApplicationState.m */,
 				C9330D091A7EF96A00B792E8 /* AppDelegate.h */,
 				C9330D0A1A7EF96A00B792E8 /* AppDelegate.m */,
 				C9330D0F1A7EF96A00B792E8 /* Main.storyboard */,
 				C9330D121A7EF96A00B792E8 /* Images.xcassets */,
 				C9330D141A7EF96A00B792E8 /* LaunchScreen.xib */,
 				C9330D051A7EF96A00B792E8 /* Supporting Files */,
-				C9A38A941A7F02700065DE8D /* RegionTableViewController.h */,
-				C9A38A951A7F02700065DE8D /* RegionTableViewController.m */,
-				C9A38A971A7F02AB0065DE8D /* RegionMapViewController.h */,
-				C9A38A981A7F02AB0065DE8D /* RegionMapViewController.m */,
-				C9A38A9A1A7F03400065DE8D /* SelectUniversityTableViewController.h */,
-				C9A38A9B1A7F03400065DE8D /* SelectUniversityTableViewController.m */,
-				C9A38A9D1A7F095C0065DE8D /* ApplicationViewController.h */,
-				C9A38A9E1A7F095C0065DE8D /* ApplicationViewController.m */,
 			);
 			path = LibraryTracker;
 			sourceTree = "<group>";
@@ -237,6 +228,21 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		C933823F1ACDCDB800378B7B /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C9A38A941A7F02700065DE8D /* RegionTableViewController.h */,
+				C9A38A951A7F02700065DE8D /* RegionTableViewController.m */,
+				C9A38A971A7F02AB0065DE8D /* RegionMapViewController.h */,
+				C9A38A981A7F02AB0065DE8D /* RegionMapViewController.m */,
+				C9A38A9A1A7F03400065DE8D /* SelectUniversityTableViewController.h */,
+				C9A38A9B1A7F03400065DE8D /* SelectUniversityTableViewController.m */,
+				C9A38A9D1A7F095C0065DE8D /* ApplicationViewController.h */,
+				C9A38A9E1A7F095C0065DE8D /* ApplicationViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
 		C97FF30F1A817A4900F09F55 /* helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,6 +259,8 @@
 		C9A38AA41A7F0A080065DE8D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C9A38ABE1A7F0E7F0065DE8D /* ApplicationState.h */,
+				C9A38ABF1A7F0E7F0065DE8D /* ApplicationState.m */,
 				C9A38AAE1A7F0DD30065DE8D /* LocationState */,
 				C9A38AA51A7F0A740065DE8D /* Region.h */,
 				C9A38AA61A7F0A740065DE8D /* Region.m */,
@@ -563,6 +571,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -571,6 +580,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -579,6 +589,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -587,6 +598,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

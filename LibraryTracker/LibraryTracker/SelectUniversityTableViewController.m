@@ -8,7 +8,8 @@
 
 #import "SelectUniversityTableViewController.h"
 #import "ApplicationState.h"
-#import "Region.h"
+#import "LibwhereyClient.h"
+
 
 @interface SelectUniversityTableViewController ()
 
@@ -24,10 +25,31 @@
     UIEdgeInsets inset = UIEdgeInsetsMake(20, 0, 0, 0);
     self.tableView.contentInset = inset;
     
-    //self.universities = [[NSMutableArray alloc] initWithObjects:uf, nil];
-        
-    [self.tableView reloadData];
+    // start a spinner loading
+    // todo
+    
+    // connect to the api
+    [[LibwhereyClient sharedClient] getUniversitiesWithCompletion:^(BOOL success, NSError *__autoreleasing *error, NSArray *universities) {
+        // if success, set the universities accordingly
+        if (success) {
+            // set the universities to be what the network returned
+            self.universities = [[NSMutableArray alloc] initWithArray:universities];
+            
+            // stop the spinner
+            // todo
+            
+            // reload the table data
+            [self.tableView reloadData];
+        }
+        else {
+            // display an alert that there's a network connection error or something
+            // for right now just output the error
+            NSLog(@"There was a problem getting the universities");
+        }
+    }];
 }
+
+
 
 #pragma mark - Table view data source
 
@@ -53,6 +75,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [[ApplicationState sharedInstance] setUniversity:[self.universities objectAtIndex:indexPath.row]];
+    
+    // now need to query the database for the regions of that selected university
     
     //when the university is selected, we need to add the University's Regions to the geofence
     [self dismissViewControllerAnimated:YES completion:nil];

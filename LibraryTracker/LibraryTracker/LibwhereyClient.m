@@ -157,14 +157,14 @@
 
 - (NSArray *)universityWithJSONData:(id)jsonData {
     // the result of this should look like this:
-    // [{"id":1,"name":"University of Florida","created_at":"2015-03-16T22:06:43.359Z","updated_at":"2015-03-16T22:06:43.359Z"},{"id":2,"name":"Florida State","created_at":"2015-04-02T04:18:02.290Z","updated_at":"2015-04-02T04:18:02.290Z"}]
+    // [{"id":1,"name":"University of Florida", "created_at":"2015-03-16T22:06:43.359Z", "updated_at":"2015-04-02T17:35:44.349Z", "latitude":29.64363, "longitude":-82.35493}]
     NSMutableArray *universities = [[NSMutableArray alloc] init];
     for (NSDictionary *obj in jsonData) {
         [universities addObject:[[University alloc] initWithName:[obj objectForKey:@"name"]
+                                                        latitude:[[obj objectForKey:@"latitude"] floatValue]
+                                                       longitude:[[obj objectForKey:@"longitude"] floatValue]
                                                          regions:nil
-                                                        idNumber:(int)[obj objectForKey:@"id"]
-                                 ]
-         ];
+                                                        idNumber:[[obj objectForKey:@"id"] integerValue]]];
     }
     return [NSArray arrayWithArray:universities];
 }

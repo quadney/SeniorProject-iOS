@@ -19,12 +19,12 @@
     return modelFactoryInstance;
 }
 
-- (University *)createUniversityWithName:(NSString *)name location:(CLLocation *)location regions:(NSArray *)regions idNumber:(int)idNum {
-    return [[University alloc] initWithName:name location:location regions:regions  idNumber:idNum];
+- (University *)createUniversityWithName:(NSString *)name latitude:(float)latitude longitude:(float)longitude regions:(NSArray *)regions idNumber:(int)idNum {
+    return [[University alloc] initWithName:name latitude:latitude longitude:longitude regions:regions idNumber:idNum];
 }
 
-- (Region *)createRegionWithName:(NSString *)name location:(CLLocation *)location radius:(CLLocationDistance)radius idNumber:(int)idNum{
-    return [[Region alloc] initWithIdentifier:name center:location radius:radius idNumber:idNum];
+- (Region *)createRegionWithName:(NSString *)name latitude:(float)latitude longitude:(float)longitude radius:(CLLocationDistance)radius idNumber:(int)idNum {
+    return [[Region alloc] initWithIdentifier:name centerLatitude:latitude centerLongitude:longitude radius:radius idNumber:idNum];
 }
 
 @end

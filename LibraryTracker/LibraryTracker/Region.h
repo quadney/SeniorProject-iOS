@@ -15,7 +15,7 @@
 @property int totalCapacity;
 @property int idNum;
 
-- (id)initWithIdentifier:(NSString *)name center:(CLLocation *)center radius:(CLLocationDistance)radius idNumber:(int)idNum;
-- (id)initWithCLCircularRegion:(CLCircularRegion *)circle;
+- (id)initWithIdentifier:(NSString *)name centerLatitude:(float)latitude centerLongitude:(float)longitude radius:(CLLocationDistance)radius idNumber:(int)idNum;
+//- (id)initWithCLCircularRegion:(CLCircularRegion *)circle;
 
 @end

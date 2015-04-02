@@ -22,11 +22,19 @@
 @property (nonatomic, strong) LocationState *state; 
 @property (nonatomic, strong) University *university;
 
+// returns the Regions that are associated with the Unviersity
 - (NSMutableArray *)getRegions;
+
+// returns the Region that the User is currently in, if any
 - (Region *)getUserCurrentRegion;
-    //review to make sure this is good OOP, this functionality is also only for developer purposes so maybe it's okay
-- (void)addRegionWithName:(NSString *)name location:(CLLocation *)location radius:(CLLocationDistance)radius idNumber:(int)idNum;
+
+// sets the Regions that the phone should be tracking
+- (void)setRegionsInLocationMonitorWithRegions:(NSArray *)regions;
+
+// reacts when the user enters a region
 - (void)userEnteredRegion:(CLCircularRegion *)region;
+
+// reacts when the user exits a region
 - (void)userExitedRegion:(CLCircularRegion *)region;
 
 @end

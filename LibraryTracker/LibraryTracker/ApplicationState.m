@@ -42,7 +42,11 @@
     _university = university;
     
     // when the university is set, we want to start the region monitoring of the associated Regions
-    [[LocationMonitor sharedLocation] addRegions:[self getRegions]];
+    [self setRegionsInLocationMonitorWithRegions:[self getRegions]];
+}
+
+- (void)setRegionsInLocationMonitorWithRegions:(NSArray *)regions {
+    [[LocationMonitor sharedLocation] addRegions:regions];
 }
 
 - (NSMutableArray *)getRegions {
@@ -55,28 +59,27 @@
     return [self.state getRegion];
 }
 
-- (void)addRegionWithName:(NSString *)name location:(CLLocation *)location radius:(CLLocationDistance)radius idNumber:(int)idNum {
-    // add the region to the university
-    [self.university addRegion:[[ModelFactory modelStore] createRegionWithName:name
-                                                                      location:location
-                                                                        radius:radius
-                                                                      idNumber:idNum]];
-    
-    // update the Location Monitor with the new region
-    // this needs to be looked at or redesigned - I have a feeling it's convoluted. or redesign the whole thing
-    // don't want this be an evil god object :(
-    [[LocationMonitor sharedLocation] addRegions:[[NSArray alloc] initWithArray:[self getRegions]]];
-}
-
 - (void)userEnteredRegion:(CLCircularRegion *)region {
     NSLog(@"Applicaton State: UserEnteredLocation");
-    //convert CLCircularRegion to Region? make sure that it is in fact a Region
-    if (![region isKindOfClass:Region.class]) {
-        NSLog(@"regions is not Region.class, %@", region.identifier);
+    
+    // The Roaming functionality takes in a Region, this method has access to the CLCircularRegion
+            // aka I need to find the region that it is associated with
+    
+    // get the Region with the same identifier as the one we have access to
+    // go through the list and find it
+    Region *enteredRegion;
+    for (Region *r in [self getRegions]) {
+        if ([r.identifier isEqualToString:region.identifier]) {
+            enteredRegion = r;
+            // need to make sure that this is passing the actual Region and not like a copy or something
+        }
     }
-    self.state = [[Roaming alloc] initWithRegion:[[Region alloc] initWithCLCircularRegion:region]];
-    // when user enters region, their state becomes "Roaming"
-    // if after a while the user stays in a particular location, then they become Stationary
+    
+    if (enteredRegion) {
+        // when user enters region, their state becomes "Roaming"
+        self.state = [[Roaming alloc] initWithRegion:enteredRegion];
+    }
+    
 }
 
 - (void)userExitedRegion:(CLCircularRegion *)region {

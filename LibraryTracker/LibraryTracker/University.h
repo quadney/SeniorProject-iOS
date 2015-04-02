@@ -17,7 +17,7 @@
 @property CLLocation *location;
 @property int idNum;
 
-- (id)initWithName:(NSString *)name location:(CLLocation *)location regions:(NSArray *)regions idNumber:(int)idNum;
+- (id)initWithName:(NSString *)name latitude:(float)latitude longitude:(float)longitude regions:(NSArray *)regions idNumber:(int)idNum;
 - (void)addRegion:(Region *)region;
 
 @end

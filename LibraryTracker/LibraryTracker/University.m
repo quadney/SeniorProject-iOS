@@ -10,12 +10,12 @@
 
 @implementation University
 
-- (id)initWithName:(NSString *)name location:(CLLocation *)location regions:(NSArray *)regions  idNumber:(int)idNum{
+- (id)initWithName:(NSString *)name latitude:(float)latitude longitude:(float)longitude regions:(NSArray *)regions idNumber:(int)idNum {
     // I think I should make this class a singleton...?
     
     if (self = [super init]) {
         self.name = name;
-        self.location = location;
+        self.location = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
         self.regions = [[NSMutableArray alloc] initWithArray:regions];
         self.idNum = idNum;
     }

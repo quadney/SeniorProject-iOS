@@ -10,4 +10,6 @@
 
 @interface RegionMapViewController : UIViewController
 
+- (void)refreshRegions;
+
 @end

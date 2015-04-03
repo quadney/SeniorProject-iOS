@@ -25,15 +25,15 @@
         [self configureGoogleMapsWithLocation:[[[ApplicationState sharedInstance] university] location]
                                     zoomLevel:15
                                          name:[[[ApplicationState sharedInstance] university] name]];
-        [self placeGoogleMapMarkers:[[ApplicationState sharedInstance] getRegions]];
+        [self refreshRegions];
     }
     else {
-        NSLog(@"Map not loaded");
+        NSLog(@"No Associated University");
     }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [self viewDidLoad];     // let's try this out, I don't think this should be good practice though
+    [self viewDidLoad];     // let's try this out, I don't think this is good practice though
 }
 
 - (void)configureGoogleMapsWithLocation:(CLLocation *)location zoomLevel:(int)zoom name:(NSString *)name {
@@ -58,6 +58,10 @@
         circle.map = self.mapView;
         i++;
     }
+}
+
+- (void)refreshRegions {
+    [self placeGoogleMapMarkers:[[ApplicationState sharedInstance] getRegions]];
 }
 
 @end

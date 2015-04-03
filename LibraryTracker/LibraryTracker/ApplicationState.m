@@ -37,19 +37,23 @@
     return self;
 }
 
-- (void)setUniversity:(University *)university {
-    // don't forget to do this
-    _university = university;
+- (void)setUniversityRegions:(NSArray *)regions {
+    // if we set the University's regions, we need to then set the regions that the app is tracking
+    [self.university setRegions:regions];
     
-    // when the university is set, we want to start the region monitoring of the associated Regions
-    [self setRegionsInLocationMonitorWithRegions:[self getRegions]];
+    // when the regions that the app is tracking is updated, we need to also refresh the RegionTableView and RegionMapView Controller's
+    [self setRegionsInLocationMonitorWithRegions:regions];
 }
 
 - (void)setRegionsInLocationMonitorWithRegions:(NSArray *)regions {
     [[LocationMonitor sharedLocation] addRegions:regions];
 }
 
-- (NSMutableArray *)getRegions {
+- (int)getUniversityId {
+    return [self.university idNum];
+}
+
+- (NSArray *)getRegions {
     return [self.university regions];
 }
 

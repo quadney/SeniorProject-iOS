@@ -22,6 +22,12 @@
 @property (nonatomic, strong) LocationState *state; 
 @property (nonatomic, strong) University *university;
 
+// update the regions that the unviersity has
+- (void)setUniversityRegions:(NSArray *)regions;
+
+// returns the University id in the database
+- (int)getUniversityId;
+
 // returns the Regions that are associated with the Unviersity
 - (NSMutableArray *)getRegions;
 

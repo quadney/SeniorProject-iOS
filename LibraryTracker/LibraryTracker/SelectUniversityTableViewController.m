@@ -10,10 +10,9 @@
 #import "ApplicationState.h"
 #import "LibwhereyClient.h"
 
-
 @interface SelectUniversityTableViewController ()
 
-@property (strong, nonatomic) NSMutableArray *universities;
+@property (strong, nonatomic) NSArray *universities;
 
 @end
 
@@ -26,7 +25,10 @@
     self.tableView.contentInset = inset;
     
     // start a spinner loading
-    // todo
+    UIActivityIndicatorView *loadingSpinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    loadingSpinner.center = self.view.center;
+    [self.tableView addSubview:loadingSpinner];
+    [loadingSpinner startAnimating];
     
     // connect to the api
     NSLog(@"calling Libwherey client to get the unviersities");
@@ -34,10 +36,10 @@
         // if success, set the universities accordingly
         if (success) {
             // set the universities to be what the network returned
-            self.universities = [[NSMutableArray alloc] initWithArray:universities];
+            self.universities = universities;
             
             // stop the spinner
-            // todo
+            [loadingSpinner stopAnimating];
             
             // reload the table data
             [self.tableView reloadData];
@@ -75,22 +77,21 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    // sets the University to the ApplicationState,
+    // but this Unviersity doesn't know about it's regions
     [[ApplicationState sharedInstance] setUniversity:[self.universities objectAtIndex:indexPath.row]];
     
-    // now need to query the database for the regions of that selected university
+    // now that the application knows which university to track, we need to refresh the Regions
+    // this is going to be here, because this needs to happen whenever the user chooses a new University
+    [[LibwhereyClient sharedClient] getRegionsFromUniversityWithId:[[ApplicationState sharedInstance] getUniversityId] completion:^(BOOL success, NSError *__autoreleasing *error, NSArray *regions) {
+    
+        if (success) {
+            [[ApplicationState sharedInstance] setUniversityRegions:regions];
+        }
+    }];
     
     //when the university is selected, we need to add the University's Regions to the geofence
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

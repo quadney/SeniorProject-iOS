@@ -12,12 +12,11 @@
 
 @interface University : NSObject
 
-@property NSMutableArray *regions;
+@property NSArray *regions;
 @property NSString *name;
 @property CLLocation *location;
 @property int idNum;
 
 - (id)initWithName:(NSString *)name latitude:(float)latitude longitude:(float)longitude regions:(NSArray *)regions idNumber:(int)idNum;
-- (void)addRegion:(Region *)region;
 
 @end

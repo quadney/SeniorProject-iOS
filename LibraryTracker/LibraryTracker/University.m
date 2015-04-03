@@ -16,14 +16,10 @@
     if (self = [super init]) {
         self.name = name;
         self.location = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
-        self.regions = [[NSMutableArray alloc] initWithArray:regions];
+        self.regions = regions;
         self.idNum = idNum;
     }
     return self;
-}
-
-- (void)addRegion:(Region *)region {
-    [self.regions addObject:region];
 }
 
 @end

@@ -20,6 +20,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    NSLog(@"Regions: %@", [[ApplicationState sharedInstance] getRegions]);
+    
     [self.tableView reloadData];
 }
 

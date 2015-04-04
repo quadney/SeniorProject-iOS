@@ -198,7 +198,9 @@
                                                centerLatitude:[[obj objectForKey:@"latitude"] floatValue]
                                               centerLongitude:[[obj objectForKey:@"longitude"] floatValue]
                                                        radius:50.0
-                                                     idNumber:(int)[[obj objectForKey:@"id"] longValue]];
+                                                     idNumber:(int)[[obj objectForKey:@"id"] longValue]
+                                             currentPopulation:(int)[[obj objectForKey:@"current_population"] longValue]
+                                                      capacity:(int)[[obj objectForKey:@"total_capacity"] longValue]];
         [regions addObject:newRegion];
     }
     

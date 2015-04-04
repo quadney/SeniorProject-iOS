@@ -10,22 +10,19 @@
 
 @implementation Region
 
-- (id)initWithIdentifier:(NSString *)name centerLatitude:(float)latitude centerLongitude:(float)longitude radius:(CLLocationDistance)radius idNumber:(int)idNum {
+- (id)initWithIdentifier:(NSString *)name centerLatitude:(float)latitude centerLongitude:(float)longitude radius:(CLLocationDistance)radius idNumber:(int)idNum currentPopulation:(int)currentPopulation capacity:(int)totalCapacity {
     
     CLLocation *center = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
     
     self = [super initWithCenter:center.coordinate radius:radius identifier:name];
     self.idNum = idNum;
+    self.currentPopulation = currentPopulation;
+    self.totalCapacity = totalCapacity;
     return self;
 }
 
-//- (id)initWithCLCircularRegion:(CLCircularRegion *)circle {
-//    self = [self initWithIdentifier:circle.identifier
-//                             center:[[CLLocation alloc] initWithLatitude:circle.center.latitude
-//                                                               longitude:circle.center.longitude]
-//                             radius:circle.radius
-//                           idNumber:nil];
-//    return self;
-//}
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Region Id Num: %i, %@", self.idNum, [super description]];
+}
 
 @end

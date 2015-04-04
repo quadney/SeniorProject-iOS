@@ -23,8 +23,8 @@
     return [[University alloc] initWithName:name latitude:latitude longitude:longitude regions:regions idNumber:idNum];
 }
 
-- (Region *)createRegionWithName:(NSString *)name latitude:(float)latitude longitude:(float)longitude radius:(CLLocationDistance)radius idNumber:(int)idNum {
-    return [[Region alloc] initWithIdentifier:name centerLatitude:latitude centerLongitude:longitude radius:radius idNumber:idNum];
+- (Region *)createRegionWithName:(NSString *)name latitude:(float)latitude longitude:(float)longitude radius:(CLLocationDistance)radius idNumber:(int)idNum currentPopulation:(int)currentPopulation capacity:(int)totalCapacity {
+    return [[Region alloc] initWithIdentifier:name centerLatitude:latitude centerLongitude:longitude radius:radius idNumber:idNum currentPopulation:currentPopulation capacity:totalCapacity];
 }
 
 @end

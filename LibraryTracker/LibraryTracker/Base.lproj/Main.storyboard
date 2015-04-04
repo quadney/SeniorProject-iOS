@@ -144,7 +144,7 @@
         <!--Region Detail View Controller-->
         <scene sceneID="tuC-7k-vV5">
             <objects>
-                <viewController id="duj-he-Oyn" customClass="RegionDetailViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RegionDetailViewController" id="duj-he-Oyn" customClass="RegionDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zzs-Mu-PLs"/>
                         <viewControllerLayoutGuide type="bottom" id="ICR-Mp-Uxk"/>

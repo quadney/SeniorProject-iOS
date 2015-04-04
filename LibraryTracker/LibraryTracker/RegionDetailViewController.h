@@ -11,6 +11,6 @@
 
 @interface RegionDetailViewController : UIViewController
 
-@property int regionIndex;
+@property (nonatomic) Region *region;
 
 @end

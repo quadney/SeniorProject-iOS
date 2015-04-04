@@ -63,7 +63,9 @@
     
     if ([segue.identifier isEqualToString:@"RegionDetailSegue"]) {
         RegionDetailViewController *detail = (RegionDetailViewController *)[segue destinationViewController];
-        detail.regionIndex = (int)[[self.tableView indexPathForSelectedRow] row];
+        
+        Region *region = [[[ApplicationState sharedInstance] getRegions] objectAtIndex:(int)[[self.tableView indexPathForSelectedRow] row]];
+        detail.region = region;
     }
     
 }

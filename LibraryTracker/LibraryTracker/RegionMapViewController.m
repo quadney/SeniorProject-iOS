@@ -48,12 +48,28 @@
 - (void)placeGoogleMapMarkers:(NSMutableArray *)markerLocations {
     //remove the markers that were there before
     [self.mapView clear];
-    int i = 0;
     for (Region *region in markerLocations) {
         GMSCircle *circle = [GMSCircle circleWithPosition:region.center radius:region.radius];
         circle.fillColor = [self convertRegionPopulationToColorWithCurrentPop:region.currentPopulation andMaxCapacity:region.totalCapacity];
         circle.map = self.mapView;
-        i++;
+    }
+}
+
+- (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate {
+    // query the circular regions to see if the tapped location corresponds to a Region
+    // this can actually be accomplished with the CLRegion interface
+    for (Region *region in [[ApplicationState sharedInstance] getRegions]) {
+        if ([region containsCoordinate:coordinate]) {
+            NSLog(@"Tapped region with identifier: %@", region.identifier);
+            // now that we tapped a region, let's display the RegionDetailViewController
+            
+            RegionDetailViewController *detail = (RegionDetailViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"RegionDetailViewController"];
+
+            detail.region = region;
+            
+            [self.parentViewController showViewController:detail sender:self];
+            
+        }
     }
 }
 

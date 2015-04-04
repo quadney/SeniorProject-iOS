@@ -27,31 +27,26 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"Calling View Did Load");
+    
+    RegionMapViewController *mapView = [self.storyboard instantiateViewControllerWithIdentifier:@"RegionMapViewController"];
+    RegionTableViewController *tableView = [self.storyboard instantiateViewControllerWithIdentifier:@"RegionTableViewController"];
+    
+    self.viewControllers = [[NSArray alloc] initWithObjects:mapView, tableView, nil];
     
     // if university is not selected
     if ( ![[ApplicationState sharedInstance] university] ) {
         //load the University selection controller
         SelectUniversityTableViewController *univ = [self.storyboard instantiateViewControllerWithIdentifier:@"SelectUniversityVC"];
         
-        [self.parentViewController presentViewController:univ animated:YES completion:nil];
+        [self.parentViewController presentViewController:univ animated:YES completion:^{
+            [mapView refreshRegions];
+        }];
     }
 
-    RegionMapViewController *mapView = [self.storyboard instantiateViewControllerWithIdentifier:@"RegionMapViewController"];
-    RegionTableViewController *tableView = [self.storyboard instantiateViewControllerWithIdentifier:@"RegionTableViewController"];
-        
-    self.viewControllers = [[NSArray alloc] initWithObjects:mapView, tableView, nil];
     self.viewSegmentControl.selectedSegmentIndex = 0;   //start on the Map view
     self.currentViewController = [self.viewControllers objectAtIndex:self.viewSegmentControl.selectedSegmentIndex];
         
     [self cycleFromViewController:nil toViewController:self.currentViewController];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    NSLog(@"Calling View Will Appear");
-    
-    //[self.currentViewController ]
 }
 
 - (void)cycleFromViewController:(UIViewController *)oldVC toViewController:(UIViewController *)newVC {

@@ -38,6 +38,7 @@
 }
 
 - (void)setUniversityRegions:(NSArray *)regions {
+    NSLog(@"Appears that fetched Regions was completed, setting the regions for the University");
     // if we set the University's regions, we need to then set the regions that the app is tracking
     [self.university setRegions:regions];
     
@@ -46,6 +47,7 @@
 }
 
 - (void)setRegionsInLocationMonitorWithRegions:(NSArray *)regions {
+    NSLog(@"Setting the Regions to monitor");
     [[LocationMonitor sharedLocation] addRegions:regions];
 }
 

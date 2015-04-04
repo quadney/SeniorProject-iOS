@@ -73,12 +73,15 @@
 // call this method when setting a new university
 - (void)addRegions:(NSArray *)regions {
     // clear out the current regions that it's monitoring
+    NSLog(@"Clearing the current regions monitoring");
     [self clearRegionsMonitoring];
     
     // add each of the regions
+    NSLog(@"Adding the regions to monitor");
     [self addRegionsToMonitor:regions];
     
     // check if already in a region
+    NSLog(@"Check if user already in a region");
     [self checkIfAlreadyInRegion];
 }
 
@@ -86,47 +89,32 @@
     for (CLCircularRegion *region in regions) {
         [self.locationManager startMonitoringForRegion:region];
     }
+    NSLog(@"Monitoring regions: %@", [self.locationManager monitoredRegions]);
 }
 
 - (CLLocation *)getCurrentLocation {
     if ([self checkLocationManagerPermissions]) {
+        NSLog(@"Getting the user's location, in getCurrentLocation");
         [self.locationManager startUpdatingLocation];
     }
-    
-    [self.locationManager stopUpdatingLocation];
-    
-   
 
     return self.currentLocation;
 }
 
 - (NSString *)getCurrentWiFiName {
-//    NSString *ssid = @"NO WIFI!";
-//    NSArray *ifs = (__bridge_transfer id)CNCopySupportedInterfaces();
-//    if ([ifs count] > 0) {
-//        for (NSString *ifname in ifs) {
-//            NSDictionary *info = (__bridge_transfer id)CNCopyCurrentNetworkInfo((__bridge CFStringRef)ifname);
-//            
-//            if (info[@"SSID"]) {
-//                ssid = info[@"SSID"];
-//            }
-//        }
-//    }
-//    
-//    return ssid;
+
     return @"";
 }
 
 
-
 - (void)clearRegionsMonitoring {
-    NSLog(@"Clearing the current regions monitoring");
     for(CLRegion *region in [[self.locationManager monitoredRegions] allObjects]) {
         [self.locationManager stopMonitoringForRegion:region];
     }
 }
 - (void)checkIfAlreadyInRegion {
     [self getCurrentLocation];
+    NSLog(@"Checking if user is already in a location, current location: %@", self.currentLocation);
     for (CLCircularRegion *region in [self.locationManager monitoredRegions]) {
         if ([region containsCoordinate:self.currentLocation.coordinate]) {
             NSLog(@"Already in the Region: %@", region.identifier);
@@ -161,7 +149,10 @@
 #pragma mark - CLLocationManagerDelegate methods - CurrentLocation stuff
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    self.currentLocation = [locations objectAtIndex:0];
+    NSLog(@"Trying to set the current location: %@", locations);
+    self.currentLocation = [locations lastObject];
+    
+    [self.locationManager stopUpdatingLocation];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {

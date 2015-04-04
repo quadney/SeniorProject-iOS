@@ -7,9 +7,7 @@
 //
 
 #import "RegionMapViewController.h"
-#import "ApplicationState.h"
 #import <GoogleMaps/GoogleMaps.h>
-#import "LocationMonitor.h"
 
 @interface RegionMapViewController () <GMSMapViewDelegate>
 @property (strong, nonatomic) IBOutlet GMSMapView *mapView;
@@ -61,6 +59,8 @@
 }
 
 - (void)refreshRegions {
+    NSLog(@"In Refresh Regions, there is a university: %@", [[ApplicationState sharedInstance] university]);
+    NSLog(@"In Refresh Regions, these are the regions: %lu", [[[ApplicationState sharedInstance] getRegions] count]);
     [self placeGoogleMapMarkers:[[ApplicationState sharedInstance] getRegions]];
 }
 

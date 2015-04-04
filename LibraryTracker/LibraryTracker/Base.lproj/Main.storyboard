@@ -141,37 +141,6 @@
             </objects>
             <point key="canvasLocation" x="-470" y="1218"/>
         </scene>
-        <!--Region Table View Controller-->
-        <scene sceneID="Q0y-Xc-fQF">
-            <objects>
-                <tableViewController storyboardIdentifier="RegionTableViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FWX-bJ-Usp" customClass="RegionTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="lM1-ZM-Ay4">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <inset key="scrollIndicatorInsets" minX="0.0" minY="64" maxX="0.0" maxY="0.0"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RegionCell" id="DZY-qB-arJ">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DZY-qB-arJ" id="oSg-Gs-tTw">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="duj-he-Oyn" kind="show" identifier="RegionDetailSegue" id="ldm-Go-DEQ"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="FWX-bJ-Usp" id="1wn-xI-7Ha"/>
-                            <outlet property="delegate" destination="FWX-bJ-Usp" id="i0Z-SH-73C"/>
-                        </connections>
-                    </tableView>
-                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gIQ-42-l3Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="223" y="-130"/>
-        </scene>
         <!--Region Detail View Controller-->
         <scene sceneID="tuC-7k-vV5">
             <objects>
@@ -228,6 +197,49 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rS2-LX-pIu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="998" y="-128"/>
+        </scene>
+        <!--Libraries-->
+        <scene sceneID="sxd-ax-pBT">
+            <objects>
+                <viewController storyboardIdentifier="RegionTableViewController" title="Libraries" id="3uG-dO-d6D" customClass="RegionTableViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FHY-ej-i2F"/>
+                        <viewControllerLayoutGuide type="bottom" id="Y1v-Rm-XTW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="sA3-Jm-jBG">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="lZ8-Dz-Ag2">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RegionCell" id="nXZ-De-lTW">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nXZ-De-lTW" id="wFh-HZ-9Na">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="duj-he-Oyn" kind="show" identifier="RegionDetailSegue" id="TRv-Ad-5eO"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="3uG-dO-d6D" id="LXS-DR-Ydl"/>
+                                    <outlet property="delegate" destination="3uG-dO-d6D" id="fl5-SJ-C1A"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="lZ8-Dz-Ag2" id="IpN-4K-mXq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="brF-LJ-Zgj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="223" y="-128"/>
         </scene>
         <!--Region Map View Controller-->
         <scene sceneID="znV-Na-vaR">
@@ -299,32 +311,35 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ucH-JJ-xSa" customClass="GMSMapView">
-                                <rect key="frame" x="16" y="184" width="568" height="266"/>
-                                <color key="backgroundColor" red="0.57172580429999997" green="0.85980583850000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location (lat/long)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="N9z-pk-AN4">
                                 <rect key="frame" x="16" y="472" width="568" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3XE-Al-vuJ">
+                                <rect key="frame" x="174" y="394" width="252" height="30"/>
+                                <state key="normal" title="Check which Regions I'm Monitoring">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="checkWhichRegionsAreMonitoring:" destination="gCX-BA-Lf1" eventType="touchUpInside" id="hBP-Eh-VEA"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ucH-JJ-xSa" firstAttribute="top" secondItem="mBV-8P-OmZ" secondAttribute="bottom" constant="31" id="1wT-Kd-xA7"/>
                             <constraint firstItem="mBV-8P-OmZ" firstAttribute="leading" secondItem="u9x-4D-F4G" secondAttribute="leadingMargin" id="3az-TB-xqV"/>
                             <constraint firstItem="kza-Q2-LKi" firstAttribute="top" secondItem="N9z-pk-AN4" secondAttribute="bottom" constant="43" id="6Fk-hs-QzG"/>
                             <constraint firstItem="kza-Q2-LKi" firstAttribute="leading" secondItem="u9x-4D-F4G" secondAttribute="leadingMargin" id="6fE-wx-N6c"/>
                             <constraint firstItem="N9z-pk-AN4" firstAttribute="top" secondItem="mBV-8P-OmZ" secondAttribute="bottom" constant="116" id="AFa-bS-T8C"/>
                             <constraint firstItem="N9z-pk-AN4" firstAttribute="leading" secondItem="u9x-4D-F4G" secondAttribute="leadingMargin" id="IHG-FR-WB1"/>
-                            <constraint firstItem="N9z-pk-AN4" firstAttribute="top" secondItem="ucH-JJ-xSa" secondAttribute="bottom" constant="22" id="Lqo-0Z-E2O"/>
                             <constraint firstItem="mBV-8P-OmZ" firstAttribute="trailing" secondItem="u9x-4D-F4G" secondAttribute="trailingMargin" id="QCY-af-YUl"/>
                             <constraint firstItem="bay-h4-Q1y" firstAttribute="top" secondItem="kza-Q2-LKi" secondAttribute="bottom" constant="20" id="RGG-Q3-x79"/>
                             <constraint firstItem="N9z-pk-AN4" firstAttribute="trailing" secondItem="u9x-4D-F4G" secondAttribute="trailingMargin" id="TZ2-0R-J6k"/>
-                            <constraint firstItem="ucH-JJ-xSa" firstAttribute="trailing" secondItem="u9x-4D-F4G" secondAttribute="trailingMargin" id="UQV-Nb-0cH"/>
                             <constraint firstAttribute="centerX" secondItem="kza-Q2-LKi" secondAttribute="centerX" id="Upp-qi-7d9"/>
-                            <constraint firstItem="ucH-JJ-xSa" firstAttribute="leading" secondItem="u9x-4D-F4G" secondAttribute="leadingMargin" id="fdr-h8-Pdl"/>
+                            <constraint firstItem="N9z-pk-AN4" firstAttribute="top" secondItem="3XE-Al-vuJ" secondAttribute="bottom" constant="48" id="V3W-qj-q0B"/>
+                            <constraint firstAttribute="centerX" secondItem="3XE-Al-vuJ" secondAttribute="centerX" id="bby-5f-WNe"/>
                             <constraint firstItem="mBV-8P-OmZ" firstAttribute="top" secondItem="Ain-0O-UNA" secondAttribute="bottom" constant="59" id="gFa-xD-yV7"/>
                             <constraint firstItem="kza-Q2-LKi" firstAttribute="trailing" secondItem="u9x-4D-F4G" secondAttribute="trailingMargin" id="hfr-Sj-fi0"/>
                             <constraint firstItem="M7e-fJ-DFD" firstAttribute="leading" secondItem="u9x-4D-F4G" secondAttribute="leadingMargin" id="nzx-lK-F6l"/>
@@ -338,7 +353,6 @@
                     </view>
                     <connections>
                         <outlet property="currentLocationLabel" destination="N9z-pk-AN4" id="ZrV-wW-Q7h"/>
-                        <outlet property="mapView" destination="ucH-JJ-xSa" id="cha-he-rKg"/>
                         <outlet property="regionTextField" destination="mBV-8P-OmZ" id="2d8-CK-N6B"/>
                     </connections>
                 </viewController>

@@ -7,10 +7,11 @@
 //
 
 #import "RegionTableViewController.h"
-#import "ApplicationState.h"
-#import "RegionDetailViewController.h"
 
 @interface RegionTableViewController ()
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 
 @end
 

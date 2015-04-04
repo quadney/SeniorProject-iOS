@@ -9,13 +9,11 @@
 #import "AddRegionViewController.h"
 #import "ApplicationState.h"
 #import "LocationMonitor.h"
-#import <GoogleMaps/GoogleMaps.h>
 
-@interface AddRegionViewController () <GMSMapViewDelegate>
+@interface AddRegionViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *regionTextField;
 @property (weak, nonatomic) IBOutlet UILabel *currentLocationLabel;
-@property (weak, nonatomic) IBOutlet GMSMapView *mapView;
 
 @end
 
@@ -25,22 +23,19 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.parentViewController.navigationItem.title = @"Add Region";
-    self.currentLocationLabel.text = @"";
     
-    [self configureGoogleMapsWithLocation:[self getUserLocation] zoomLevel:6];
+    CLLocation *currentLocation = [self getUserLocation];
+    
+    self.currentLocationLabel.text = [[NSString alloc] initWithFormat:@"Latitude: %f\nLongitude: %f", currentLocation.coordinate.latitude, currentLocation.coordinate.longitude];
 }
 
-- (CLLocationCoordinate2D)getUserLocation {
+- (CLLocation *)getUserLocation {
     
-    return [[LocationMonitor sharedLocation] getCurrentLocation].coordinate;
+    return [[LocationMonitor sharedLocation] getCurrentLocation];
 }
 
-- (void)configureGoogleMapsWithLocation:(CLLocationCoordinate2D)location zoomLevel:(int)zoom {
-    self.mapView.myLocationEnabled = YES;
-    self.mapView.mapType = kGMSTypeNormal;
-    self.mapView.delegate = self;
-    
-    self.currentLocationLabel.text = [[NSString alloc] initWithFormat:@"Latitude: %f\nLongitude: %f", location.latitude, location.longitude];
+- (IBAction)checkWhichRegionsAreMonitoring:(id)sender {
+    NSLog(@"Monitoring regions: %@", [[[LocationMonitor sharedLocation] locationManager] monitoredRegions]);
 }
 
 - (IBAction)addRegionWasPressed:(id)sender {

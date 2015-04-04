@@ -51,16 +51,13 @@
     int i = 0;
     for (Region *region in markerLocations) {
         GMSCircle *circle = [GMSCircle circleWithPosition:region.center radius:region.radius];
-        circle.fillColor = [UIColor colorWithRed:1.0 green:0 blue:0 alpha:.5];
-            // this will change when I have more stuff set up
+        circle.fillColor = [self convertRegionPopulationToColorWithCurrentPop:region.currentPopulation andMaxCapacity:region.totalCapacity];
         circle.map = self.mapView;
         i++;
     }
 }
 
 - (void)refreshRegions {
-    NSLog(@"In Refresh Regions, there is a university: %@", [[ApplicationState sharedInstance] university]);
-    NSLog(@"In Refresh Regions, these are the regions: %lu", [[[ApplicationState sharedInstance] getRegions] count]);
     [self placeGoogleMapMarkers:[[ApplicationState sharedInstance] getRegions]];
 }
 

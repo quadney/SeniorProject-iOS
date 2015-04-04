@@ -12,6 +12,6 @@
 
 @interface RegionViewController : UIViewController
 
-- (UIColor *)convertRegionPopulationToColor;
+- (UIColor *)convertRegionPopulationToColorWithCurrentPop:(int)currentPopulation andMaxCapacity:(int)maxCapacity;
 
 @end

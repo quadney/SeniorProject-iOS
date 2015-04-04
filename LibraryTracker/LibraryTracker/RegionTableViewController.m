@@ -46,11 +46,12 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RegionCell" forIndexPath:indexPath];
     
-    cell.textLabel.text = [[[[ApplicationState sharedInstance] getRegions] objectAtIndex:indexPath.row] identifier];
+    Region *region = [[[ApplicationState sharedInstance] getRegions] objectAtIndex:indexPath.row];
     
-    //TODO set the color for the view indicator
-    cell.contentView.backgroundColor =  [UIColor colorWithRed:1.0 green:0 blue:0 alpha:.5];
-    cell.textLabel.backgroundColor =    [UIColor colorWithRed:0.0 green:0 blue:0 alpha:0.0];
+    cell.textLabel.text = [region identifier];
+    cell.contentView.backgroundColor =  [self convertRegionPopulationToColorWithCurrentPop:[region currentPopulation]
+                                                                            andMaxCapacity:[region totalCapacity]];
+    cell.textLabel.backgroundColor = [UIColor clearColor];
     
     return cell;
 }
@@ -62,7 +63,7 @@
     
     if ([segue.identifier isEqualToString:@"RegionDetailSegue"]) {
         RegionDetailViewController *detail = (RegionDetailViewController *)[segue destinationViewController];
-        detail.regionIndex = [[self.tableView indexPathForSelectedRow] row];
+        detail.regionIndex = (int)[[self.tableView indexPathForSelectedRow] row];
     }
     
 }

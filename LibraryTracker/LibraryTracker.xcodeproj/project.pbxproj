@@ -234,6 +234,8 @@
 		C933823F1ACDCDB800378B7B /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C919C7791AD06B5000E20D2F /* RegionViewController.h */,
+				C919C77A1AD06B5000E20D2F /* RegionViewController.m */,
 				C9A38A941A7F02700065DE8D /* RegionTableViewController.h */,
 				C9A38A951A7F02700065DE8D /* RegionTableViewController.m */,
 				C9A38A971A7F02AB0065DE8D /* RegionMapViewController.h */,
@@ -242,8 +244,6 @@
 				C9A38A9B1A7F03400065DE8D /* SelectUniversityTableViewController.m */,
 				C9A38A9D1A7F095C0065DE8D /* ApplicationViewController.h */,
 				C9A38A9E1A7F095C0065DE8D /* ApplicationViewController.m */,
-				C919C7791AD06B5000E20D2F /* RegionViewController.h */,
-				C919C77A1AD06B5000E20D2F /* RegionViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";

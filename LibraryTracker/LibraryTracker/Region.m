@@ -22,7 +22,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"Region Id Num: %i, %@", self.idNum, [super description]];
+    return [NSString stringWithFormat:@"Region (idNum: %i, currentPopulation: %i, totalCapacity: %i, %@)", self.idNum, self.currentPopulation, self.totalCapacity, [super description]];
 }
 
 @end

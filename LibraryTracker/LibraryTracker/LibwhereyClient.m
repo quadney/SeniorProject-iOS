@@ -7,8 +7,7 @@
 //
 
 #import "LibwhereyClient.h"
-#import "Region.h"
-#import "University.h"
+#import "ModelFactory.h"
 #import <CoreLocation/CoreLocation.h>
 
 @implementation LibwhereyClient
@@ -178,12 +177,16 @@
     return [NSString stringWithFormat:@"%@/%i/regions", [self getUniversities], univId];
 }
 
-- (NSString *)enterRegionURLWithRegionId:(int)regionId {
-    return [NSString stringWithFormat:@"%@/user_entered_region", [self getRegionwithId:regionId]];
+- (NSString *)zoneUrlPrefix {
+    return @"http://libwherey.herokuapp.com/api/v1/zones";
 }
 
-- (NSString *)exitRegionURLWithRegionId:(int)regionId {
-    return [NSString stringWithFormat:@"%@/user_exited_region", [self getRegionwithId:regionId]];
+- (NSString *)enterZoneURLWithZoneId:(int)zoneId {
+    return [NSString stringWithFormat:@"%@/%i/user_entered_zone", [self zoneUrlPrefix], zoneId];
+}
+
+- (NSString *)exitZoneURLWithZoneId:(int)zoneId {
+    return [NSString stringWithFormat:@"%@/%i/user_exited_zone", [self zoneUrlPrefix], zoneId];
 }
 
 #pragma mark - Parsers - these also need to move when I know how to move them, sigh
@@ -194,14 +197,27 @@
         "identifier":"Architecture and Fine Arts Library", "latitude":29.648167, "longitude":-82.340596, "current_population":0, "total_capacity":0, "created_at":"2015-03-29T21:56:16.734Z", "updated_at":"2015-03-29T21:56:16.734Z", "university_id":1}...] */
     NSMutableArray *regions = [[NSMutableArray alloc] init];
     for (NSDictionary *obj in jsonData) {
-        Region *newRegion = [[Region alloc] initWithIdentifier:[obj objectForKey:@"identifier"]
-                                               centerLatitude:[[obj objectForKey:@"latitude"] floatValue]
-                                              centerLongitude:[[obj objectForKey:@"longitude"] floatValue]
-                                                       radius:50.0
-                                                     idNumber:(int)[[obj objectForKey:@"id"] longValue]
-                                             currentPopulation:(int)[[obj objectForKey:@"current_population"] longValue]
-                                                      capacity:(int)[[obj objectForKey:@"total_capacity"] longValue]];
-        [regions addObject:newRegion];
+        
+        NSMutableArray *zones = [[NSMutableArray alloc] init];
+        for (NSDictionary *zoneObj in [obj objectForKey:@"zones"]) {
+            
+            NSMutableArray *bssids = [[NSMutableArray alloc] init];
+            for (NSDictionary *wifiData in [zoneObj objectForKey:@"bssids"]) {
+                [bssids addObject:[wifiData objectForKey:@"identifier"]];
+            }
+            [zones addObject: [[ModelFactory modelStore] createZoneWithIdentifier:[zoneObj objectForKey:@"identifier"]
+                                                                         idNumber:(int)[[zoneObj objectForKey:@"id"] longValue]
+                                                                        bssidData:bssids
+                                                                currentPopulation:(int)[[zoneObj objectForKey:@"current_population"] longValue]
+                                                                      maxCapacity:(int)[[zoneObj objectForKey:@"max_capacity"] longValue]
+                                                                         altitude:[[zoneObj objectForKey:@"gps_altitude"] floatValue]]];
+        }
+        [regions addObject:[[ModelFactory modelStore] createRegionWithIdentifier:[obj objectForKey:@"identifier"]
+                                                                        latitude:[[obj objectForKey:@"latitude"] floatValue]
+                                                                       longitude:[[obj objectForKey:@"longitude"] floatValue]
+                                                                          radius:50.0
+                                                                        idNumber:(int)[[obj objectForKey:@"id"] longValue]
+                                                                           zones:zones]];
     }
     
     return [NSArray arrayWithArray:regions];
@@ -210,14 +226,14 @@
 - (NSArray *)universityWithJSONData:(NSJSONSerialization *)jsonData {
     // the result of this should look like this:
     // [{"id":1,"name":"University of Florida", "created_at":"2015-03-16T22:06:43.359Z", "updated_at":"2015-04-02T17:35:44.349Z", "latitude":29.64363, "longitude":-82.35493}]
-    NSMutableArray *universities = [[NSMutableArray alloc] init];
     
+    NSMutableArray *universities = [[NSMutableArray alloc] init];
     for (NSDictionary *obj in jsonData) {
-        [universities addObject:[[University alloc] initWithName:[obj objectForKey:@"name"]
-                                                        latitude:[[obj objectForKey:@"latitude"] floatValue]
-                                                       longitude:[[obj objectForKey:@"longitude"] floatValue]
-                                                         regions:nil
-                                                        idNumber:(int)[[obj objectForKey:@"id"] longValue]]];
+        [universities addObject:[[ModelFactory modelStore] createUniversityWithName:[obj objectForKey:@"name"]
+                                                                            latitude:[[obj objectForKey:@"latitude"] floatValue]
+                                                                           longitude:[[obj objectForKey:@"longitude"] floatValue]
+                                                                             regions:nil
+                                                                            idNumber:(int)[[obj objectForKey:@"id"] longValue]]];
     }
     return [NSArray arrayWithArray:universities];
 }

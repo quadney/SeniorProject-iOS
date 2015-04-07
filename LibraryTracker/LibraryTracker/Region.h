@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreLocation/CoreLocation.h>
+#import <CoreLocation/CLCircularRegion.h>
 
 @interface Region : CLCircularRegion
 

@@ -7,8 +7,8 @@
 //
 
 #import "LocationMonitor.h"
-#import <UIKit/UIKit.h>
 #import "ApplicationState.h"
+#import <UIKit/UIKit.h>
 
 @interface LocationMonitor()
 
@@ -85,21 +85,21 @@
 
 // call this method when setting a new university
 - (void)addRegions:(NSArray *)regions {
-//    // clear out the current regions that it's monitoring
-//    [self clearRegionsMonitoring];
-//    
-//    // add each of the regions
-//    [self addRegionsToMonitor:regions];
-//    
-//    // check if already in a region
-//    NSLog(@"Check if user already in a region");
-//    [self checkIfAlreadyInRegion];
+    // clear out the current regions that it's monitoring
+    [self clearRegionsMonitoring];
+    
+    // add each of the regions
+    [self addRegionsToMonitor:regions];
+    
+    // check if already in a region
+    NSLog(@"Check if user already in a region");
+    [self checkIfAlreadyInRegion];
 }
 
 - (void)addRegionsToMonitor:(NSArray *)regions {
-//    for (CLCircularRegion *region in regions) {
-//        [self.locationManager startMonitoringForRegion:region];
-//    }
+    for (CLCircularRegion *region in regions) {
+        [self.locationManager startMonitoringForRegion:region];
+    }
 }
 
 - (CLLocation *)getCurrentLocation {
@@ -113,43 +113,43 @@
 }
 
 - (void)clearRegionsMonitoring {
-//    for(CLRegion *region in [[self.locationManager monitoredRegions] allObjects]) {
-//        [self.locationManager stopMonitoringForRegion:region];
-//    }
+    for(CLRegion *region in [[self.locationManager monitoredRegions] allObjects]) {
+        [self.locationManager stopMonitoringForRegion:region];
+    }
 }
 - (void)checkIfAlreadyInRegion {
-//    [self getCurrentLocation];
-//    NSLog(@"Checking if user is already in a location, current location: %@", self.currentLocation);
-//    for (CLCircularRegion *region in [self.locationManager monitoredRegions]) {
-//        if ([region containsCoordinate:self.currentLocation.coordinate]) {
-//            NSLog(@"Already in the Region: %@", region.identifier);
-//            [self locationManager:self.locationManager didEnterRegion:region];
-//        }
-//    }
+    [self getCurrentLocation];
+    NSLog(@"Checking if user is already in a location, current location: %@", self.currentLocation);
+    for (CLCircularRegion *region in [self.locationManager monitoredRegions]) {
+        if ([region containsCoordinate:self.currentLocation.coordinate]) {
+            NSLog(@"Already in the Region: %@", region.identifier);
+            [self locationManager:self.locationManager didEnterRegion:region];
+        }
+    }
 }
 
 #pragma mark - CLLocationManagerDelegate - Region monitoring methods
 
-//- (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region {
-//    
-//    NSLog(@"Started monitoring %@", region.identifier);
-//}
-//
-//- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
-//    
-//    [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"Entered Region: %@", region.identifier]];
-//    
-//    // when user enters region - need to change user state to Roaming
-//    [[ApplicationState sharedInstance] userEnteredRegion:(CLCircularRegion *)region];
-//}
-//
-//- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
-//    
-//    [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"Exited Region: %@", region.identifier]];
-//    
-//    // when user exits region - need to change user state to NotInRegion
-//    [[ApplicationState sharedInstance] userExitedRegion:(CLCircularRegion *)region];
-//}
+- (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region {
+    
+    NSLog(@"Started monitoring %@", region.identifier);
+}
+
+- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
+    
+    [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"Entered Region: %@", region.identifier]];
+    
+    // when user enters region - need to change user state to Roaming
+    [[ApplicationState sharedInstance] userEnteredRegion:(CLCircularRegion *)region];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
+    
+    [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"Exited Region: %@", region.identifier]];
+    
+    // when user exits region - need to change user state to NotInRegion
+    [[ApplicationState sharedInstance] userExitedRegion:(CLCircularRegion *)region];
+}
 
 #pragma mark - CLLocationManagerDelegate methods - CurrentLocation stuff
 
@@ -157,14 +157,14 @@
     NSLog(@"Trying to set the current location: %@", locations);
     self.currentLocation = [locations lastObject];
     
-//    [self.locationManager stopUpdatingLocation];
+    [self.locationManager stopUpdatingLocation];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {
-//    //use this if the user is already in a region
-//    NSLog(@"User already in region - %@", region.identifier);
-//    
-//    [self locationManager:self.locationManager didEnterRegion:region];
+    //use this if the user is already in a region
+    NSLog(@"User already in region - %@", region.identifier);
+    
+    [self locationManager:self.locationManager didEnterRegion:region];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
@@ -179,14 +179,14 @@
     [errorAlert show];
 }
 
-//#pragma mark - Local Notification Methods
-//
-//- (void)createLocalNotificationWithAlertBody:(NSString *)alert {
-//    UILocalNotification *notification = [[UILocalNotification alloc] init];
-//    notification.alertBody = alert;
-//    notification.fireDate = [[NSDate date] dateByAddingTimeInterval:5];
-//    notification.applicationIconBadgeNumber = 1;
-//    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-//}
+#pragma mark - Local Notification Methods
+
+- (void)createLocalNotificationWithAlertBody:(NSString *)alert {
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    notification.alertBody = alert;
+    notification.fireDate = [[NSDate date] dateByAddingTimeInterval:5];
+    notification.applicationIconBadgeNumber = 1;
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+}
 
 @end

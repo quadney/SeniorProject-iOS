@@ -24,9 +24,7 @@
     // Do any additional setup after loading the view.
     self.parentViewController.navigationItem.title = @"Add Region";
     
-    CLLocation *currentLocation = [self getUserLocation];
-    
-    self.currentLocationLabel.text = [[NSString alloc] initWithFormat:@"Latitude: %f\nLongitude: %f", currentLocation.coordinate.latitude, currentLocation.coordinate.longitude];
+    [self updateCurrentLocationLabel];
 }
 
 - (CLLocation *)getUserLocation {
@@ -39,11 +37,18 @@
 }
 
 - (IBAction)addRegionWasPressed:(id)sender {
+    [self updateCurrentLocationLabel];
     // add Region to the model (this should be done in the backend when ready)
 //    [[ApplicationState sharedInstance] addRegionWithName:self.regionTextField.text
 //                                                location:[[LocationMonitor sharedLocation] getCurrentLocation]
 //                                                  radius:50];
-    [self.navigationController popViewControllerAnimated:YES];
+    //[self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)updateCurrentLocationLabel {
+    CLLocation *currentLocation = [self getUserLocation];
+    
+    self.currentLocationLabel.text = [[NSString alloc] initWithFormat:@"Latitude: %f\nLongitude: %f", currentLocation.coordinate.latitude, currentLocation.coordinate.longitude];
 }
 
 @end

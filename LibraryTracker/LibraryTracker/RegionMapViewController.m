@@ -33,6 +33,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [self viewDidLoad];     // let's try this out, I don't think this is good practice though
+    //[self refreshRegions];
 }
 
 - (void)configureGoogleMapsWithLocation:(CLLocation *)location zoomLevel:(int)zoom name:(NSString *)name {
@@ -44,6 +45,8 @@
     self.mapView.settings.compassButton = YES;
     self.mapView.settings.myLocationButton = YES;
     self.mapView.delegate = self;
+    
+    NSLog(@"GOOGLE MAPS CURRENT LOCATION: %@", [self.mapView myLocation]);
 }
 
 - (void)placeGoogleMapMarkers:(NSMutableArray *)markerLocations {

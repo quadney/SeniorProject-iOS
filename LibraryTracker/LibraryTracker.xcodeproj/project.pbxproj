@@ -46,7 +46,6 @@
 		C9E2FB141A8B2AD60045F801 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E2FB131A8B2AD60045F801 /* QuartzCore.framework */; };
 		C9E2FB161A8B2ADE0045F801 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E2FB151A8B2ADE0045F801 /* SystemConfiguration.framework */; };
 		C9E2FB1B1A8B32300045F801 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C9E2FB1A1A8B32300045F801 /* GoogleMaps.bundle */; };
-		C9E9C1221A81C8F400317FB8 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = C9E9C1211A81C8F400317FB8 /* test.json */; };
 		C9EBA40F1A8D31A70041C68B /* KeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9EBA40E1A8D31A70041C68B /* KeyboardViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -125,7 +124,6 @@
 		C9E2FB131A8B2AD60045F801 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C9E2FB151A8B2ADE0045F801 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C9E2FB1A1A8B32300045F801 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
-		C9E9C1211A81C8F400317FB8 /* test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test.json; sourceTree = "<group>"; };
 		C9EBA40D1A8D31A70041C68B /* KeyboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardViewController.h; sourceTree = "<group>"; };
 		C9EBA40E1A8D31A70041C68B /* KeyboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -200,7 +198,6 @@
 		C9330D051A7EF96A00B792E8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C9E9C1211A81C8F400317FB8 /* test.json */,
 				C9330D061A7EF96A00B792E8 /* Info.plist */,
 				C9330D071A7EF96A00B792E8 /* main.m */,
 			);
@@ -409,7 +406,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9330D111A7EF96A00B792E8 /* Main.storyboard in Resources */,
-				C9E9C1221A81C8F400317FB8 /* test.json in Resources */,
 				C9330D161A7EF96A00B792E8 /* LaunchScreen.xib in Resources */,
 				C9330D131A7EF96A00B792E8 /* Images.xcassets in Resources */,
 				C9E2FB1B1A8B32300045F801 /* GoogleMaps.bundle in Resources */,

@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "ApplicationState.h"
-#import "RegionDetailViewController.h"
 
 @interface RegionViewController : UIViewController
 

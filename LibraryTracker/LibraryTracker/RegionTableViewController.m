@@ -7,6 +7,7 @@
 //
 
 #import "RegionTableViewController.h"
+#import "RegionDetailViewController.h"
 
 @interface RegionTableViewController ()
 

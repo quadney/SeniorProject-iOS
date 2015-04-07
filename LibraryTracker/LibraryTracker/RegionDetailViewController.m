@@ -7,11 +7,13 @@
 //
 
 #import "RegionDetailViewController.h"
+#import "Zone.h"
 
-@interface RegionDetailViewController ()
+@interface RegionDetailViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *regionNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *populationLabel;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -23,6 +25,32 @@
     
     self.regionNameLabel.text = self.region.identifier;
     self.populationLabel.text = [NSString stringWithFormat:@"%i/%i", [self.region calculateCurrentPopulation], self.region.totalCapacity];
+}
+
+#pragma mark - TableView Methods
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [[self.region zones] count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ZoneCell"];
+    
+    Zone *zone = [[self.region zones] objectAtIndex:indexPath.row];
+    cell.textLabel.text = zone.identifier;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%i/%i", zone.currentPopulation, zone.maxCapacity];
+    cell.contentView.backgroundColor =  [self convertRegionPopulationToColorWithCurrentPop:zone.currentPopulation
+                                                                            andMaxCapacity:zone.maxCapacity];
+    cell.textLabel.backgroundColor = [UIColor clearColor];
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end

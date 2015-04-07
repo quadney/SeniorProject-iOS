@@ -161,15 +161,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C918C0751A82D06E00821BC7 /* Detail View Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				C918C0761A82D09800821BC7 /* RegionDetailViewController.h */,
-				C918C0771A82D09800821BC7 /* RegionDetailViewController.m */,
-			);
-			name = "Detail View Controllers";
-			sourceTree = "<group>";
-		};
 		C9330CF91A7EF96A00B792E8 = {
 			isa = PBXGroup;
 			children = (
@@ -193,7 +184,6 @@
 			isa = PBXGroup;
 			children = (
 				C9D864241A8D561C00010DF7 /* Settings */,
-				C918C0751A82D06E00821BC7 /* Detail View Controllers */,
 				C933823F1ACDCDB800378B7B /* View Controllers */,
 				C97FF30F1A817A4900F09F55 /* helpers */,
 				C9A38AA41A7F0A080065DE8D /* Models */,
@@ -237,6 +227,8 @@
 		C933823F1ACDCDB800378B7B /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C918C0761A82D09800821BC7 /* RegionDetailViewController.h */,
+				C918C0771A82D09800821BC7 /* RegionDetailViewController.m */,
 				C919C7791AD06B5000E20D2F /* RegionViewController.h */,
 				C919C77A1AD06B5000E20D2F /* RegionViewController.m */,
 				C9A38A941A7F02700065DE8D /* RegionTableViewController.h */,

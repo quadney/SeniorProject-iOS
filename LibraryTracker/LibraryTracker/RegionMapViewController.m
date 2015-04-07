@@ -8,6 +8,7 @@
 
 #import "RegionMapViewController.h"
 #import <GoogleMaps/GoogleMaps.h>
+#import "RegionDetailViewController.h"
 
 @interface RegionMapViewController () <GMSMapViewDelegate>
 @property (strong, nonatomic) IBOutlet GMSMapView *mapView;

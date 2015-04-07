@@ -50,7 +50,7 @@
     [self.mapView clear];
     for (Region *region in markerLocations) {
         GMSCircle *circle = [GMSCircle circleWithPosition:region.center radius:region.radius];
-        circle.fillColor = [self convertRegionPopulationToColorWithCurrentPop:region.currentPopulation andMaxCapacity:region.totalCapacity];
+        circle.fillColor = [self convertRegionPopulationToColorWithCurrentPop:[region calculateCurrentPopulation] andMaxCapacity:region.totalCapacity];
         circle.map = self.mapView;
     }
 }

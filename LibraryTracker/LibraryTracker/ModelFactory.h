@@ -9,12 +9,14 @@
 #import <Foundation/Foundation.h>
 #import "University.h"
 #import "Region.h"
+#import "Zone.h"
 
 @interface ModelFactory : NSObject
 
 + (id)modelStore;
 
 - (University *)createUniversityWithName:(NSString *)name latitude:(float)latitude longitude:(float)longitude regions:(NSArray *)regions idNumber:(int)idNum;
-- (Region *)createRegionWithName:(NSString *)name latitude:(float)latitude longitude:(float)longitude radius:(CLLocationDistance)radius idNumber:(int)idNum currentPopulation:(int)currentPopulation capacity:(int)totalCapacity;
+- (Region *)createRegionWithIdentifier:(NSString *)identifier latitude:(float)latitude longitude:(float)longitude radius:(CLLocationDistance)radius idNumber:(int)idNum zones:(NSArray *)zones;
+- (Zone *)createZoneWithIdentifier:(NSString *)identifier idNumber:(int)idNum bssidData:(NSArray *)bssidData currentPopulation:(int)currentPop maxCapacity:(int)capacity altitude:(float)altitude;
 
 @end

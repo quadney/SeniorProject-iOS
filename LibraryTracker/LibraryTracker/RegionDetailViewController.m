@@ -22,7 +22,7 @@
     // Do any additional setup after loading the view.
     
     self.regionNameLabel.text = self.region.identifier;
-    self.populationLabel.text = [NSString stringWithFormat:@"%i/%i", self.region.currentPopulation, self.region.totalCapacity];
+    self.populationLabel.text = [NSString stringWithFormat:@"%i/%i", [self.region calculateCurrentPopulation], self.region.totalCapacity];
 }
 
 @end

@@ -49,7 +49,7 @@
     Region *region = [[[ApplicationState sharedInstance] getRegions] objectAtIndex:indexPath.row];
     
     cell.textLabel.text = [region identifier];
-    cell.contentView.backgroundColor =  [self convertRegionPopulationToColorWithCurrentPop:[region currentPopulation]
+    cell.contentView.backgroundColor =  [self convertRegionPopulationToColorWithCurrentPop:[region calculateCurrentPopulation]
                                                                             andMaxCapacity:[region totalCapacity]];
     cell.textLabel.backgroundColor = [UIColor clearColor];
     

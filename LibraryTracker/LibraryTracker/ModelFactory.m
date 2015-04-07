@@ -23,8 +23,13 @@
     return [[University alloc] initWithName:name latitude:latitude longitude:longitude regions:regions idNumber:idNum];
 }
 
-- (Region *)createRegionWithName:(NSString *)name latitude:(float)latitude longitude:(float)longitude radius:(CLLocationDistance)radius idNumber:(int)idNum currentPopulation:(int)currentPopulation capacity:(int)totalCapacity {
-    return [[Region alloc] initWithIdentifier:name centerLatitude:latitude centerLongitude:longitude radius:radius idNumber:idNum currentPopulation:currentPopulation capacity:totalCapacity];
+- (Region *)createRegionWithIdentifier:(NSString *)identifier latitude:(float)latitude longitude:(float)longitude radius:(CLLocationDistance)radius idNumber:(int)idNum zones:(NSArray *)zones {
+    
+    return [[Region alloc] initWithIdentifier:identifier centerLatitude:latitude centerLongitude:longitude radius:radius idNumber:idNum andZones:zones];
+}
+
+- (Zone *)createZoneWithIdentifier:(NSString *)identifier idNumber:(int)idNum bssidData:(NSArray *)bssidData currentPopulation:(int)currentPop maxCapacity:(int)capacity altitude:(float)altitude {
+    return [[Zone alloc] initWithIdentifier:identifier wifiBssidValues:bssidData idNumber:idNum currentPopulation:currentPop capacity:capacity altitude:altitude];
 }
 
 @end

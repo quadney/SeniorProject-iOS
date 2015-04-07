@@ -11,10 +11,12 @@
 
 @interface Region : CLCircularRegion
 
-@property int currentPopulation;
-@property int totalCapacity;
 @property int idNum;
+@property (nonatomic, strong) NSArray *zones;
+@property int totalCapacity;
 
-- (id)initWithIdentifier:(NSString *)name centerLatitude:(float)latitude centerLongitude:(float)longitude radius:(CLLocationDistance)radius idNumber:(int)idNum currentPopulation:(int)currentPopulation capacity:(int)totalCapacity;
+- (id)initWithIdentifier:(NSString *)name centerLatitude:(float)latitude centerLongitude:(float)longitude radius:(CLLocationDistance)radius idNumber:(int)idNum andZones:(NSArray *)zones;
+
+- (int)calculateCurrentPopulation;
 
 @end

@@ -7,8 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import <GoogleMaps/GoogleMaps.h>
-
 
 @interface AppDelegate ()
 
@@ -19,9 +17,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [GMSServices provideAPIKey:@"AIzaSyDDviDoeWxrMKrtCUmvtKrq5rp7pBBI8mY"];
-
-    
+        
     if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) {
         [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
     }

@@ -39,7 +39,7 @@
         SelectUniversityTableViewController *univ = [self.storyboard instantiateViewControllerWithIdentifier:@"SelectUniversityVC"];
         
         [self.parentViewController presentViewController:univ animated:YES completion:^{
-            [mapView refreshRegions];
+            //[mapView refreshRegions];
         }];
     }
 

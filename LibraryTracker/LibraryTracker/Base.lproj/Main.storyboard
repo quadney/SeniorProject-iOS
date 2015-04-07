@@ -293,21 +293,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uog-6r-VSJ" customClass="GMSMapView">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="LfG-yY-gp6">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
+                            </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Uog-6r-VSJ" firstAttribute="leading" secondItem="oTu-hE-uhw" secondAttribute="leadingMargin" constant="-16" id="C1j-oX-rh7"/>
-                            <constraint firstItem="RDU-j5-Tuo" firstAttribute="top" secondItem="Uog-6r-VSJ" secondAttribute="bottom" id="JqZ-aJ-aqH"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Uog-6r-VSJ" secondAttribute="trailing" constant="-16" id="ivd-jB-GIC"/>
-                            <constraint firstItem="Uog-6r-VSJ" firstAttribute="top" secondItem="hSw-IZ-O1z" secondAttribute="bottom" constant="-20" id="jqU-Yw-kcv"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="LfG-yY-gp6" secondAttribute="trailing" constant="-16" id="CRK-cG-OaK"/>
+                            <constraint firstItem="LfG-yY-gp6" firstAttribute="top" secondItem="hSw-IZ-O1z" secondAttribute="bottom" constant="-20" id="WHi-cu-aaf"/>
+                            <constraint firstItem="RDU-j5-Tuo" firstAttribute="top" secondItem="LfG-yY-gp6" secondAttribute="bottom" id="h1L-Us-N5N"/>
+                            <constraint firstItem="LfG-yY-gp6" firstAttribute="leading" secondItem="oTu-hE-uhw" secondAttribute="leadingMargin" constant="-16" id="lvO-vi-SzZ"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="mapView" destination="Uog-6r-VSJ" id="cyX-iD-6bu"/>
+                        <outlet property="map" destination="LfG-yY-gp6" id="Wjs-ux-S5j"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wel-LK-k7G" userLabel="First Responder" sceneMemberID="firstResponder"/>

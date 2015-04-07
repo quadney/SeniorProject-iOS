@@ -7,11 +7,14 @@
 //
 
 #import "RegionMapViewController.h"
-#import <GoogleMaps/GoogleMaps.h>
 #import "RegionDetailViewController.h"
+#import <MapKit/MapKit.h>
+#import "LocationMonitor.h"
 
-@interface RegionMapViewController () <GMSMapViewDelegate>
-@property (strong, nonatomic) IBOutlet GMSMapView *mapView;
+@interface RegionMapViewController () <MKMapViewDelegate>
+
+@property (weak, nonatomic) IBOutlet MKMapView *map;
+
 @end
 
 @implementation RegionMapViewController
@@ -21,9 +24,23 @@
     // Do any additional setup after loading the view.
     if ([[ApplicationState sharedInstance] university]) {
         
-        [self configureGoogleMapsWithLocation:[[[ApplicationState sharedInstance] university] location]
-                                    zoomLevel:15
-                                         name:[[[ApplicationState sharedInstance] university] name]];
+        // need to make a span in order to have proper zoomed-in area
+        MKCoordinateSpan span;
+        span.latitudeDelta=.05;
+        span.longitudeDelta=.05;
+        
+        //set Region to be display on MKMapView
+        MKCoordinateRegion coordinateRegion;
+        coordinateRegion.center = [[[ApplicationState sharedInstance] university] location].coordinate;
+        coordinateRegion.span = span;
+        
+        [self.map setCenterCoordinate:[[[ApplicationState sharedInstance] university] location].coordinate
+                             animated:YES];
+        [self.map setRegion:coordinateRegion animated:YES];
+        
+        //[LocationMonitor sharedLocation]
+        [self.map setShowsUserLocation:YES];
+        
         [self refreshRegions];
     }
     else {
@@ -33,52 +50,10 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [self viewDidLoad];     // let's try this out, I don't think this is good practice though
-    //[self refreshRegions];
 }
 
-- (void)configureGoogleMapsWithLocation:(CLLocation *)location zoomLevel:(int)zoom name:(NSString *)name {
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:location.coordinate.latitude
-                                                            longitude:location.coordinate.longitude
-                                                                 zoom:zoom];
-    self.mapView.camera = camera;
-    self.mapView.myLocationEnabled = YES;
-    self.mapView.settings.compassButton = YES;
-    self.mapView.settings.myLocationButton = YES;
-    self.mapView.delegate = self;
-    
-    NSLog(@"GOOGLE MAPS CURRENT LOCATION: %@", [self.mapView myLocation]);
-}
-
-- (void)placeGoogleMapMarkers:(NSMutableArray *)markerLocations {
-    //remove the markers that were there before
-    [self.mapView clear];
-    for (Region *region in markerLocations) {
-        GMSCircle *circle = [GMSCircle circleWithPosition:region.center radius:region.radius];
-        circle.fillColor = [self convertRegionPopulationToColorWithCurrentPop:[region calculateCurrentPopulation] andMaxCapacity:region.totalCapacity];
-        circle.map = self.mapView;
-    }
-}
-
-- (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate {
-    // query the circular regions to see if the tapped location corresponds to a Region
-    // this can actually be accomplished with the CLRegion interface
-    for (Region *region in [[ApplicationState sharedInstance] getRegions]) {
-        if ([region containsCoordinate:coordinate]) {
-            NSLog(@"Tapped region with identifier: %@", region.identifier);
-            // now that we tapped a region, let's display the RegionDetailViewController
-            
-            RegionDetailViewController *detail = (RegionDetailViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"RegionDetailViewController"];
-
-            detail.region = region;
-            
-            [self.parentViewController showViewController:detail sender:self];
-            
-        }
-    }
-}
 
 - (void)refreshRegions {
-    [self placeGoogleMapMarkers:[[ApplicationState sharedInstance] getRegions]];
 }
 
 @end

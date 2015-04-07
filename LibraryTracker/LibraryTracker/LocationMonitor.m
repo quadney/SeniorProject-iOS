@@ -8,10 +8,12 @@
 
 #import "LocationMonitor.h"
 #import "ApplicationState.h"
+#import <CoreLocation/CoreLocation.h>
 #import <UIKit/UIKit.h>
 
-@interface LocationMonitor()
+@interface LocationMonitor() <CLLocationManagerDelegate>
 
+@property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *currentLocation;
 
 @end
@@ -25,13 +27,20 @@
     
     static dispatch_once_t onceTocken;
     dispatch_once(&onceTocken, ^{
-        shared = [[LocationMonitor alloc] init];
+        shared = [[LocationMonitor alloc] initPrivate];
     });
     return shared;
 
 }
 
 - (id)init {
+    @throw [NSException exceptionWithName:@"Singleton"
+                                   reason:@"Use: [LocationMonitor sharedLocation]"
+                                 userInfo:nil];
+    return nil;
+}
+
+- (id)initPrivate {
     
     self = [super init];
     if (self) {
@@ -41,12 +50,13 @@
         
         [self.locationManager startUpdatingLocation];
         
-        if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
-            [self.locationManager requestWhenInUseAuthorization];
+        if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+            [self.locationManager requestAlwaysAuthorization];
         }
         
         [self checkLocationManagerPermissions];
         
+        [self.locationManager startMonitoringSignificantLocationChanges];
         [self.locationManager startUpdatingLocation];
     }
     
@@ -76,8 +86,6 @@
         return  FALSE;
     }
     
-    [self.locationManager startUpdatingLocation];
-    
     return TRUE;
 }
 
@@ -92,7 +100,6 @@
     [self addRegionsToMonitor:regions];
     
     // check if already in a region
-    NSLog(@"Check if user already in a region");
     [self checkIfAlreadyInRegion];
 }
 
@@ -104,7 +111,8 @@
 
 - (CLLocation *)getCurrentLocation {
     if ([self checkLocationManagerPermissions]) {
-        NSLog(@"Getting the user's location");
+        NSLog(@"PERMISSIONS ARE KOSHER Getting the user's location");
+        [self.locationManager startMonitoringSignificantLocationChanges];
         [self.locationManager startUpdatingLocation];
     }
 
@@ -117,15 +125,22 @@
         [self.locationManager stopMonitoringForRegion:region];
     }
 }
+
 - (void)checkIfAlreadyInRegion {
     [self getCurrentLocation];
+    
     NSLog(@"Checking if user is already in a location, current location: %@", self.currentLocation);
     for (CLCircularRegion *region in [self.locationManager monitoredRegions]) {
         if ([region containsCoordinate:self.currentLocation.coordinate]) {
+            
             NSLog(@"Already in the Region: %@", region.identifier);
             [self locationManager:self.locationManager didEnterRegion:region];
         }
     }
+}
+
+- (NSSet *)getMonitoredRegions {
+    return [self.locationManager monitoredRegions];
 }
 
 #pragma mark - CLLocationManagerDelegate - Region monitoring methods
@@ -133,6 +148,11 @@
 - (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region {
     
     NSLog(@"Started monitoring %@", region.identifier);
+}
+
+- (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
+    
+    NSLog(@"THERE WAS AN ERROR IN THIS BITCH %@", error);
 }
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
@@ -154,7 +174,7 @@
 #pragma mark - CLLocationManagerDelegate methods - CurrentLocation stuff
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    NSLog(@"Trying to set the current location: %@", locations);
+    NSLog(@"Trying to get the current location: %@", locations);
     self.currentLocation = [locations lastObject];
     
     [self.locationManager stopUpdatingLocation];

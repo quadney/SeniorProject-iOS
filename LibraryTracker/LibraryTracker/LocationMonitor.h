@@ -9,15 +9,16 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface LocationMonitor : NSObject <CLLocationManagerDelegate>
+@interface LocationMonitor : NSObject 
 
-@property CLLocationManager *locationManager;
 // singleton
 +(id)sharedLocation;
 
 // geofencing/region monitoring methods
 - (void)addRegions:(NSArray *)regions;
 - (void)clearRegionsMonitoring;
+
+- (NSSet *)getMonitoredRegions;
 
 - (CLLocation *)getCurrentLocation;
 

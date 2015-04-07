@@ -33,7 +33,7 @@
 }
 
 - (IBAction)checkWhichRegionsAreMonitoring:(id)sender {
-    NSLog(@"Monitoring regions: %@", [[[LocationMonitor sharedLocation] locationManager] monitoredRegions]);
+    NSLog(@"Monitoring regions: %@", [[LocationMonitor sharedLocation] getMonitoredRegions]);
 }
 
 - (IBAction)addRegionWasPressed:(id)sender {

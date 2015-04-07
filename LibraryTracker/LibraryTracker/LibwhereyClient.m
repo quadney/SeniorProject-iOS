@@ -8,7 +8,6 @@
 
 #import "LibwhereyClient.h"
 #import "ModelFactory.h"
-#import <CoreLocation/CoreLocation.h>
 
 @implementation LibwhereyClient
 

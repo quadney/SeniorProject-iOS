@@ -32,6 +32,7 @@
 		C9A38ABA1A7F0E2F0065DE8D /* Roaming.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A38AB91A7F0E2F0065DE8D /* Roaming.m */; };
 		C9A38ABD1A7F0E3A0065DE8D /* Studying.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A38ABC1A7F0E3A0065DE8D /* Studying.m */; };
 		C9A38AC01A7F0E7F0065DE8D /* ApplicationState.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A38ABF1A7F0E7F0065DE8D /* ApplicationState.m */; };
+		C9AFBE151AD36FA6009638CC /* Zone.m in Sources */ = {isa = PBXBuildFile; fileRef = C9AFBE141AD36FA6009638CC /* Zone.m */; };
 		C9E2FB001A8B292E0045F801 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E2FAFF1A8B292E0045F801 /* GoogleMaps.framework */; };
 		C9E2FB021A8B2A3A0045F801 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E2FB011A8B2A3A0045F801 /* AVFoundation.framework */; };
 		C9E2FB041A8B2A440045F801 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E2FB031A8B2A440045F801 /* CoreData.framework */; };
@@ -109,6 +110,8 @@
 		C9A38ABC1A7F0E3A0065DE8D /* Studying.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Studying.m; sourceTree = "<group>"; };
 		C9A38ABE1A7F0E7F0065DE8D /* ApplicationState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationState.h; sourceTree = "<group>"; };
 		C9A38ABF1A7F0E7F0065DE8D /* ApplicationState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationState.m; sourceTree = "<group>"; };
+		C9AFBE131AD36FA6009638CC /* Zone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Zone.h; sourceTree = "<group>"; };
+		C9AFBE141AD36FA6009638CC /* Zone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Zone.m; sourceTree = "<group>"; };
 		C9E2FAFF1A8B292E0045F801 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
 		C9E2FB011A8B2A3A0045F801 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		C9E2FB031A8B2A440045F801 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -264,6 +267,8 @@
 		C9A38AA41A7F0A080065DE8D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C9AFBE131AD36FA6009638CC /* Zone.h */,
+				C9AFBE141AD36FA6009638CC /* Zone.m */,
 				C9A38ABE1A7F0E7F0065DE8D /* ApplicationState.h */,
 				C9A38ABF1A7F0E7F0065DE8D /* ApplicationState.m */,
 				C9A38AAE1A7F0DD30065DE8D /* LocationState */,
@@ -452,6 +457,7 @@
 				C9A38ABD1A7F0E3A0065DE8D /* Studying.m in Sources */,
 				C97FF30E1A816E7A00F09F55 /* LocationMonitor.m in Sources */,
 				C9330D081A7EF96A00B792E8 /* main.m in Sources */,
+				C9AFBE151AD36FA6009638CC /* Zone.m in Sources */,
 				C9A38AB41A7F0E030065DE8D /* NotInRegionLS.m in Sources */,
 				C96EEDCD1A8479E30010DC90 /* ModelFactory.m in Sources */,
 			);

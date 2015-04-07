@@ -73,11 +73,9 @@
 // call this method when setting a new university
 - (void)addRegions:(NSArray *)regions {
     // clear out the current regions that it's monitoring
-    NSLog(@"Clearing the current regions monitoring");
     [self clearRegionsMonitoring];
     
     // add each of the regions
-    NSLog(@"Adding the regions to monitor");
     [self addRegionsToMonitor:regions];
     
     // check if already in a region
@@ -89,7 +87,6 @@
     for (CLCircularRegion *region in regions) {
         [self.locationManager startMonitoringForRegion:region];
     }
-    NSLog(@"Monitoring regions: %@", [self.locationManager monitoredRegions]);
 }
 
 - (CLLocation *)getCurrentLocation {

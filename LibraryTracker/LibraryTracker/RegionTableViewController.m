@@ -54,6 +54,8 @@
                                                                             andMaxCapacity:[region totalCapacity]];
     cell.textLabel.backgroundColor = [UIColor clearColor];
     
+    NSLog(@"Region: %@, maxCapacity: %i, currentPop: %i", region.identifier, region.totalCapacity, [region calculateCurrentPopulation]);
+    
     return cell;
 }
 

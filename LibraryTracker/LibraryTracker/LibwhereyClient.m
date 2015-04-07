@@ -202,8 +202,10 @@
         for (NSDictionary *zoneObj in [obj objectForKey:@"zones"]) {
             
             NSMutableArray *bssids = [[NSMutableArray alloc] init];
-            for (NSDictionary *wifiData in [zoneObj objectForKey:@"bssids"]) {
-                [bssids addObject:[wifiData objectForKey:@"identifier"]];
+            if([zoneObj objectForKey:@"bssids"]){
+                for (NSDictionary *wifiData in [zoneObj objectForKey:@"bssids"]) {
+                    [bssids addObject:[wifiData objectForKey:@"identifier"]];
+                }
             }
             [zones addObject: [[ModelFactory modelStore] createZoneWithIdentifier:[zoneObj objectForKey:@"identifier"]
                                                                          idNumber:(int)[[zoneObj objectForKey:@"id"] longValue]

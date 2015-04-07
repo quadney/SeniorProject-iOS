@@ -44,6 +44,7 @@
     cell.contentView.backgroundColor =  [self convertRegionPopulationToColorWithCurrentPop:zone.currentPopulation
                                                                             andMaxCapacity:zone.maxCapacity];
     cell.textLabel.backgroundColor = [UIColor clearColor];
+    cell.detailTextLabel.backgroundColor = [UIColor clearColor];
     
     return cell;
 }

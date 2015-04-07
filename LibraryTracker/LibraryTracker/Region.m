@@ -18,7 +18,7 @@
     self = [super initWithCenter:center.coordinate radius:radius identifier:name];
     self.idNum = idNum;
     self.zones = zones;
-    self.totalCapacity = [self calculateCurrentPopulation];
+    self.totalCapacity = [self calculateTotalCapacity];
     return self;
 }
 
@@ -36,7 +36,6 @@
     for (Zone *zone in self.zones) {
         capacity += zone.maxCapacity;
     }
-    
     return capacity;
 }
 

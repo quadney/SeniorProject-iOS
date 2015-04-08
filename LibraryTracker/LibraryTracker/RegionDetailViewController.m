@@ -8,6 +8,7 @@
 
 #import "RegionDetailViewController.h"
 #import "Zone.h"
+#import "ApplicationState.h"
 
 @interface RegionDetailViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -40,7 +41,7 @@
     Zone *zone = [[self.region zones] objectAtIndex:indexPath.row];
     cell.textLabel.text = zone.identifier;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%i/%i", zone.currentPopulation, zone.maxCapacity];
-    cell.contentView.backgroundColor =  [self convertRegionPopulationToColorWithCurrentPop:zone.currentPopulation
+    cell.contentView.backgroundColor =  [[ApplicationState sharedInstance] convertRegionPopulationToColorWithCurrentPop:zone.currentPopulation
                                                                             andMaxCapacity:zone.maxCapacity];
     cell.textLabel.backgroundColor = [UIColor clearColor];
     cell.detailTextLabel.backgroundColor = [UIColor clearColor];

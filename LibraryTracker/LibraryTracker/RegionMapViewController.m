@@ -9,6 +9,7 @@
 #import "RegionMapViewController.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import "RegionDetailViewController.h"
+#import "ApplicationState.h"
 
 @interface RegionMapViewController () <GMSMapViewDelegate>
 @property (strong, nonatomic) IBOutlet GMSMapView *mapView;
@@ -54,7 +55,7 @@
     [self.mapView clear];
     for (Region *region in markerLocations) {
         GMSCircle *circle = [GMSCircle circleWithPosition:region.center radius:region.radius];
-        circle.fillColor = [self convertRegionPopulationToColorWithCurrentPop:[region calculateCurrentPopulation] andMaxCapacity:region.totalCapacity];
+        circle.fillColor = [[ApplicationState sharedInstance] convertRegionPopulationToColorWithCurrentPop:[region calculateCurrentPopulation] andMaxCapacity:region.totalCapacity];
         circle.map = self.mapView;
     }
 }

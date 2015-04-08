@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		C918C0781A82D09800821BC7 /* RegionDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C918C0771A82D09800821BC7 /* RegionDetailViewController.m */; };
-		C919C77B1AD06B5000E20D2F /* RegionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C919C77A1AD06B5000E20D2F /* RegionViewController.m */; };
 		C9330D081A7EF96A00B792E8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C9330D071A7EF96A00B792E8 /* main.m */; };
 		C9330D0B1A7EF96A00B792E8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9330D0A1A7EF96A00B792E8 /* AppDelegate.m */; };
 		C9330D111A7EF96A00B792E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9330D0F1A7EF96A00B792E8 /* Main.storyboard */; };
@@ -62,8 +61,6 @@
 /* Begin PBXFileReference section */
 		C918C0761A82D09800821BC7 /* RegionDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegionDetailViewController.h; sourceTree = "<group>"; };
 		C918C0771A82D09800821BC7 /* RegionDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegionDetailViewController.m; sourceTree = "<group>"; };
-		C919C7791AD06B5000E20D2F /* RegionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegionViewController.h; sourceTree = "<group>"; };
-		C919C77A1AD06B5000E20D2F /* RegionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegionViewController.m; sourceTree = "<group>"; };
 		C9330D021A7EF96A00B792E8 /* LibraryTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LibraryTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9330D061A7EF96A00B792E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9330D071A7EF96A00B792E8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -226,8 +223,6 @@
 			children = (
 				C918C0761A82D09800821BC7 /* RegionDetailViewController.h */,
 				C918C0771A82D09800821BC7 /* RegionDetailViewController.m */,
-				C919C7791AD06B5000E20D2F /* RegionViewController.h */,
-				C919C77A1AD06B5000E20D2F /* RegionViewController.m */,
 				C9A38A941A7F02700065DE8D /* RegionTableViewController.h */,
 				C9A38A951A7F02700065DE8D /* RegionTableViewController.m */,
 				C9A38A971A7F02AB0065DE8D /* RegionMapViewController.h */,
@@ -431,7 +426,6 @@
 				C9A38AB11A7F0DE30065DE8D /* LocationState.m in Sources */,
 				C9A38AA71A7F0A740065DE8D /* Region.m in Sources */,
 				C9A38A9C1A7F03400065DE8D /* SelectUniversityTableViewController.m in Sources */,
-				C919C77B1AD06B5000E20D2F /* RegionViewController.m in Sources */,
 				C9A38ABA1A7F0E2F0065DE8D /* Roaming.m in Sources */,
 				C9A38A961A7F02700065DE8D /* RegionTableViewController.m in Sources */,
 				C968CE021AC8C776009EC998 /* LibwhereyClient.m in Sources */,

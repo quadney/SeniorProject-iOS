@@ -8,22 +8,18 @@
 
 #import "RegionTableViewController.h"
 #import "RegionDetailViewController.h"
-
-@interface RegionTableViewController ()
-
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-
-
-@end
+#import "LibwhereyClient.h"
+#import "ApplicationState.h"
 
 @implementation RegionTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    [refreshControl addTarget:self action:@selector(refreshRegions:) forControlEvents:UIControlEventValueChanged];
-    [self.tableView addSubview:refreshControl];
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.backgroundColor = [UIColor purpleColor];
+    self.refreshControl.tintColor = [UIColor whiteColor];
+    [self.refreshControl addTarget:self action:@selector(refreshRegions:) forControlEvents:UIControlEventValueChanged];
     
     [self.tableView reloadData];
 }
@@ -34,6 +30,13 @@
 
 - (void)refreshRegions:(id)sender {
     NSLog(@"Refreshing regions");
+    
+    
+    if(self.refreshControl)
+        [self.refreshControl endRefreshing];
+    
+//    [LibwhereyClient sharedClient] 
+    
 }
 
 #pragma mark - Table view data source
@@ -56,7 +59,7 @@
     Region *region = [[[ApplicationState sharedInstance] getRegions] objectAtIndex:indexPath.row];
     
     cell.textLabel.text = [region identifier];
-    cell.contentView.backgroundColor =  [self convertRegionPopulationToColorWithCurrentPop:[region calculateCurrentPopulation]
+    cell.contentView.backgroundColor =  [[ApplicationState sharedInstance] convertRegionPopulationToColorWithCurrentPop:[region calculateCurrentPopulation]
                                                                             andMaxCapacity:[region totalCapacity]];
     cell.textLabel.backgroundColor = [UIColor clearColor];
     

@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Sydney Richardson. All rights reserved.
 //
 
-#import "RegionViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface RegionMapViewController : RegionViewController
+@interface RegionMapViewController : UIViewController
 
 - (void)refreshRegions;
 

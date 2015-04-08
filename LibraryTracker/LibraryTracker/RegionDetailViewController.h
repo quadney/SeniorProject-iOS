@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 Sydney Richardson. All rights reserved.
 //
 
-#import "RegionViewController.h"
+#import <UIKit/UIKit.h>
 #import "Region.h"
 
-@interface RegionDetailViewController : RegionViewController
+@interface RegionDetailViewController : UIViewController
 
 @property (nonatomic) Region *region;
 

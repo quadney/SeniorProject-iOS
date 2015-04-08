@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Sydney Richardson. All rights reserved.
 //
 
-#import "RegionViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface RegionTableViewController : RegionViewController
+@interface RegionTableViewController : UITableViewController
 
 @end

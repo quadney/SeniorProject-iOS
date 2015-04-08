@@ -17,7 +17,7 @@
 
 + (id)sharedClient;
 
-- (NSMutableArray *)retrieveUniversities;
-- (NSMutableArray *)retrieveRegionsForUniversityWithId:(int)universityId;
+//- (NSMutableArray *)retrieveUniversities;
+//- (NSMutableArray *)retrieveRegionsForUniversityWithId:(int)universityId;
 
 @end

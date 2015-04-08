@@ -24,7 +24,46 @@
     UIEdgeInsets inset = UIEdgeInsetsMake(20, 0, 0, 0);
     self.tableView.contentInset = inset;
     
-    //self.universities = [[NSMutableArray alloc] initWithObjects:uf, nil];
+    Region *libraryWest = [[Region alloc] initWithIdentifier:@"Library West"
+                                                      center:[[CLLocation alloc] initWithLatitude:29.651339
+                                                                                        longitude:-82.342832]
+                                                      radius:50.0
+                                                    idNumber:0];
+    Region *marstonLibrary = [[Region alloc] initWithIdentifier:@"Marston Library"
+                                                         center:[[CLLocation alloc] initWithLatitude:29.647996
+                                                                                           longitude:-82.343905]
+                                                         radius:50.0
+                                                       idNumber:1];
+    Region *archLibrary = [[Region alloc] initWithIdentifier:@"Architecture and Fine Arts Library"
+                                                      center:[[CLLocation alloc] initWithLatitude:29.648167
+                                                                                        longitude:-82.340596]
+                                                      radius:50.0
+                                                    idNumber:2];
+    
+    Region *educationLibrary = [[Region alloc] initWithIdentifier:@"Education Library"
+                                                           center:[[CLLocation alloc] initWithLatitude:29.646653
+                                                                                             longitude:-82.337705]
+                                                           radius:50.0
+                                                         idNumber:3];
+    Region *lawLibrary = [[Region alloc] initWithIdentifier:@"Law Library"
+                                                     center:[[CLLocation alloc] initWithLatitude:29.649803
+                                                                                       longitude:-82.359152]
+                                                     radius:50.0
+                                                   idNumber:4];
+    
+    Region *smathers = [[Region alloc] initWithIdentifier:@"Smather's Library"
+                                                   center:[[CLLocation alloc] initWithLatitude:29.650825
+                                                                                     longitude:-82.341754]
+                                                   radius:50.0
+                                                 idNumber:5];
+    
+    University *uf = [[University alloc] initWithName:@"University of Florida"
+                                             location:[[CLLocation alloc] initWithLatitude:29.64363
+                                                                                 longitude:-82.35493]
+                                              regions:@[libraryWest, marstonLibrary, archLibrary, educationLibrary, lawLibrary, smathers]
+                                             idNumber:0];
+    
+    self.universities = [[NSMutableArray alloc] initWithObjects:uf, nil];
         
     [self.tableView reloadData];
 }

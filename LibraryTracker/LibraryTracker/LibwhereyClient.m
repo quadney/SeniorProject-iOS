@@ -238,7 +238,6 @@
         [universities addObject:[[ModelFactory modelStore] createUniversityWithName:[obj objectForKey:@"name"]
                                                                             latitude:[[obj objectForKey:@"latitude"] floatValue]
                                                                            longitude:[[obj objectForKey:@"longitude"] floatValue]
-                                                                             regions:nil
                                                                             idNumber:(int)[[obj objectForKey:@"id"] longValue]]];
     }
     return [NSArray arrayWithArray:universities];

@@ -15,7 +15,7 @@
 +(id)sharedLocation;
 
 // geofencing/region monitoring methods
-- (void)addRegions:(NSArray *)regions;
+- (void)setRegionsToMonitor:(NSArray *)regions;
 - (void)clearRegionsMonitoring;
 
 - (NSSet *)getMonitoredRegions;

@@ -7,11 +7,9 @@
 //
 
 #import "ApplicationViewController.h"
-#import "RegionMapViewController.h"
-#import "RegionTableViewController.h"
+
 #import "ApplicationState.h"
 #import "SelectUniversityTableViewController.h"
-#import "LocationMonitor.h"
 
 @interface ApplicationViewController ()
 
@@ -23,7 +21,7 @@
     [super viewDidLoad];
     
     // if university is not selected
-    if ( ![[ApplicationState sharedInstance] university] ) {
+    if ( ![[ApplicationState sharedInstance] getUniversity] ) {
         //load the University selection controller
         SelectUniversityTableViewController *univ = [self.storyboard instantiateViewControllerWithIdentifier:@"SelectUniversityVC"];
         
@@ -32,7 +30,7 @@
         }];
     }
     
-    self.navigationItem.title = [[[ApplicationState sharedInstance] university] name];
+    self.navigationItem.title = [[[ApplicationState sharedInstance] getUniversity] name];
 }
 
 @end

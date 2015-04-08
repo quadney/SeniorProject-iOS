@@ -92,7 +92,7 @@
 #pragma mark - LocationMonitor - Region Monitoring methods
 
 // call this method when setting a new university
-- (void)addRegions:(NSArray *)regions {
+- (void)setRegionsToMonitor:(NSArray *)regions {
     // clear out the current regions that it's monitoring
     [self clearRegionsMonitoring];
     

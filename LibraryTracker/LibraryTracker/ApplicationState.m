@@ -10,6 +10,15 @@
 #import "ModelFactory.h"
 #import "LocationMonitor.h"
 
+@interface ApplicationState()
+
+@property (nonatomic, strong) LocationState *state;
+@property (nonatomic, strong) University *university;
+@property (nonatomic, strong) NSArray *regions;
+@property int currentRegionInt;
+
+@end
+
 @implementation ApplicationState
 
 + (id)sharedInstance {
@@ -37,10 +46,18 @@
     return self;
 }
 
-- (void)setUniversityRegions:(NSArray *)regions {
-    NSLog(@"Appears that fetched Regions was completed, setting the regions for the University");
-    // if we set the University's regions, we need to then set the regions that the app is tracking
-    [self.university setRegions:regions];
+- (University *)getUniversity {
+    return self.university;
+}
+
+
+- (int)getUniversityId {
+    return [self.university idNum];
+}
+
+- (void)setRegions:(NSArray *)regions {
+    // when new regions are set, need to also change what is being monitored
+    _regions = regions;
     
     // when the regions that the app is tracking is updated, we need to also refresh the RegionTableView and RegionMapView Controller's
     [self setRegionsInLocationMonitorWithRegions:regions];
@@ -48,25 +65,24 @@
 
 - (void)setRegionsInLocationMonitorWithRegions:(NSArray *)regions {
     NSLog(@"Setting the Regions to monitor");
-    [[LocationMonitor sharedLocation] addRegions:regions];
+    [[LocationMonitor sharedLocation] setRegionsToMonitor:regions];
 }
 
-- (int)getUniversityId {
-    return [self.university idNum];
+- (void)updateRegions:(NSArray *)updatedRegions {
+    NSLog(@"TODO update regions method");
 }
 
 - (NSArray *)getRegions {
-    return [self.university regions];
+    return self.regions;
 }
 
 - (Region *)getUserCurrentRegion {
-//    Region *stateRegion = [self.state getRegion];
-//    Region *reg = [self.university regions];
+    NSLog(@"TODO make sure this is correct, ApplicationState, Get User Current Region");
     return [self.state getRegion];
 }
 
 - (void)userEnteredRegion:(CLCircularRegion *)region {
-    NSLog(@"Applicaton State: UserEnteredLocation");
+    NSLog(@"TODO make sure this is correct, ApplicatonState, userEnteredLocation");
     
     // The Roaming functionality takes in a Region, this method has access to the CLCircularRegion
             // aka I need to find the region that it is associated with

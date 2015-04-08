@@ -19,11 +19,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    if ([[ApplicationState sharedInstance] university]) {
-        
-        [self configureGoogleMapsWithLocation:[[[ApplicationState sharedInstance] university] location]
+    University *university = [[ApplicationState sharedInstance] getUniversity];
+    
+    if (university) {
+        [self configureGoogleMapsWithLatitude:[university latitude]
+                                    longitude:[university longitude]
                                     zoomLevel:15
-                                         name:[[[ApplicationState sharedInstance] university] name]];
+                                         name:[university name]];
         [self refreshRegions];
     }
     else {
@@ -36,20 +38,18 @@
     //[self refreshRegions];
 }
 
-- (void)configureGoogleMapsWithLocation:(CLLocation *)location zoomLevel:(int)zoom name:(NSString *)name {
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:location.coordinate.latitude
-                                                            longitude:location.coordinate.longitude
+- (void)configureGoogleMapsWithLatitude:(float)latitude longitude:(float)longitude zoomLevel:(int)zoom name:(NSString *)name {
+    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:latitude
+                                                            longitude:longitude
                                                                  zoom:zoom];
     self.mapView.camera = camera;
     self.mapView.myLocationEnabled = YES;
     self.mapView.settings.compassButton = YES;
     self.mapView.settings.myLocationButton = YES;
     self.mapView.delegate = self;
-    
-    NSLog(@"GOOGLE MAPS CURRENT LOCATION: %@", [self.mapView myLocation]);
 }
 
-- (void)placeGoogleMapMarkers:(NSMutableArray *)markerLocations {
+- (void)placeGoogleMapMarkers:(NSArray *)markerLocations {
     //remove the markers that were there before
     [self.mapView clear];
     for (Region *region in markerLocations) {
@@ -64,7 +64,6 @@
     // this can actually be accomplished with the CLRegion interface
     for (Region *region in [[ApplicationState sharedInstance] getRegions]) {
         if ([region containsCoordinate:coordinate]) {
-            NSLog(@"Tapped region with identifier: %@", region.identifier);
             // now that we tapped a region, let's display the RegionDetailViewController
             
             RegionDetailViewController *detail = (RegionDetailViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"RegionDetailViewController"];

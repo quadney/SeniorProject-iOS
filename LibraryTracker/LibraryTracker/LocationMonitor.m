@@ -11,6 +11,10 @@
 #import <CoreLocation/CoreLocation.h>
 #import <UIKit/UIKit.h>
 
+#import <SystemConfiguration/CaptiveNetwork.h>
+#include <ifaddrs.h>
+#include <arpa/inet.h>
+
 @interface LocationMonitor() <CLLocationManagerDelegate>
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
@@ -189,6 +193,31 @@
                                cancelButtonTitle:@"OK"
                                otherButtonTitles:nil];
     [errorAlert show];
+}
+
+#pragma mark - WIFI Identification stuff
+
+// getting the SSID number
+// http://stackoverflow.com/questions/5198716/iphone-get-ssid-without-private-library
+/** Returns first non-empty SSID network info dictionary.
+ *  @see CNCopyCurrentNetworkInfo */
+- (NSString *)getCurrentBSSID
+{
+    NSArray *interfaceNames = CFBridgingRelease(CNCopySupportedInterfaces());
+    //NSLog(@"%s: Supported interfaces: %@", __func__, interfaceNames);
+    
+    NSDictionary *SSIDInfo;
+    for (NSString *interfaceName in interfaceNames) {
+        SSIDInfo = CFBridgingRelease(
+                                     CNCopyCurrentNetworkInfo((__bridge CFStringRef)interfaceName));
+        //NSLog(@"%s: %@ => %@", __func__, interfaceName, SSIDInfo);
+        
+        BOOL isNotEmpty = (SSIDInfo.count > 0);
+        if (isNotEmpty) {
+            break;
+        }
+    }
+    return [SSIDInfo objectForKey:@"BSSID"];
 }
 
 #pragma mark - Local Notification Methods

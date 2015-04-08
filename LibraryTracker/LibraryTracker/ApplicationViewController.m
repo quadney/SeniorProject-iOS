@@ -30,7 +30,6 @@
     }
     else if (![[ApplicationState sharedInstance] getRegions]) {
         // if regions do not exist, but the university does, then need to refresh the regions from the database
-        NSLog(@"Fetching Region data from database");
         
         [[LibwhereyClient sharedClient] getRegionsFromUniversityWithId:[[ApplicationState sharedInstance] getUniversityId] completion:^(BOOL success, NSError *__autoreleasing *error, NSArray *regions) {
             

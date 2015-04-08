@@ -31,7 +31,6 @@
     [loadingSpinner startAnimating];
     
     // connect to the api
-    NSLog(@"calling Libwherey client to get the unviersities");
     [[LibwhereyClient sharedClient] getUniversitiesWithCompletion:^(BOOL success, NSError *__autoreleasing *error, NSArray *universities) {
         // if success, set the universities accordingly
         if (success) {

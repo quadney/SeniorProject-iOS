@@ -111,7 +111,6 @@
         [self.locationManager startUpdatingLocation];
     }
 
-    NSLog(@"Current Location: %@", self.currentLocation);
     return self.currentLocation;
 }
 

@@ -85,20 +85,16 @@
 }
 
 - (void)updateRegions:(NSArray *)updatedRegions {
-    NSLog(@"Updating regions");
     if ([self.regions count] != [updatedRegions count]) {
         // the count is different, so need to track those new ones
-        NSLog(@"Regions are different");
         [self setNewRegionsToTrack:updatedRegions];
     }
     else {
-        NSLog(@"Regions are not different");
         self.regions = updatedRegions;
     }
 }
 
 - (void)setRegionsInLocationMonitorWithRegions:(NSArray *)regions {
-    NSLog(@"Setting the Regions to monitor");
     [[LocationMonitor sharedLocation] setRegionsToMonitor:regions];
 }
 
@@ -123,12 +119,14 @@
     for (Region *r in [self getRegions]) {
         if ([r.identifier isEqualToString:region.identifier]) {
             enteredRegion = r;
+            NSLog(@"CLCircularRegion Entered was: %@, with Region: %@", region, enteredRegion);
             // need to make sure that this is passing the actual Region and not like a copy or something
         }
     }
     
     if (enteredRegion) {
         // when user enters region, their state becomes "Roaming"
+        NSLog(@"Entered Region was not null, now setting the state to roaming");
         self.state = [[Roaming alloc] initWithRegion:enteredRegion];
     }
     

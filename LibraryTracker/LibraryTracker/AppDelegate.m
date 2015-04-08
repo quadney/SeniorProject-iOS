@@ -42,7 +42,6 @@
     
     [self showAlarm:notification.alertBody];
     application.applicationIconBadgeNumber = 0;
-    NSLog(@"AppDelegate didReceiveLocalNotification %@", notification.userInfo);
 }
 
 - (void)showAlarm:(NSString *)text {

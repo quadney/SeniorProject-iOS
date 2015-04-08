@@ -112,7 +112,6 @@
 - (CLLocation *)getCurrentLocation {
     if ([self checkLocationManagerPermissions]) {
         NSLog(@"PERMISSIONS ARE KOSHER Getting the user's location");
-        [self.locationManager startMonitoringSignificantLocationChanges];
         [self.locationManager startUpdatingLocation];
     }
 
@@ -177,7 +176,7 @@
     NSLog(@"Trying to get the current location: %@", locations);
     self.currentLocation = [locations lastObject];
     
-    [self.locationManager stopUpdatingLocation];
+    //[self.locationManager stopUpdatingLocation];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {

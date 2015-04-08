@@ -19,6 +19,6 @@
 
 - (Region *)createRegionWithIdentifier:(NSString *)identifier latitude:(float)latitude longitude:(float)longitude radius:(CLLocationDistance)radius idNumber:(int)idNum zones:(NSArray *)zones;
 
-- (Zone *)createZoneWithIdentifier:(NSString *)identifier idNumber:(int)idNum bssidData:(NSArray *)bssidData currentPopulation:(int)currentPop maxCapacity:(int)capacity altitude:(float)altitude;
+- (Zone *)createZoneWithIdentifier:(NSString *)identifier idNumber:(int)idNum bssidData:(NSArray *)bssidData currentPopulation:(int)currentPop maxCapacity:(int)capacity;
 
 @end

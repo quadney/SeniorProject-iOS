@@ -10,14 +10,13 @@
 
 @implementation Zone
 
-- (id)initWithIdentifier:(NSString *)identifier wifiBssidValues:(NSArray *)bssids idNumber:(int)idNum currentPopulation:(int)currentPop capacity:(int)maxCapacity altitude:(float)altitude{
+- (id)initWithIdentifier:(NSString *)identifier wifiBssidValues:(NSArray *)bssids idNumber:(int)idNum currentPopulation:(int)currentPop capacity:(int)maxCapacity{
     if (self = [super init]) {
         self.idNumber = idNum;
         self.identifier = identifier;
         self.bssidWifiData = bssids;
         self.currentPopulation = currentPop;
         self.maxCapacity = maxCapacity;
-        self.altitude = altitude;
     }
     return self;
 }

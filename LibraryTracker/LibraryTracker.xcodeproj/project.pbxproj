@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C918C0781A82D09800821BC7 /* RegionDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C918C0771A82D09800821BC7 /* RegionDetailViewController.m */; };
+		C92F402F1AD5D3A7003DCC08 /* RegionIdentificationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C92F402E1AD5D3A7003DCC08 /* RegionIdentificationHelper.m */; };
 		C9330D081A7EF96A00B792E8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C9330D071A7EF96A00B792E8 /* main.m */; };
 		C9330D0B1A7EF96A00B792E8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9330D0A1A7EF96A00B792E8 /* AppDelegate.m */; };
 		C9330D111A7EF96A00B792E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9330D0F1A7EF96A00B792E8 /* Main.storyboard */; };
@@ -61,6 +62,8 @@
 /* Begin PBXFileReference section */
 		C918C0761A82D09800821BC7 /* RegionDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegionDetailViewController.h; sourceTree = "<group>"; };
 		C918C0771A82D09800821BC7 /* RegionDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegionDetailViewController.m; sourceTree = "<group>"; };
+		C92F402D1AD5D3A7003DCC08 /* RegionIdentificationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegionIdentificationHelper.h; sourceTree = "<group>"; };
+		C92F402E1AD5D3A7003DCC08 /* RegionIdentificationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegionIdentificationHelper.m; sourceTree = "<group>"; };
 		C9330D021A7EF96A00B792E8 /* LibraryTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LibraryTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9330D061A7EF96A00B792E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9330D071A7EF96A00B792E8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -288,6 +291,8 @@
 				C96EEDC91A8476410010DC90 /* AddRegionViewController.m */,
 				C9EBA40D1A8D31A70041C68B /* KeyboardViewController.h */,
 				C9EBA40E1A8D31A70041C68B /* KeyboardViewController.m */,
+				C92F402D1AD5D3A7003DCC08 /* RegionIdentificationHelper.h */,
+				C92F402E1AD5D3A7003DCC08 /* RegionIdentificationHelper.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -432,6 +437,7 @@
 				C9330D0B1A7EF96A00B792E8 /* AppDelegate.m in Sources */,
 				C96EEDCA1A8476410010DC90 /* AddRegionViewController.m in Sources */,
 				C9A38AB71A7F0E110065DE8D /* InRegionLS.m in Sources */,
+				C92F402F1AD5D3A7003DCC08 /* RegionIdentificationHelper.m in Sources */,
 				C9EBA40F1A8D31A70041C68B /* KeyboardViewController.m in Sources */,
 				C9A38A9F1A7F095C0065DE8D /* ApplicationViewController.m in Sources */,
 				C9A38A991A7F02AB0065DE8D /* RegionMapViewController.m in Sources */,

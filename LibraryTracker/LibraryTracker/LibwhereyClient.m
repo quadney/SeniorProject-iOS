@@ -215,8 +215,7 @@
                                                                          idNumber:(int)[[zoneObj objectForKey:@"id"] longValue]
                                                                         bssidData:bssids
                                                                 currentPopulation:(int)[[zoneObj objectForKey:@"current_population"] longValue]
-                                                                      maxCapacity:(int)[[zoneObj objectForKey:@"max_capacity"] longValue]
-                                                                         altitude:[[zoneObj objectForKey:@"gps_altitude"] floatValue]]];
+                                                                      maxCapacity:(int)[[zoneObj objectForKey:@"max_capacity"] longValue]]];
         }
         [regions addObject:[[ModelFactory modelStore] createRegionWithIdentifier:[obj objectForKey:@"identifier"]
                                                                         latitude:[[obj objectForKey:@"latitude"] floatValue]

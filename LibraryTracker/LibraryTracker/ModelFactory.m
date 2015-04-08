@@ -28,8 +28,8 @@
     return [[Region alloc] initWithIdentifier:identifier centerLatitude:latitude centerLongitude:longitude radius:radius idNumber:idNum andZones:zones];
 }
 
-- (Zone *)createZoneWithIdentifier:(NSString *)identifier idNumber:(int)idNum bssidData:(NSArray *)bssidData currentPopulation:(int)currentPop maxCapacity:(int)capacity altitude:(float)altitude {
-    return [[Zone alloc] initWithIdentifier:identifier wifiBssidValues:bssidData idNumber:idNum currentPopulation:currentPop capacity:capacity altitude:altitude];
+- (Zone *)createZoneWithIdentifier:(NSString *)identifier idNumber:(int)idNum bssidData:(NSArray *)bssidData currentPopulation:(int)currentPop maxCapacity:(int)capacity {
+    return [[Zone alloc] initWithIdentifier:identifier wifiBssidValues:bssidData idNumber:idNum currentPopulation:currentPop capacity:capacity];
 }
 
 @end

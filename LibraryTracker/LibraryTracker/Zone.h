@@ -15,8 +15,7 @@
 @property (nonatomic, strong) NSArray *bssidWifiData;
 @property int currentPopulation;
 @property int maxCapacity;
-@property float altitude;
 
-- (id)initWithIdentifier:(NSString *)identifier wifiBssidValues:(NSArray *)bssids idNumber:(int)idNum currentPopulation:(int)currentPop capacity:(int)maxCapacity altitude:(float)altitude;
+- (id)initWithIdentifier:(NSString *)identifier wifiBssidValues:(NSArray *)bssids idNumber:(int)idNum currentPopulation:(int)currentPop capacity:(int)maxCapacity;
 
 @end

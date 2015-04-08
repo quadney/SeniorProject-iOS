@@ -93,18 +93,20 @@
             }
         }
         else {
-            NSJSONSerialization *jsonData = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-            NSArray *results = [self universityWithJSONData:jsonData];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSJSONSerialization *jsonData = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+                NSArray *results = [self universityWithJSONData:jsonData];
             
-            if (completionBlock) {
-                completionBlock(YES, nil, results);
-            }
-            
-            else {
                 if (completionBlock) {
-                    completionBlock(NO, nil, nil);
+                    completionBlock(YES, nil, results);
                 }
-            }
+            
+                else {
+                    if (completionBlock) {
+                        completionBlock(NO, nil, nil);
+                    }
+                }
+            });
         }
     }];
     
@@ -129,18 +131,20 @@
             }
         }
         else {
-            NSJSONSerialization *jsonData = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-            NSArray *results = [self regionsWithJSONData:jsonData];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSJSONSerialization *jsonData = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+                NSArray *results = [self regionsWithJSONData:jsonData];
             
-            if (completionBlock) {
-                completionBlock(YES, nil, results);
-            }
-            
-            else {
                 if (completionBlock) {
-                    completionBlock(NO, nil, nil);
+                    completionBlock(YES, nil, results);
                 }
-            }
+            
+                else {
+                    if (completionBlock) {
+                        completionBlock(NO, nil, nil);
+                    }
+                }
+            });
         }
     }];
     

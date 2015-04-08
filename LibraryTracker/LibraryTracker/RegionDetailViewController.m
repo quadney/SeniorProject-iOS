@@ -11,7 +11,6 @@
 
 @interface RegionDetailViewController () <UITableViewDataSource, UITableViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UILabel *regionNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *populationLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -23,7 +22,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.regionNameLabel.text = self.region.identifier;
+    self.navigationItem.title = self.region.identifier;
     self.populationLabel.text = [NSString stringWithFormat:@"%i/%i", [self.region calculateCurrentPopulation], self.region.totalCapacity];
 }
 

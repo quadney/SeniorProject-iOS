@@ -176,7 +176,7 @@
     NSLog(@"Trying to get the current location: %@", locations);
     self.currentLocation = [locations lastObject];
     
-    //[self.locationManager stopUpdatingLocation];
+    [self.locationManager stopUpdatingLocation];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {

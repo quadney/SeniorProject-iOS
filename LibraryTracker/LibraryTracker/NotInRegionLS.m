@@ -19,6 +19,11 @@
     
 }
 
+- (Region *)getRegion {
+    NSLog(@"returning nil because user is not in a region");
+    return nil;
+}
+
 - (void)regionConfirmed; {
     @throw [NSException exceptionWithName:@"IllegalState"
                                    reason:@"User cannot be confirmed in a region is they are not in a region"

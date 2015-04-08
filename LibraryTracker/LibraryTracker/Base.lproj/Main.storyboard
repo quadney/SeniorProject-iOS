@@ -450,6 +450,12 @@
                             <constraint firstItem="SBd-wf-GhT" firstAttribute="leading" secondItem="ouc-ek-ACx" secondAttribute="leadingMargin" id="vhP-WE-7uZ"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="bssidLabel" destination="8AQ-tF-JXF" id="tiy-1a-t1a"/>
+                        <outlet property="locationLabel" destination="Ipw-VH-q8E" id="fd3-Wj-JBX"/>
+                        <outlet property="regionLabel" destination="SBd-wf-GhT" id="bGc-1N-Koh"/>
+                        <outlet property="zoneLabel" destination="MNi-Nd-u6s" id="NQu-MY-Asj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0XE-NN-zOL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

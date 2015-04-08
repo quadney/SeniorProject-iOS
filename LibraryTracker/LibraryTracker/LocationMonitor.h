@@ -19,7 +19,8 @@
 - (void)clearRegionsMonitoring;
 
 - (NSSet *)getMonitoredRegions;
-
 - (CLLocation *)getCurrentLocation;
+
+- (NSString *)getCurrentBSSID;
 
 @end

@@ -104,7 +104,9 @@
 
 - (Region *)getUserCurrentRegion {
     NSLog(@"TODO make sure this is correct, ApplicationState, Get User Current Region");
-    return [self.state getRegion];
+    Region *r = [self.state getRegion];
+    NSLog(@"Region retrieved from state: %@", r);
+    return r;
 }
 
 - (void)userEnteredRegion:(CLCircularRegion *)region {

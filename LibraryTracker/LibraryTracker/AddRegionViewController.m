@@ -46,9 +46,9 @@
 }
 
 - (void)updateCurrentLocationLabel {
-    CLLocation *currentLocation = [self getUserLocation];
+    CLLocation *location = [self getUserLocation];
     
-    self.currentLocationLabel.text = [[NSString alloc] initWithFormat:@"Latitude: %f\nLongitude: %f", currentLocation.coordinate.latitude, currentLocation.coordinate.longitude];
+    self.currentLocationLabel.text = [[NSString alloc] initWithFormat:@"Latitude: %f\nLongitude: %f\nAltitude: %f", location.coordinate.latitude, location.coordinate.longitude, location.altitude];
 }
 
 @end

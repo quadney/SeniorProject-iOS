@@ -7,11 +7,10 @@
 //
 
 #import "ApplicationViewController.h"
-#import "RegionMapViewController.h"
-#import "RegionTableViewController.h"
+
 #import "ApplicationState.h"
 #import "SelectUniversityTableViewController.h"
-#import "LocationMonitor.h"
+#import "LibwhereyClient.h"
 
 @interface ApplicationViewController ()
 
@@ -22,17 +21,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // if university is not selected
-    if ( ![[ApplicationState sharedInstance] university] ) {
+    // if university is not selected or saved
+    if ( ![[ApplicationState sharedInstance] getUniversity] ) {
         //load the University selection controller
         SelectUniversityTableViewController *univ = [self.storyboard instantiateViewControllerWithIdentifier:@"SelectUniversityVC"];
         
-        [self.parentViewController presentViewController:univ animated:YES completion:^{
+        [self.parentViewController presentViewController:univ animated:YES completion:nil];
+    }
+    else if (![[ApplicationState sharedInstance] getRegions]) {
+        // if regions do not exist, but the university does, then need to refresh the regions from the database
+        NSLog(@"Fetching Region data from database");
+        
+        [[LibwhereyClient sharedClient] getRegionsFromUniversityWithId:[[ApplicationState sharedInstance] getUniversityId] completion:^(BOOL success, NSError *__autoreleasing *error, NSArray *regions) {
             
+            if (success) {
+                [[ApplicationState sharedInstance] setRegions:regions];
+            }
         }];
     }
     
-    self.navigationItem.title = [[[ApplicationState sharedInstance] university] name];
+    self.navigationItem.title = [[[ApplicationState sharedInstance] getUniversity] name];
 }
 
 @end

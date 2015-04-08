@@ -7,15 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Region.h"
 
 @interface University : NSObject
 
-@property NSArray *regions;
 @property NSString *name;
-@property CLLocation *location;
+@property float latitude;
+@property float longitude;
 @property int idNum;
 
-- (id)initWithName:(NSString *)name latitude:(float)latitude longitude:(float)longitude regions:(NSArray *)regions idNumber:(int)idNum;
+- (id)initWithName:(NSString *)name latitude:(float)latitude longitude:(float)longitude idNumber:(int)idNum;
+- (BOOL)saveSelfInUserDefaults;
 
 @end

@@ -19,17 +19,25 @@
 @interface ApplicationState : NSObject
 
 + (id)sharedInstance;
-@property (nonatomic, strong) LocationState *state; 
-@property (nonatomic, strong) University *university;
 
-// update the regions that the unviersity has
-- (void)setUniversityRegions:(NSArray *)regions;
+//sets the university
+- (void)setUniversity:(University *)university;
+
+- (BOOL)saveUniversityDefaults;
+
+// gets the university
+- (University *)getUniversity;
 
 // returns the University id in the database
 - (int)getUniversityId;
 
-// returns the Regions that are associated with the Unviersity
-- (NSMutableArray *)getRegions;
+// update the regions that the unviersity has
+- (void)setRegions:(NSArray *)regions;
+
+// returns the Regions
+- (NSArray *)getRegions;
+
+- (void)updateRegions:(NSArray *)updatedRegions;
 
 // returns the Region that the User is currently in, if any
 - (Region *)getUserCurrentRegion;

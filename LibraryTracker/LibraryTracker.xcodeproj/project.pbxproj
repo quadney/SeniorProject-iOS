@@ -256,15 +256,15 @@
 		C9A38AA41A7F0A080065DE8D /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C9AFBE131AD36FA6009638CC /* Zone.h */,
-				C9AFBE141AD36FA6009638CC /* Zone.m */,
 				C9A38ABE1A7F0E7F0065DE8D /* ApplicationState.h */,
 				C9A38ABF1A7F0E7F0065DE8D /* ApplicationState.m */,
 				C9A38AAE1A7F0DD30065DE8D /* LocationState */,
-				C9A38AA51A7F0A740065DE8D /* Region.h */,
-				C9A38AA61A7F0A740065DE8D /* Region.m */,
 				C9A38AAB1A7F0D560065DE8D /* University.h */,
 				C9A38AAC1A7F0D560065DE8D /* University.m */,
+				C9A38AA51A7F0A740065DE8D /* Region.h */,
+				C9A38AA61A7F0A740065DE8D /* Region.m */,
+				C9AFBE131AD36FA6009638CC /* Zone.h */,
+				C9AFBE141AD36FA6009638CC /* Zone.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";

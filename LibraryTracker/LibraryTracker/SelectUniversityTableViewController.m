@@ -80,13 +80,14 @@
     // sets the University to the ApplicationState,
     // but this Unviersity doesn't know about it's regions
     [[ApplicationState sharedInstance] setUniversity:[self.universities objectAtIndex:indexPath.row]];
+    [[ApplicationState sharedInstance] saveUniversityDefaults];
     
     // now that the application knows which university to track, we need to refresh the Regions
     // this is going to be here, because this needs to happen whenever the user chooses a new University
     [[LibwhereyClient sharedClient] getRegionsFromUniversityWithId:[[ApplicationState sharedInstance] getUniversityId] completion:^(BOOL success, NSError *__autoreleasing *error, NSArray *regions) {
     
         if (success) {
-            [[ApplicationState sharedInstance] setUniversityRegions:regions];
+            [[ApplicationState sharedInstance] setRegions:regions];
         }
     }];
     

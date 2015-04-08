@@ -10,6 +10,7 @@
 
 #import "ApplicationState.h"
 #import "SelectUniversityTableViewController.h"
+#import "LibwhereyClient.h"
 
 @interface ApplicationViewController ()
 
@@ -27,10 +28,17 @@
         
         [self.parentViewController presentViewController:univ animated:YES completion:nil];
     }
-//    else if (![[ApplicationState sharedInstance] getRegions]) {
-//        // if regions do not exist, but the university does, then need to refresh the regions from the database
-//        
-//    }
+    else if (![[ApplicationState sharedInstance] getRegions]) {
+        // if regions do not exist, but the university does, then need to refresh the regions from the database
+        NSLog(@"Fetching Region data from database");
+        
+        [[LibwhereyClient sharedClient] getRegionsFromUniversityWithId:[[ApplicationState sharedInstance] getUniversityId] completion:^(BOOL success, NSError *__autoreleasing *error, NSArray *regions) {
+            
+            if (success) {
+                [[ApplicationState sharedInstance] setRegions:regions];
+            }
+        }];
+    }
     
     self.navigationItem.title = [[[ApplicationState sharedInstance] getUniversity] name];
 }

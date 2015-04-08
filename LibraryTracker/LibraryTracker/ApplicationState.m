@@ -55,18 +55,17 @@
 }
 
 - (BOOL)saveUniversityDefaults {
-    NSLog(@"Saving University values");
     [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"university_existence"];
+    
     return [self.university saveSelfInUserDefaults];
 }
 
 - (void)loadUniversityFromUserDefaults {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.university = [[ModelFactory modelStore] createUniversityWithName:[defaults valueForKey:@"university_name"]
-                                                                 latitude:[[defaults valueForKey:@"university_latitude"] floatValue]
-                                                                longitude:[[defaults valueForKey:@"university_longitude"] floatValue]
-                                                                 idNumber:(int)[[defaults valueForKey:@"university_idNum"] integerValue]];
-    NSLog(@"Loaded university from NSUserDefaults: %@", self.university);
+                                                                 latitude:[defaults floatForKey:@"university_latitude"]
+                                                                longitude:[defaults floatForKey:@"university_longitude"]
+                                                                 idNumber:(int)[defaults integerForKey:@"university_idNum"]];
 }
 
 - (University *)getUniversity {

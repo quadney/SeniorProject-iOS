@@ -21,13 +21,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSLog(@"Regions: %@", [[ApplicationState sharedInstance] getRegions]);
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refreshRegions:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:refreshControl];
     
     [self.tableView reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [self.tableView reloadData];
+}
+
+- (void)refreshRegions:(id)sender {
+    NSLog(@"Refreshing regions");
 }
 
 #pragma mark - Table view data source
@@ -53,8 +59,6 @@
     cell.contentView.backgroundColor =  [self convertRegionPopulationToColorWithCurrentPop:[region calculateCurrentPopulation]
                                                                             andMaxCapacity:[region totalCapacity]];
     cell.textLabel.backgroundColor = [UIColor clearColor];
-    
-    NSLog(@"Region: %@, maxCapacity: %i, currentPop: %i", region.identifier, region.totalCapacity, [region calculateCurrentPopulation]);
     
     return cell;
 }

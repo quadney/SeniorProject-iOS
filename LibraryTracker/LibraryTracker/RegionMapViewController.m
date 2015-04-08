@@ -44,9 +44,7 @@
     self.mapView.myLocationEnabled = YES;
     self.mapView.settings.compassButton = YES;
     self.mapView.settings.myLocationButton = YES;
-    self.mapView.delegate = self;
-    
-    NSLog(@"GOOGLE MAPS CURRENT LOCATION: %@", [self.mapView myLocation]);
+    self.mapView.delegate = self;    
 }
 
 - (void)placeGoogleMapMarkers:(NSMutableArray *)markerLocations {
@@ -64,7 +62,6 @@
     // this can actually be accomplished with the CLRegion interface
     for (Region *region in [[ApplicationState sharedInstance] getRegions]) {
         if ([region containsCoordinate:coordinate]) {
-            NSLog(@"Tapped region with identifier: %@", region.identifier);
             // now that we tapped a region, let's display the RegionDetailViewController
             
             RegionDetailViewController *detail = (RegionDetailViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"RegionDetailViewController"];

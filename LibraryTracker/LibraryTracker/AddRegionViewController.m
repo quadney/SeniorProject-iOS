@@ -27,28 +27,21 @@
     self.parentViewController.navigationItem.title = @"Add Region";
     self.currentLocationLabel.text = @"";
     
-    [self configureGoogleMapsWithLocation:[self getUserLocation] zoomLevel:6];
+    [self configureGoogleMapsWithLocation:[[LocationMonitor sharedLocation] getCurrentLocation] zoomLevel:6];
 }
 
-- (CLLocationCoordinate2D)getUserLocation {
-    
-    return [[LocationMonitor sharedLocation] getCurrentLocation].coordinate;
-}
 
-- (void)configureGoogleMapsWithLocation:(CLLocationCoordinate2D)location zoomLevel:(int)zoom {
+- (void)configureGoogleMapsWithLocation:(CLLocation *)location zoomLevel:(int)zoom {
     self.mapView.myLocationEnabled = YES;
     self.mapView.mapType = kGMSTypeNormal;
     self.mapView.delegate = self;
     
-    self.currentLocationLabel.text = [[NSString alloc] initWithFormat:@"Latitude: %f\nLongitude: %f", location.latitude, location.longitude];
+    self.currentLocationLabel.text = [[NSString alloc] initWithFormat:@"Latitude: %f\nLongitude: %f\nAltitude: %f", location.coordinate.latitude, location.coordinate.longitude, location.altitude];
 }
 
 - (IBAction)addRegionWasPressed:(id)sender {
-    // add Region to the model (this should be done in the backend when ready)
-//    [[ApplicationState sharedInstance] addRegionWithName:self.regionTextField.text
-//                                                location:[[LocationMonitor sharedLocation] getCurrentLocation]
-//                                                  radius:50];
-    [self.navigationController popViewControllerAnimated:YES];
+    CLLocation *location = [[LocationMonitor sharedLocation] getCurrentLocation];
+    self.currentLocationLabel.text = [[NSString alloc] initWithFormat:@"Latitude: %f\nLongitude: %f\nAltitude: %f", location.coordinate.latitude, location.coordinate.longitude, location.altitude];
 }
 
 @end

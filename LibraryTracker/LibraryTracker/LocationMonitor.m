@@ -92,10 +92,6 @@
     if ([self checkLocationManagerPermissions]) {
         [self.locationManager startUpdatingLocation];
     }
-    
-    [self.locationManager stopUpdatingLocation];
-    
-   
 
     return self.currentLocation;
 }
@@ -161,7 +157,9 @@
 #pragma mark - CLLocationManagerDelegate methods - CurrentLocation stuff
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    self.currentLocation = [locations objectAtIndex:0];
+    self.currentLocation = [locations lastObject];
+    
+    [self.locationManager stopUpdatingLocation];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {

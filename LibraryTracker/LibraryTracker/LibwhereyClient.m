@@ -194,11 +194,11 @@
         "identifier":"Architecture and Fine Arts Library", "latitude":29.648167, "longitude":-82.340596, "current_population":0, "total_capacity":0, "created_at":"2015-03-29T21:56:16.734Z", "updated_at":"2015-03-29T21:56:16.734Z", "university_id":1}...] */
     NSMutableArray *regions = [[NSMutableArray alloc] init];
     for (NSDictionary *obj in jsonData) {
-        [regions addObject:[[Region alloc] initWithIdentifier:[obj objectForKey:@"identifier"]
-                                               centerLatitude:[[obj objectForKey:@"latitude"] floatValue]
-                                              centerLongitude:[[obj objectForKey:@"longitude"] floatValue]
-                                                       radius:50.0
-                                                     idNumber:[[obj objectForKey:@"id"] integerValue]]];
+//        [regions addObject:[[Region alloc] initWithIdentifier:[obj objectForKey:@"identifier"]
+//                                               centerLatitude:[[obj objectForKey:@"latitude"] floatValue]
+//                                              centerLongitude:[[obj objectForKey:@"longitude"] floatValue]
+//                                                       radius:50.0
+//                                                     idNumber:[[obj objectForKey:@"id"] integerValue]]];
     }
     
     return [NSArray arrayWithArray:regions];
@@ -214,7 +214,7 @@
                                                         latitude:[[obj objectForKey:@"latitude"] floatValue]
                                                        longitude:[[obj objectForKey:@"longitude"] floatValue]
                                                          regions:nil
-                                                        idNumber:[[obj objectForKey:@"id"] integerValue]]];
+                                                        idNumber:(int)[obj objectForKey:@"id"]]];
     }
     return [NSArray arrayWithArray:universities];
 }

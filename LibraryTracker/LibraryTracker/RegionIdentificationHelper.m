@@ -37,6 +37,9 @@
     NSLog(@"Querying the zones of the region");
     for (Zone *zone in [currentRegion zones]) {
         // go through each zone to see if BSSID matches
+        if ([zone.identifier isEqualToString:@"Unknown Floor"]) {
+            return zone;
+        }
         for (NSString *bssid in [zone bssidWifiData]) {
             if ([bssid isEqualToString:currentBssid]) {
                 // found it
@@ -44,7 +47,7 @@
             }
         }
     }
-    
+    // if the wifi is not on, then return unknown zone
     return nil;
 }
 

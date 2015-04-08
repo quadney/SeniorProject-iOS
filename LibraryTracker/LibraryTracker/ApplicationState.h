@@ -32,7 +32,7 @@
 - (int)getUniversityId;
 
 // update the regions that the unviersity has
-- (void)setRegions:(NSArray *)regions;
+- (void)setNewRegionsToTrack:(NSArray *)regions;
 
 // returns the Regions
 - (NSArray *)getRegions;

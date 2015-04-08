@@ -35,7 +35,7 @@
         [[LibwhereyClient sharedClient] getRegionsFromUniversityWithId:[[ApplicationState sharedInstance] getUniversityId] completion:^(BOOL success, NSError *__autoreleasing *error, NSArray *regions) {
             
             if (success) {
-                [[ApplicationState sharedInstance] setRegions:regions];
+                [[ApplicationState sharedInstance] setNewRegionsToTrack:regions];
             }
         }];
     }

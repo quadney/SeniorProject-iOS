@@ -76,21 +76,30 @@
     return [self.university idNum];
 }
 
-- (void)setRegions:(NSArray *)regions {
+- (void)setNewRegionsToTrack:(NSArray *)regions {
     // when new regions are set, need to also change what is being monitored
-    _regions = regions;
+    self.regions = regions;
     
     // when the regions that the app is tracking is updated, we need to also refresh the RegionTableView and RegionMapView Controller's
     [self setRegionsInLocationMonitorWithRegions:regions];
 }
 
+- (void)updateRegions:(NSArray *)updatedRegions {
+    NSLog(@"Updating regions");
+    if ([self.regions count] != [updatedRegions count]) {
+        // the count is different, so need to track those new ones
+        NSLog(@"Regions are different");
+        [self setNewRegionsToTrack:updatedRegions];
+    }
+    else {
+        NSLog(@"Regions are not different");
+        self.regions = updatedRegions;
+    }
+}
+
 - (void)setRegionsInLocationMonitorWithRegions:(NSArray *)regions {
     NSLog(@"Setting the Regions to monitor");
     [[LocationMonitor sharedLocation] setRegionsToMonitor:regions];
-}
-
-- (void)updateRegions:(NSArray *)updatedRegions {
-    NSLog(@"TODO update regions method");
 }
 
 - (NSArray *)getRegions {

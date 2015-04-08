@@ -92,7 +92,7 @@
 - (void)setRegionsToMonitor:(NSArray *)regions {
     // clear out the current regions that it's monitoring
     [self clearRegionsMonitoring];
-    
+        
     // add each of the regions
     [self addRegionsToMonitor:regions];
     

@@ -31,11 +31,19 @@
 - (void)refreshRegions:(id)sender {
     NSLog(@"Refreshing regions");
     
-    
-    if(self.refreshControl)
-        [self.refreshControl endRefreshing];
-    
-//    [LibwhereyClient sharedClient] 
+    //[self.refreshControl beginRefreshing]
+    [[LibwhereyClient sharedClient] getRegionsFromUniversityWithId:[[ApplicationState sharedInstance] getUniversityId] completion:^(BOOL success, NSError *__autoreleasing *error, NSArray *regions) {
+        
+        if (success) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [[ApplicationState sharedInstance] updateRegions:regions];
+                
+                [self.refreshControl endRefreshing];
+                [self.tableView reloadData];
+            });
+        }
+    }];
     
 }
 

@@ -16,5 +16,6 @@
 @property int idNum;
 
 - (id)initWithName:(NSString *)name latitude:(float)latitude longitude:(float)longitude idNumber:(int)idNum;
+- (BOOL)saveSelfInUserDefaults;
 
 @end

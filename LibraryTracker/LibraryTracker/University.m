@@ -21,4 +21,14 @@
     return self;
 }
 
+- (BOOL)saveSelfInUserDefaults {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setValue:self.name forKey:@"university_name"];
+    [defaults setFloat:self.latitude forKey:@"university_latitude"];
+    [defaults setFloat:self.longitude forKey:@"university_longitude"];
+    [defaults setInteger:self.idNum forKey:@"university_idNum"];
+    return [defaults synchronize];
+}
+
 @end

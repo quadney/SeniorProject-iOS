@@ -42,14 +42,36 @@
     if (self) {
         // set the LocationState to be the default
         self.state = [[NotInRegionLS alloc] init];
+        
+        //check if there is a university in the NSUserDefaults
+        
+        if ([[NSUserDefaults standardUserDefaults] valueForKey:@"university_existence"]) {
+            NSLog(@"University exists in plist");
+            [self loadUniversityFromUserDefaults];
+        }
+        
     }
     return self;
+}
+
+- (BOOL)saveUniversityDefaults {
+    NSLog(@"Saving University values");
+    [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"university_existence"];
+    return [self.university saveSelfInUserDefaults];
+}
+
+- (void)loadUniversityFromUserDefaults {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    self.university = [[ModelFactory modelStore] createUniversityWithName:[defaults valueForKey:@"university_name"]
+                                                                 latitude:[[defaults valueForKey:@"university_latitude"] floatValue]
+                                                                longitude:[[defaults valueForKey:@"university_longitude"] floatValue]
+                                                                 idNumber:(int)[[defaults valueForKey:@"university_idNum"] integerValue]];
+    NSLog(@"Loaded university from NSUserDefaults: %@", self.university);
 }
 
 - (University *)getUniversity {
     return self.university;
 }
-
 
 - (int)getUniversityId {
     return [self.university idNum];

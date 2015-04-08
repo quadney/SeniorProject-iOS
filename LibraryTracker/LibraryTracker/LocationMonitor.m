@@ -48,15 +48,12 @@
         self.locationManager.delegate = self;
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
         
-        [self.locationManager startUpdatingLocation];
-        
         if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
             [self.locationManager requestAlwaysAuthorization];
         }
         
         [self checkLocationManagerPermissions];
         
-        [self.locationManager startMonitoringSignificantLocationChanges];
         [self.locationManager startUpdatingLocation];
     }
     
@@ -111,7 +108,6 @@
 
 - (CLLocation *)getCurrentLocation {
     if ([self checkLocationManagerPermissions]) {
-        NSLog(@"PERMISSIONS ARE KOSHER Getting the user's location");
         [self.locationManager startUpdatingLocation];
     }
 
@@ -128,7 +124,6 @@
 - (void)checkIfAlreadyInRegion {
     [self getCurrentLocation];
     
-    NSLog(@"Checking if user is already in a location, current location: %@", self.currentLocation);
     for (CLCircularRegion *region in [self.locationManager monitoredRegions]) {
         if ([region containsCoordinate:self.currentLocation.coordinate]) {
             
@@ -146,7 +141,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region {
     
-    NSLog(@"Started monitoring %@", region.identifier);
+    //NSLog(@"Started monitoring %@", region.identifier);
 }
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
@@ -173,7 +168,6 @@
 #pragma mark - CLLocationManagerDelegate methods - CurrentLocation stuff
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    NSLog(@"Trying to get the current location: %@", locations);
     self.currentLocation = [locations lastObject];
     
     [self.locationManager stopUpdatingLocation];

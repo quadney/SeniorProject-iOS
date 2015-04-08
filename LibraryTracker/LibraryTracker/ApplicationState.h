@@ -23,6 +23,8 @@
 //sets the university
 - (void)setUniversity:(University *)university;
 
+- (BOOL)saveUniversityDefaults;
+
 // gets the university
 - (University *)getUniversity;
 

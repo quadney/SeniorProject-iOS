@@ -18,6 +18,8 @@
     // probably having to do with threads and shit
     
     self = [super initWithRegion:region];
+    self.pastBSSIDs = [[NSMutableArray alloc] init];
+    self.pastZones = [[NSMutableArray alloc] init];
     
     return self;
 }

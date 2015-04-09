@@ -34,7 +34,9 @@
 - (int)calculateTotalCapacity {
     int capacity = 0;
     for (Zone *zone in self.zones) {
-        capacity += zone.maxCapacity;
+        if (![zone.identifier isEqualToString:@"Unknown Floor"]) {
+            capacity += zone.maxCapacity;
+        }
     }
     return capacity;
 }

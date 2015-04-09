@@ -41,6 +41,9 @@
     Zone *zone = [[self.region zones] objectAtIndex:indexPath.row];
     cell.textLabel.text = zone.identifier;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%i/%i", zone.currentPopulation, zone.maxCapacity];
+    if ([zone.identifier isEqualToString:@"Unknown Floor"]) {
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%i", zone.currentPopulation];
+    }
     cell.contentView.backgroundColor =  [[ApplicationState sharedInstance] convertRegionPopulationToColorWithCurrentPop:zone.currentPopulation
                                                                             andMaxCapacity:zone.maxCapacity];
     cell.textLabel.backgroundColor = [UIColor clearColor];

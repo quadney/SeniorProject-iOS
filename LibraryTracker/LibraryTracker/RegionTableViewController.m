@@ -69,7 +69,10 @@
     cell.textLabel.text = [region identifier];
     cell.contentView.backgroundColor =  [[ApplicationState sharedInstance] convertRegionPopulationToColorWithCurrentPop:[region calculateCurrentPopulation]
                                                                             andMaxCapacity:[region totalCapacity]];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%i/%i", [region calculateCurrentPopulation], [region totalCapacity]];
+    
     cell.textLabel.backgroundColor = [UIColor clearColor];
+    cell.detailTextLabel.backgroundColor = [UIColor clearColor];
     
     return cell;
 }

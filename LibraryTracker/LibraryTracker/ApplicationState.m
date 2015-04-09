@@ -139,6 +139,28 @@
     self.state = [[NotInRegionLS alloc] init];
 }
 
+- (Zone *)getCurrentZone {
+    Region *currentRegion = [self getUserCurrentRegion];
+    NSString *currentBssid = [[LocationMonitor sharedLocation] getCurrentBSSID];
+    
+    NSLog(@"Querying the zones of the region");
+    for (Zone *zone in [currentRegion zones]) {
+        // go through each zone to see if BSSID matches
+        if ([zone.identifier isEqualToString:@"Unknown Floor"]) {
+            // if the wifi is not on, then return unknown zone
+            return zone;
+        }
+        for (NSString *bssid in [zone bssidWifiData]) {
+            if ([bssid isEqualToString:currentBssid]) {
+                // found it
+                return zone;
+            }
+        }
+    }
+    
+    return nil;
+}
+
 - (UIColor *)convertRegionPopulationToColorWithCurrentPop:(int)currentPopulation andMaxCapacity:(int)maxCapacity {
     // hue of 0.0 == RED hue of .33 = GREEN
     // so the color needs to be between that, divide the color

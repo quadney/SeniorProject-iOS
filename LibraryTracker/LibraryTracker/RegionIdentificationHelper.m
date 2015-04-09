@@ -27,28 +27,7 @@
     self.locationLabel.text = [NSString stringWithFormat:@"Location: lat: %f, long: %f", [[LocationMonitor sharedLocation] getCurrentLocation].coordinate.latitude, [[LocationMonitor sharedLocation] getCurrentLocation].coordinate.longitude];
     self.regionLabel.text = [NSString stringWithFormat:@"Region: %@", [[ApplicationState sharedInstance] getUserCurrentRegion].identifier];
     self.bssidLabel.text = [NSString stringWithFormat:@"BSSID: %@", [[LocationMonitor sharedLocation] getCurrentBSSID]];
-    self.zoneLabel.text = [NSString stringWithFormat:@"Zone: %@", [self getCurrentZone].identifier];
-}
-
-- (Zone *)getCurrentZone {
-    Region *currentRegion = [[ApplicationState sharedInstance] getUserCurrentRegion];
-    NSString *currentBssid = [[LocationMonitor sharedLocation] getCurrentBSSID];
-    
-    NSLog(@"Querying the zones of the region");
-    for (Zone *zone in [currentRegion zones]) {
-        // go through each zone to see if BSSID matches
-        if ([zone.identifier isEqualToString:@"Unknown Floor"]) {
-            return zone;
-        }
-        for (NSString *bssid in [zone bssidWifiData]) {
-            if ([bssid isEqualToString:currentBssid]) {
-                // found it
-                return zone;
-            }
-        }
-    }
-    // if the wifi is not on, then return unknown zone
-    return nil;
+    self.zoneLabel.text = [NSString stringWithFormat:@"Zone: %@", [[ApplicationState sharedInstance] getCurrentZone].identifier];
 }
 
 @end

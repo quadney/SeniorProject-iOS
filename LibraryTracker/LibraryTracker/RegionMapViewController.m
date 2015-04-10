@@ -28,6 +28,7 @@
                                     zoomLevel:15
                                          name:[university name]];
         [self refreshRegions];
+        self.navigationItem.title = [university name];
     }
     else {
         NSLog(@"No Associated University");

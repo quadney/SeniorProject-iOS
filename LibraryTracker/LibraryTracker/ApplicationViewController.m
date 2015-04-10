@@ -38,8 +38,6 @@
             }
         }];
     }
-    
-    self.navigationItem.title = [[[ApplicationState sharedInstance] getUniversity] name];
 }
 
 @end

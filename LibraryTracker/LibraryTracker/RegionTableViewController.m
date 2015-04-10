@@ -16,6 +16,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationItem.title = [[[ApplicationState sharedInstance] getUniversity] name];
+    
     self.refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl.backgroundColor = [UIColor purpleColor];
     self.refreshControl.tintColor = [UIColor whiteColor];
@@ -31,7 +33,6 @@
 - (void)refreshRegions:(id)sender {
     NSLog(@"Refreshing regions");
     
-    //[self.refreshControl beginRefreshing]
     [[LibwhereyClient sharedClient] getRegionsFromUniversityWithId:[[ApplicationState sharedInstance] getUniversityId] completion:^(BOOL success, NSError *__autoreleasing *error, NSArray *regions) {
         
         if (success) {

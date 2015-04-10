@@ -149,7 +149,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
     
-    NSLog(@"THERE WAS AN ERROR IN THIS BITCH %@", error);
+    NSLog(@"THERE WAS AN ERROR IN MONITORING FOR A REGION %@", error);
 }
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {

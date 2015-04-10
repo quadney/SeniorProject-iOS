@@ -17,6 +17,7 @@
 // geofencing/region monitoring methods
 - (void)setRegionsToMonitor:(NSArray *)regions;
 - (void)clearRegionsMonitoring;
+- (void)checkIfAlreadyInRegion;
 
 - (NSSet *)getMonitoredRegions;
 - (CLLocation *)getCurrentLocation;

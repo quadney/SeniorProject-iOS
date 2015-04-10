@@ -92,6 +92,8 @@
     else {
         self.regions = updatedRegions;
     }
+    
+    [[LocationMonitor sharedLocation] checkIfAlreadyInRegion];
 }
 
 - (void)setRegionsInLocationMonitorWithRegions:(NSArray *)regions {
@@ -103,40 +105,31 @@
 }
 
 - (Region *)getUserCurrentRegion {
-    NSLog(@"TODO make sure this is correct, ApplicationState, Get User Current Region");
-    Region *r = [self.state getRegion];
-    NSLog(@"Region retrieved from state: %@", r);
-    return r;
+    return [self.state getRegion];
 }
 
 - (void)userEnteredRegion:(CLCircularRegion *)region {
-    NSLog(@"TODO make sure this is correct, ApplicatonState, userEnteredLocation");
-    
+    // This will probably be done in the background
     // The Roaming functionality takes in a Region, this method has access to the CLCircularRegion
             // aka I need to find the region that it is associated with
     
     // get the Region with the same identifier as the one we have access to
     // go through the list and find it
-    Region *enteredRegion;
-    for (Region *r in [self getRegions]) {
-        if ([r.identifier isEqualToString:region.identifier]) {
-            enteredRegion = r;
-            NSLog(@"CLCircularRegion Entered was: %@, with Region: %@", region, enteredRegion);
-            // need to make sure that this is passing the actual Region and not like a copy or something
+    for (Region *enteredRegion in [self getRegions]) {
+        if ([enteredRegion.identifier isEqualToString:region.identifier]) {
+            
+            [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"Setting state to Roaming: %@, zone: %@, bssid: %@", enteredRegion.identifier, [self getCurrentZone], [[LocationMonitor sharedLocation] getCurrentBSSID]]];
+            [self.state enteredRegion:enteredRegion
+                             withZone:[self getCurrentZone]
+                             andBssid:[[LocationMonitor sharedLocation] getCurrentBSSID]];
         }
-    }
-    
-    if (enteredRegion) {
-        // when user enters region, their state becomes "Roaming"
-        NSLog(@"Entered Region was not null, now setting the state to roaming");
-        self.state = [[Roaming alloc] initWithRegion:enteredRegion];
     }
     
 }
 
 - (void)userExitedRegion:(CLCircularRegion *)region {
     // when user exits a region, then state goes to NotInRegion
-    self.state = [[NotInRegionLS alloc] init];
+    [self.state exitedRegion];
 }
 
 - (Zone *)getCurrentZone {
@@ -174,6 +167,16 @@
     // subtract 1.0 from what the value is to invert it, then constrain it to [0.0, 0.33] by dividing by 3.0
     float color = (1.0f - ((float)currentPopulation/maxCapacity)) / 3.0f;
     return [UIColor colorWithHue:color saturation:0.75f brightness:0.9f alpha:0.7f];
+}
+
+#pragma mark - Local Notification Methods
+
+- (void)createLocalNotificationWithAlertBody:(NSString *)alert {
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    notification.alertBody = alert;
+    notification.fireDate = [[NSDate date] dateByAddingTimeInterval:5];
+    notification.applicationIconBadgeNumber = 1;
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 }
 
 @end

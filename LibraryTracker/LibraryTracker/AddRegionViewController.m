@@ -14,6 +14,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *regionTextField;
 @property (weak, nonatomic) IBOutlet UILabel *currentLocationLabel;
+@property (weak, nonatomic) IBOutlet UITextView *debugView;
 
 @end
 
@@ -33,7 +34,7 @@
 }
 
 - (IBAction)checkWhichRegionsAreMonitoring:(id)sender {
-    NSLog(@"Monitoring regions: %@", [[LocationMonitor sharedLocation] getMonitoredRegions]);
+    self.debugView.text = @"Monitoring regions: %@", [[LocationMonitor sharedLocation] getMonitoredRegions];
 }
 
 - (IBAction)addRegionWasPressed:(id)sender {

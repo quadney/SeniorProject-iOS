@@ -14,8 +14,6 @@
 
 @property LocationState *userState;
 
-- (void)enteredRegion:(Region *)region withZone:(Zone *)zone andBssid:(NSString *)bssid;
 - (Region *)getRegion;
-- (void)exitedRegion;
 
 @end

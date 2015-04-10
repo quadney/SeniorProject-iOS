@@ -27,26 +27,26 @@
     return self;
 }
 
-- (void)enteredRegion:(Region *)region withZone:(Zone *)zone andBssid:(NSString *)bssid {
-    // there is the possibility that there are regions next to each other?
-    // so this could be a valid state
-    // just change the userCurrentRegion
-    self.userCurrentRegion = region;
-    self.userCurrentZone = zone;
-    self.currentBSSID = bssid;
-}
-
-- (void)exitedRegion {
-    // not sure if all this is necessary, but maybe. Look up later
-    self.userCurrentZone = nil;
-    self.userCurrentRegion = nil;
-    self.currentBSSID = nil;
-    self.pastBssids = nil;
-    self.pastZones = nil;
-    
-    // set the user state to not in region
-    self.userState = [[NotInRegionLS alloc] init];
-}
+//- (void)enteredRegion:(Region *)region withZone:(Zone *)zone andBssid:(NSString *)bssid {
+//    // there is the possibility that there are regions next to each other?
+//    // so this could be a valid state
+//    // just change the userCurrentRegion
+//    self.userCurrentRegion = region;
+//    self.userCurrentZone = zone;
+//    self.currentBSSID = bssid;
+//}
+//
+//- (void)exitedRegion {
+//    // not sure if all this is necessary, but maybe. Look up later
+//    self.userCurrentZone = nil;
+//    self.userCurrentRegion = nil;
+//    self.currentBSSID = nil;
+//    self.pastBssids = nil;
+//    self.pastZones = nil;
+//    
+//    // set the user state to not in region
+//    self.userState = [[NotInRegionLS alloc] init];
+//}
 
 - (void)regionConfirmed {
     // called when the user has been in the region for an extended period of time

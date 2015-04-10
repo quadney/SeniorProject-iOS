@@ -24,10 +24,13 @@
 @implementation RegionIdentificationHelper
 
 - (void)viewDidLoad {
+    Region *region = [[ApplicationState sharedInstance] getUserCurrentRegion];
+    NSString *BSSID = [[LocationMonitor sharedLocation] getCurrentBSSID];
+    Zone *zone = [[ApplicationState sharedInstance] getCurrentZoneFromRegion:region andBSSID:BSSID];
     self.locationLabel.text = [NSString stringWithFormat:@"Location: lat: %f, long: %f", [[LocationMonitor sharedLocation] getCurrentLocation].coordinate.latitude, [[LocationMonitor sharedLocation] getCurrentLocation].coordinate.longitude];
-    self.regionLabel.text = [NSString stringWithFormat:@"Region: %@", [[ApplicationState sharedInstance] getUserCurrentRegion].identifier];
-    self.bssidLabel.text = [NSString stringWithFormat:@"BSSID: %@", [[LocationMonitor sharedLocation] getCurrentBSSID]];
-    self.zoneLabel.text = [NSString stringWithFormat:@"Zone: %@", [[ApplicationState sharedInstance] getCurrentZone].identifier];
+    self.regionLabel.text = [NSString stringWithFormat:@"Region: %@", region.identifier];
+    self.bssidLabel.text = [NSString stringWithFormat:@"BSSID: %@", BSSID];
+    self.zoneLabel.text = [NSString stringWithFormat:@"Zone: %@", zone.identifier];
 }
 
 @end

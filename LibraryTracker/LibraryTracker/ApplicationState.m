@@ -46,7 +46,6 @@
         //check if there is a university in the NSUserDefaults
         
         if ([[NSUserDefaults standardUserDefaults] valueForKey:@"university_existence"]) {
-            NSLog(@"University exists in plist");
             [self loadUniversityFromUserDefaults];
         }
         
@@ -118,10 +117,11 @@
     for (Region *enteredRegion in [self getRegions]) {
         if ([enteredRegion.identifier isEqualToString:region.identifier]) {
             
-            [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"Setting state to Roaming: %@, zone: %@, bssid: %@", enteredRegion.identifier, [self getCurrentZone], [[LocationMonitor sharedLocation] getCurrentBSSID]]];
-            [self.state enteredRegion:enteredRegion
-                             withZone:[self getCurrentZone]
-                             andBssid:[[LocationMonitor sharedLocation] getCurrentBSSID]];
+            [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"Setting state to Roaming: %@, zone: %@, bssid: %@", enteredRegion.identifier, [self getCurrentZoneFromRegion:enteredRegion andBSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]].identifier, [[LocationMonitor sharedLocation] getCurrentBSSID]]];
+            self.state = [[Roaming alloc] initWithRegion:enteredRegion
+                                                withZone:[self getCurrentZoneFromRegion:enteredRegion
+                                                                               andBSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]]
+                                                andBSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]];
         }
     }
     
@@ -129,14 +129,11 @@
 
 - (void)userExitedRegion:(CLCircularRegion *)region {
     // when user exits a region, then state goes to NotInRegion
-    [self.state exitedRegion];
+    self.state = [[NotInRegionLS alloc] init];
 }
 
-- (Zone *)getCurrentZone {
-    Region *currentRegion = [self getUserCurrentRegion];
-    NSString *currentBssid = [[LocationMonitor sharedLocation] getCurrentBSSID];
+- (Zone *)getCurrentZoneFromRegion:(Region *)currentRegion andBSSID:(NSString *)currentBSSID {
     
-    NSLog(@"Querying the zones of the region");
     for (Zone *zone in [currentRegion zones]) {
         // go through each zone to see if BSSID matches
         if ([zone.identifier isEqualToString:@"Unknown Floor"]) {
@@ -144,7 +141,7 @@
             return zone;
         }
         for (NSString *bssid in [zone bssidWifiData]) {
-            if ([bssid isEqualToString:currentBssid]) {
+            if ([bssid isEqualToString:currentBSSID]) {
                 // found it
                 return zone;
             }

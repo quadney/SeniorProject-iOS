@@ -7,26 +7,11 @@
 //
 
 #import "NotInRegionLS.h"
-#import "Roaming.h"
 
 @implementation NotInRegionLS
 
-- (void)enteredRegion:(Region *)region withZone:(Zone *)zone andBssid:(NSString *)bssid {
-    //when user enters region from not in region, set the current region to be Roaming
-    NSLog(@"NotInRegion - entering Region now");
-    self.userState = [[Roaming alloc] initWithRegion:region withZone:zone andBSSID:bssid];
-    NSLog(@"%@", self.userState);
-}
-
 - (Region *)getRegion {
     return nil;
-}
-
-- (void)exitedRegion {
-    // invalid state
-    @throw [NSException exceptionWithName:@"IllegalState"
-                                   reason:@"User cannot exit a region if they are not in a region"
-                                 userInfo:nil];
 }
 
 - (NSString *)description {

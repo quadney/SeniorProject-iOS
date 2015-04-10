@@ -52,7 +52,7 @@
 // reacts when the user exits a region
 - (void)userExitedRegion:(CLCircularRegion *)region;
 
-- (Zone *)getCurrentZone;
+- (Zone *)getCurrentZoneFromRegion:(Region *)currentRegion andBSSID:(NSString *)currentBSSID;
 
 // don't hate me for puttin this here even though it doesn't belong...
 - (UIColor *)convertRegionPopulationToColorWithCurrentPop:(int)currentPopulation andMaxCapacity:(int)maxCapacity;

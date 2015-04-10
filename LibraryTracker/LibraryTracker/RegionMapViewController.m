@@ -21,6 +21,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
     University *university = [[ApplicationState sharedInstance] getUniversity];
     
     if (university) {
@@ -34,11 +38,7 @@
     else {
         NSLog(@"No Associated University");
     }
-}
 
-- (void)viewWillAppear:(BOOL)animated {
-    [self viewDidLoad];     // let's try this out, I don't think this is good practice though
-    //[self refreshRegions];
 }
 
 - (void)configureGoogleMapsWithLatitude:(float)latitude longitude:(float)longitude zoomLevel:(int)zoom name:(NSString *)name {
@@ -80,7 +80,6 @@
 }
 
 - (void)refreshRegions {
-    NSLog(@"Number of regions: %lu", [[[ApplicationState sharedInstance] getRegions] count]);
     if ([[[ApplicationState sharedInstance] getRegions] count] == 0) {
         // need to refresh the regions
         
@@ -89,7 +88,6 @@
         //[self.view addSubview:loadingSpinner];
         loadingSpinner.center = CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2);
         [loadingSpinner startAnimating];
-        [loadingSpinner hidesWhenStopped];
         
         [[LibwhereyClient sharedClient] getRegionsFromUniversityWithId:[[ApplicationState sharedInstance] getUniversityId] completion:^(BOOL success, NSError *__autoreleasing *error, NSArray *regions) {
             
@@ -101,8 +99,7 @@
                     
                     // stop the spinner
                     [loadingSpinner stopAnimating];
-                    
-                    NSLog(@"Stopping the spinner and refreshing the view");
+                    [loadingSpinner removeFromSuperview];
                     
                     //update the view
                     [self placeGoogleMapMarkers:[[ApplicationState sharedInstance] getRegions]];

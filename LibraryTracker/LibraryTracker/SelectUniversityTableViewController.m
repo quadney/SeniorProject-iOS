@@ -34,14 +34,16 @@
     [[LibwhereyClient sharedClient] getUniversitiesWithCompletion:^(BOOL success, NSError *__autoreleasing *error, NSArray *universities) {
         // if success, set the universities accordingly
         if (success) {
-            // set the universities to be what the network returned
-            self.universities = universities;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // set the universities to be what the network returned
+                self.universities = universities;
             
-            // stop the spinner
-            [loadingSpinner stopAnimating];
+                // stop the spinner
+                [loadingSpinner stopAnimating];
             
-            // reload the table data
-            [self.tableView reloadData];
+                // reload the table data
+                [self.tableView reloadData];
+            });
         }
         else {
             // display an alert that there's a network connection error or something
@@ -86,7 +88,10 @@
     [[LibwhereyClient sharedClient] getRegionsFromUniversityWithId:[[ApplicationState sharedInstance] getUniversityId] completion:^(BOOL success, NSError *__autoreleasing *error, NSArray *regions) {
     
         if (success) {
-            [[ApplicationState sharedInstance] setNewRegionsToTrack:regions];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[ApplicationState sharedInstance] setNewRegionsToTrack:regions];
+                [self.returningViewController viewWillAppear:NO];
+            });
         }
     }];
     

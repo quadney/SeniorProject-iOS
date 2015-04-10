@@ -10,4 +10,6 @@
 
 @interface SelectUniversityTableViewController : UITableViewController
 
+@property (nonatomic, strong) UIViewController *returningViewController;
+
 @end

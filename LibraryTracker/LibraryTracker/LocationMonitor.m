@@ -71,7 +71,6 @@
 - (BOOL)checkLocationManagerPermissions {
     //NSLog(@"Authorization status: %i", [CLLocationManager authorizationStatus]);
     if (![CLLocationManager authorizationStatus]) {
-        NSLog(@"Need to ask for authorization status");
         [self.locationManager requestAlwaysAuthorization];
     }
     if(![CLLocationManager locationServicesEnabled]) {
@@ -82,7 +81,6 @@
     if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied ||
        [CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted ||
        [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
-        NSLog(@"You need to authorize Location Services for the APP");
         [self.locationManager requestAlwaysAuthorization];
         return  FALSE;
     }

@@ -23,7 +23,7 @@
 		C9A38A961A7F02700065DE8D /* RegionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A38A951A7F02700065DE8D /* RegionTableViewController.m */; };
 		C9A38A991A7F02AB0065DE8D /* RegionMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A38A981A7F02AB0065DE8D /* RegionMapViewController.m */; };
 		C9A38A9C1A7F03400065DE8D /* SelectUniversityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A38A9B1A7F03400065DE8D /* SelectUniversityTableViewController.m */; };
-		C9A38A9F1A7F095C0065DE8D /* ApplicationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A38A9E1A7F095C0065DE8D /* ApplicationViewController.m */; };
+		C9A38A9F1A7F095C0065DE8D /* ApplicationTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A38A9E1A7F095C0065DE8D /* ApplicationTabBarController.m */; };
 		C9A38AA71A7F0A740065DE8D /* Region.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A38AA61A7F0A740065DE8D /* Region.m */; };
 		C9A38AAD1A7F0D560065DE8D /* University.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A38AAC1A7F0D560065DE8D /* University.m */; };
 		C9A38AB11A7F0DE30065DE8D /* LocationState.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A38AB01A7F0DE30065DE8D /* LocationState.m */; };
@@ -90,8 +90,8 @@
 		C9A38A981A7F02AB0065DE8D /* RegionMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegionMapViewController.m; sourceTree = "<group>"; };
 		C9A38A9A1A7F03400065DE8D /* SelectUniversityTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectUniversityTableViewController.h; sourceTree = "<group>"; };
 		C9A38A9B1A7F03400065DE8D /* SelectUniversityTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectUniversityTableViewController.m; sourceTree = "<group>"; };
-		C9A38A9D1A7F095C0065DE8D /* ApplicationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationViewController.h; sourceTree = "<group>"; };
-		C9A38A9E1A7F095C0065DE8D /* ApplicationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationViewController.m; sourceTree = "<group>"; };
+		C9A38A9D1A7F095C0065DE8D /* ApplicationTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationTabBarController.h; sourceTree = "<group>"; };
+		C9A38A9E1A7F095C0065DE8D /* ApplicationTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationTabBarController.m; sourceTree = "<group>"; };
 		C9A38AA21A7F09ED0065DE8D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C9A38AA51A7F0A740065DE8D /* Region.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Region.h; sourceTree = "<group>"; };
 		C9A38AA61A7F0A740065DE8D /* Region.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Region.m; sourceTree = "<group>"; };
@@ -232,8 +232,8 @@
 				C9A38A981A7F02AB0065DE8D /* RegionMapViewController.m */,
 				C9A38A9A1A7F03400065DE8D /* SelectUniversityTableViewController.h */,
 				C9A38A9B1A7F03400065DE8D /* SelectUniversityTableViewController.m */,
-				C9A38A9D1A7F095C0065DE8D /* ApplicationViewController.h */,
-				C9A38A9E1A7F095C0065DE8D /* ApplicationViewController.m */,
+				C9A38A9D1A7F095C0065DE8D /* ApplicationTabBarController.h */,
+				C9A38A9E1A7F095C0065DE8D /* ApplicationTabBarController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -370,6 +370,9 @@
 						CreatedOnToolsVersion = 6.1.1;
 						DevelopmentTeam = JFHJLE7UR4;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
 							com.apple.Maps.iOS = {
 								enabled = 0;
 							};
@@ -439,7 +442,7 @@
 				C9A38AB71A7F0E110065DE8D /* InRegionLS.m in Sources */,
 				C92F402F1AD5D3A7003DCC08 /* RegionIdentificationHelper.m in Sources */,
 				C9EBA40F1A8D31A70041C68B /* KeyboardViewController.m in Sources */,
-				C9A38A9F1A7F095C0065DE8D /* ApplicationViewController.m in Sources */,
+				C9A38A9F1A7F095C0065DE8D /* ApplicationTabBarController.m in Sources */,
 				C9A38A991A7F02AB0065DE8D /* RegionMapViewController.m in Sources */,
 				C9A38AAD1A7F0D560065DE8D /* University.m in Sources */,
 				C9A38ABD1A7F0E3A0065DE8D /* Studying.m in Sources */,

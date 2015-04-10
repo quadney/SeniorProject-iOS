@@ -11,7 +11,12 @@
 @interface InRegionLS : LocationState
 
 @property (strong, nonatomic) Region *userCurrentRegion;
+@property (strong, nonatomic) Zone *userCurrentZone;
+@property (strong, nonatomic) NSString *currentBSSID;
 
-- (id)initWithRegion:(Region *)region;
+- (id)initWithRegion:(Region *)region withZone:(Zone *)zone andBSSID:(NSString *)bssid;
+
+- (void)updateZone:(Zone *)zone;
+- (void)updateBSSID:(NSString *)bssid;
 
 @end

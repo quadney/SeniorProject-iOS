@@ -7,35 +7,34 @@
 //
 
 #import "Studying.h"
+#import "Roaming.h"
 #import "NotInRegionLS.h"
 
 @implementation Studying
 
-- (id)initWithRegion:(Region *)region {
-    // when Studying is instantiated, then there's nothing we need to do until the user exits the region
+- (id)initWithRegion:(Region *)region withZone:(Zone *)zone andBSSID:(NSString *)bssid {
     
-    self = [super initWithRegion:region];
+    self = [super initWithRegion:region withZone:zone andBSSID:bssid];
+
     return self;
 }
 
-- (void)enteredRegion:(Region *)region {
-    @throw [NSException exceptionWithName:@"IllegalState"
-                                   reason:@"User in study mode, can't move regions"
-                                 userInfo:nil];
-}
-
-- (void)regionConfirmed {
-    @throw [NSException exceptionWithName:@"UnimplementedState"
-                                   reason:@"User in study mode, region already confirmed"
-                                 userInfo:nil];
-    // this will probably have to change
-    // because what about moving up and down?
-    // TODO will do when get to that stage of implementation
+- (void)enteredRegion:(Region *)region withZone:(Zone *)zone andBssid:(NSString *)bssid {
+    // reigons may be next to each other, so entering another region is valid
+    self.userState = [[Roaming alloc] initWithRegion:region withZone:zone andBSSID:bssid];
 }
 
 - (void)exitedRegion {
     self.userState = [[NotInRegionLS alloc] init];
     NSLog(@"Studying - exited region: %@", self.userState);
+}
+
+- (void)updateZone:(Zone *)zone {
+    self.userCurrentZone = zone;
+}
+
+- (void)updateBSSID:(NSString *)bssid {
+    self.currentBSSID = bssid;
 }
 
 - (NSString *)description {

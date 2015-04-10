@@ -11,23 +11,15 @@
 
 @implementation NotInRegionLS
 
-- (void)enteredRegion:(Region *)region {
+- (void)enteredRegion:(Region *)region withZone:(Zone *)zone andBssid:(NSString *)bssid {
     //when user enters region from not in region, set the current region to be Roaming
     NSLog(@"NotInRegion - entering Region now");
-    self.userState = [[Roaming alloc] initWithRegion:region];
+    self.userState = [[Roaming alloc] initWithRegion:region withZone:zone andBSSID:bssid];
     NSLog(@"%@", self.userState);
-    
 }
 
 - (Region *)getRegion {
-    NSLog(@"returning nil because user is not in a region");
     return nil;
-}
-
-- (void)regionConfirmed; {
-    @throw [NSException exceptionWithName:@"IllegalState"
-                                   reason:@"User cannot be confirmed in a region is they are not in a region"
-                                 userInfo:nil];
 }
 
 - (void)exitedRegion {

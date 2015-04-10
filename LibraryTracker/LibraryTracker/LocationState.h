@@ -8,13 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "Region.h"
+#import "Zone.h"
 
 @interface LocationState : NSObject
 
 @property LocationState *userState;
-- (void)enteredRegion:(Region *)region;
+
+- (void)enteredRegion:(Region *)region withZone:(Zone *)zone andBssid:(NSString *)bssid;
 - (Region *)getRegion;
-- (void)regionConfirmed;
 - (void)exitedRegion;
 
 @end

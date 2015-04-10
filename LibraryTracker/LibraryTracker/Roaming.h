@@ -11,6 +11,6 @@
 @interface Roaming : InRegionLS
 
 @property (strong, nonatomic) NSMutableArray *pastZones;
-@property (strong, nonatomic) NSMutableArray *pastBSSIDs;
+@property (strong, nonatomic) NSMutableArray *pastBssids;   //might not need these
 
 @end

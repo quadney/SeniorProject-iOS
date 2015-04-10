@@ -10,6 +10,12 @@
 #import "NotInRegionLS.h"
 #import "Studying.h"
 
+@interface Roaming()
+
+@property (strong, nonatomic) NSTimer *timer;
+
+@end
+
 @implementation Roaming
 
 - (instancetype)initWithRegion:(Region *)region withZone:(Zone *)zone andBSSID:(NSString *)bssid {
@@ -25,6 +31,11 @@
     NSLog(@"Initializing Roaming class");
     
     return self;
+}
+
+- (void)startTimer {
+    //self.timer = [NSTimer alloc] initWithFireDate:<#(NSDate *)#> interval:<#(NSTimeInterval)#> target:<#(id)#> selector:<#(SEL)#> userInfo:<#(id)#> repeats:<#(BOOL)#>
+    
 }
 
 //- (void)enteredRegion:(Region *)region withZone:(Zone *)zone andBssid:(NSString *)bssid {

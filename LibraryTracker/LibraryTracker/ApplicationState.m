@@ -117,7 +117,6 @@
     for (Region *enteredRegion in [self getRegions]) {
         if ([enteredRegion.identifier isEqualToString:region.identifier]) {
             
-            [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"Setting state to Roaming: %@, zone: %@, bssid: %@", enteredRegion.identifier, [self getCurrentZoneFromRegion:enteredRegion andBSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]].identifier, [[LocationMonitor sharedLocation] getCurrentBSSID]]];
             self.state = [[Roaming alloc] initWithRegion:enteredRegion
                                                 withZone:[self getCurrentZoneFromRegion:enteredRegion
                                                                                andBSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]]

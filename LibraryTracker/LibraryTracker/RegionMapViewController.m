@@ -10,6 +10,7 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import "RegionDetailViewController.h"
 #import "ApplicationState.h"
+#import "LibwhereyClient.h"
 
 @interface RegionMapViewController () <GMSMapViewDelegate>
 @property (strong, nonatomic) IBOutlet GMSMapView *mapView;
@@ -79,7 +80,39 @@
 }
 
 - (void)refreshRegions {
-    [self placeGoogleMapMarkers:[[ApplicationState sharedInstance] getRegions]];
+    NSLog(@"Number of regions: %lu", [[[ApplicationState sharedInstance] getRegions] count]);
+    if ([[[ApplicationState sharedInstance] getRegions] count] == 0) {
+        // need to refresh the regions
+        
+        // setup the loading spinner
+        UIActivityIndicatorView *loadingSpinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        //[self.view addSubview:loadingSpinner];
+        loadingSpinner.center = CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2);
+        [loadingSpinner startAnimating];
+        [loadingSpinner hidesWhenStopped];
+        
+        [[LibwhereyClient sharedClient] getRegionsFromUniversityWithId:[[ApplicationState sharedInstance] getUniversityId] completion:^(BOOL success, NSError *__autoreleasing *error, NSArray *regions) {
+            
+            if (success) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    //update the regions
+                    [[ApplicationState sharedInstance] updateRegions:regions];
+                    
+                    // stop the spinner
+                    [loadingSpinner stopAnimating];
+                    
+                    NSLog(@"Stopping the spinner and refreshing the view");
+                    
+                    //update the view
+                    [self placeGoogleMapMarkers:[[ApplicationState sharedInstance] getRegions]];
+                });
+            }
+        }];
+    }
+    else {
+        [self placeGoogleMapMarkers:[[ApplicationState sharedInstance] getRegions]];
+    }
 }
 
 @end

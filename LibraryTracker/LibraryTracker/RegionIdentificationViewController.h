@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RegionIdentificationHelper : UIViewController
+@interface RegionIdentificationViewController : UIViewController
 
 @end

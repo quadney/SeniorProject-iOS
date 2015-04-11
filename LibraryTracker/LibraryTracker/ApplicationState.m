@@ -118,8 +118,6 @@
         if ([enteredRegion.identifier isEqualToString:region.identifier]) {
             
             self.state = [[Roaming alloc] initWithRegion:enteredRegion
-                                                withZone:[self getCurrentZoneFromRegion:enteredRegion
-                                                                               andBSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]]
                                                    BSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]
                                             andIPAddress:[[LocationMonitor sharedLocation] getCurrentIPAddress]];
         }
@@ -130,11 +128,6 @@
 - (void)userExitedRegion:(CLCircularRegion *)region {
     // when user exits a region, then state goes to NotInRegion
     self.state = [[NotInRegionLS alloc] init];
-}
-
-- (Zone *)getCurrentZoneFromRegion:(Region *)currentRegion andBSSID:(NSString *)currentBSSID {
-    
-    return [currentRegion findZoneInRegionWithBssid:currentBSSID];
 }
 
 - (UIColor *)convertRegionPopulationToColorWithCurrentPop:(int)currentPopulation andMaxCapacity:(int)maxCapacity {

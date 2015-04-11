@@ -6,13 +6,13 @@
 //  Copyright (c) 2015 Sydney Richardson. All rights reserved.
 //
 
-#import "RegionIdentificationHelper.h"
+#import "RegionIdentificationViewController.h"
 #import "ApplicationState.h"
 #import "LocationMonitor.h"
 #import "Region.h"
 #import "Zone.h"
 
-@interface RegionIdentificationHelper()
+@interface RegionIdentificationViewController()
 
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UILabel *regionLabel;
@@ -21,12 +21,12 @@
 
 @end
 
-@implementation RegionIdentificationHelper
+@implementation RegionIdentificationViewController
 
 - (void)viewDidLoad {
     Region *region = [[ApplicationState sharedInstance] getUserCurrentRegion];
     NSString *BSSID = [[LocationMonitor sharedLocation] getCurrentBSSID];
-    Zone *zone = [[ApplicationState sharedInstance] getCurrentZoneFromRegion:region andBSSID:BSSID];
+    Zone *zone = [region findZoneInRegionWithBssid:BSSID];
     self.locationLabel.text = [NSString stringWithFormat:@"Location: lat: %f, long: %f", [[LocationMonitor sharedLocation] getCurrentLocation].coordinate.latitude, [[LocationMonitor sharedLocation] getCurrentLocation].coordinate.longitude];
     self.regionLabel.text = [NSString stringWithFormat:@"Region: %@", region.identifier];
     self.bssidLabel.text = [NSString stringWithFormat:@"BSSID: %@", BSSID];

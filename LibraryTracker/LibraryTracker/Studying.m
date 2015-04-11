@@ -12,9 +12,9 @@
 
 @implementation Studying
 
-- (id)initWithRegion:(Region *)region withZone:(Zone *)zone andBSSID:(NSString *)bssid {
+- (id)initWithRegion:(Region *)region withZone:(Zone *)zone BSSID:(NSString *)bssid andIPAddress:(NSString *)ipAddress {
     
-    self = [super initWithRegion:region withZone:zone andBSSID:bssid];
+    self = [super initWithRegion:region withZone:zone BSSID:bssid andIPAddress:ipAddress];
 
     return self;
 }
@@ -29,16 +29,23 @@
 //    NSLog(@"Studying - exited region: %@", self.userState);
 //}
 
-- (void)updateZone:(Zone *)zone {
+- (BOOL)updatedZone:(Zone *)zone {
     self.userCurrentZone = zone;
+    return YES;
 }
 
-- (void)updateBSSID:(NSString *)bssid {
+- (BOOL)updatedBSSID:(NSString *)bssid {
     self.currentBSSID = bssid;
+    return YES;
+}
+
+- (BOOL)updatedIpAddress:(NSString *)ipAddress {
+    self.currentIpAddress = ipAddress;
+    return YES;
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"Studying - userState: %@, region: %@", self.userState, self.userCurrentRegion.identifier];
+    return [NSString stringWithFormat:@"STUDYING - userState: %@, region: %@", self.userState, self.userCurrentRegion.identifier];
 }
 
 @end

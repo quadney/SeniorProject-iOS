@@ -7,18 +7,20 @@
 //
 
 #import "Roaming.h"
-#import "NotInRegionLS.h"
 #import "Studying.h"
+#import "NotInRegionLS.h"
 #import "LocationMonitor.h"
+#import "ApplicationState.h"
 
 @interface Roaming()
 
 @property (nonatomic) NSTimer *timer;
-@property int numTimesRanTimer;
 
 @end
 
 @implementation Roaming
+
+static int numTimesRanTimer = 0;
 
 - (instancetype)initWithRegion:(Region *)region BSSID:(NSString *)bssid andSSID:(NSString *)ssid {
     // when Roaming is instantiated, the system needs to evaluate where the user is frequently
@@ -26,7 +28,6 @@
     // probably having to do with threads and timers and background stuff
     
     self = [super initWithRegion:region BSSID:bssid andSSID:ssid];
-    //self.userState = self;  //does this work?
     
     NSLog(@"Starting timer to update background stuff");
     [self startTimer];
@@ -34,21 +35,31 @@
     return self;
 }
 
+- (void)enteredRegion:(Region *)region withBSSID:(NSString *)bssid andSSID:(NSString *)ssid {
+    //when user enters region from not in region, set the current region to be Roaming
+    
+    self.userState = [[Roaming alloc] initWithRegion:region BSSID:bssid andSSID:ssid];
+}
+
+- (void)exitedRegion {
+    // invalid state
+    self.userState = [[NotInRegionLS alloc] init];
+}
+
 - (void)startTimer {
-    self.numTimesRanTimer = 0;
     UIBackgroundTaskIdentifier bgTask;
     UIApplication  *app = [UIApplication sharedApplication];
     bgTask = [app beginBackgroundTaskWithExpirationHandler:^{
         [app endBackgroundTask:bgTask];
     }];
     
-    //starts a timer for 3 minutes, in the background
+    //starts a timer for 30 seconds, in the background
     [self startTimerForSeconds:30.0f];
     
 }
 
 - (void)startTimerForSeconds:(float)seconds {
-    self.numTimesRanTimer++;
+    ++numTimesRanTimer;
     self.timer = [NSTimer scheduledTimerWithTimeInterval:seconds
                                                   target:self
                                                 selector:@selector(timerUpdateInfo:)
@@ -69,7 +80,7 @@
         // if they aren't on the wifi, then we don't care about the bssid
         // reset the num times timer has run
         NSLog(@"SSID is null");
-        self.numTimesRanTimer = 0;
+        numTimesRanTimer = 0;
         [self startTimerForSeconds:300.0f];
     }
     else {
@@ -128,13 +139,14 @@
 - (BOOL)updatedZone:(Zone *)zone {
     NSLog(@"Updating zone");
     if ([zone.identifier isEqualToString:self.currentZone.identifier]) {
-        NSLog(@"Zones are the same");
+        NSLog(@"Zones are the same, Number of times ran timer: %i", numTimesRanTimer);
         // user has not moved, potentially need to change state to studying
         // if the num times that the timer has started is above 3, then we can set the state to studying
         // also make sure that the background tasks are stopped
-        if (self.numTimesRanTimer > 2) {
+        
+//        if (numTimesRanTimer > 2) {
             [self regionConfirmed];
-        }
+//        }
         return NO;
     }
     else {
@@ -149,19 +161,22 @@
     // TODO
     // invalidate the background tasks inorder to save battery power and stuff
     NSLog(@"Attempting to invalidate the background task");
+    [self.timer invalidate];
 }
 
 - (void)regionConfirmed {
     NSLog(@"Confirming region");
     [self invalidateBackgroundTasks];
     // called when the user has been in the region for an extended period of time
-    self.userState = [[Studying alloc] initWithRegion:self.currentRegion
-                                                BSSID:self.currentBSSID
-                                              andSSID:self.universityCommonSSID];
+    
+    [[ApplicationState sharedInstance] regionConfirmed];
+//    self.userState = [[Studying alloc] initWithRegion:self.currentRegion
+//                                                BSSID:self.currentBSSID
+//                                              andSSID:self.universityCommonSSID];
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"ROAMING - user is in the region: %@ and Zone: %@", self.currentRegion.identifier, self.currentZone.identifier];
+    return [NSString stringWithFormat:@"ROAMING // "];
 }
 
 @end

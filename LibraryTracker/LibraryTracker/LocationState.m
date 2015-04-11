@@ -7,6 +7,7 @@
 //
 
 #import "LocationState.h"
+#import "NotInRegionLS.h"
 
 @implementation LocationState
 
@@ -14,8 +15,20 @@
     @throw [NSException exceptionWithName:@"InvalidState" reason:@"User not in Region" userInfo:nil];
 }
 
+- (void)enteredRegion:(Region *)region withBSSID:(NSString *)bssid andSSID:(NSString *)ssid {
+    @throw [NSException exceptionWithName:@"AbstractClass"
+                                   reason:@"This method must be overridden in subclasses"
+                                 userInfo:nil];
+}
+
+- (void)exitedRegion {
+    @throw [NSException exceptionWithName:@"AbstractClass"
+                                   reason:@"This method must be overridden in subclasses"
+                                 userInfo:nil];
+}
+
 - (NSString *)description {
-    return @"LocationState - Abstract class";
+    return self.userState.description;
 }
 
 @end

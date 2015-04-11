@@ -12,7 +12,7 @@
 
 @interface ApplicationState()
 
-@property (nonatomic, strong) LocationState *state;
+
 @property (nonatomic, strong) University *university;
 @property (nonatomic, strong) NSArray *regions;
 
@@ -40,7 +40,7 @@
     self = [super init];
     if (self) {
         // set the LocationState to be the default
-        self.state = [[NotInRegionLS alloc] init];
+        self.locationState = [[NotInRegionLS alloc] init];
         
         //check if there is a university in the NSUserDefaults
         
@@ -108,7 +108,7 @@
 }
 
 - (Region *)getUserCurrentRegion {
-    return [self.state getRegion];
+    return [self.locationState getRegion];
 }
 
 - (void)userEnteredRegion:(CLCircularRegion *)region {
@@ -121,9 +121,16 @@
     for (Region *enteredRegion in [self getRegions]) {
         if ([enteredRegion.identifier isEqualToString:region.identifier]) {
             
-            self.state = [[Roaming alloc] initWithRegion:enteredRegion
+//            [self.locationState enteredRegion:enteredRegion
+//                            withBSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]
+//                              andSSID:[[LocationMonitor sharedLocation] getCurrentSSID]];
+
+            
+            self.locationState = [[Roaming alloc] initWithRegion:enteredRegion
                                                    BSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]
                                                  andSSID:[[LocationMonitor sharedLocation] getCurrentSSID]];
+            
+            NSLog(@"LocationState: %@", self.locationState);
         }
     }
     
@@ -131,15 +138,19 @@
 
 - (void)userExitedRegion:(CLCircularRegion *)region {
     // when user exits a region, then state goes to NotInRegion
-    self.state = [[NotInRegionLS alloc] init];
+    //self.locationState = [[NotInRegionLS alloc] init];
+    [self.locationState exitedRegion];
+    NSLog(@"LocationState: %@", self.locationState);
+    // if the user was in a region, then call the database and call the method
+    
+    self.locationState = [[NotInRegionLS alloc] init];
 }
 
 // region has been confirmed
-- (void)regionConfirmed {
-    NSLog(@"Region Confirmed!!!");
-    NSLog(@"User State: %@", self.state);
-    
-    [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"Region has been confirmed, Zone: %@", self.state]];
+- (void)regionConfirmed{
+    self.locationState = [[Studying alloc] initWithRegion:[self getUserCurrentRegion]
+                                            BSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]
+                                          andSSID:[[LocationMonitor sharedLocation] getCurrentSSID]];
 }
 
 - (UIColor *)convertRegionPopulationToColorWithCurrentPop:(int)currentPopulation andMaxCapacity:(int)maxCapacity {

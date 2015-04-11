@@ -7,8 +7,9 @@
 //
 
 #import "Studying.h"
+#import "NotInRegionLS.h"
+#import "Roaming.h"
 #import "LibwhereyClient.h"
-#import "ApplicationState.h"
 
 @implementation Studying
 
@@ -16,13 +17,25 @@
     
     self = [super initWithRegion:region BSSID:bssid andSSID:ssid];
     
-    [[ApplicationState sharedInstance] regionConfirmed];
+    [[LibwhereyClient sharedClient] userEntersZoneWithId:self.currentZone.idNumber];
 
     return self;
 }
 
+- (void)enteredRegion:(Region *)region withBSSID:(NSString *)bssid andSSID:(NSString *)ssid {
+    self.userState = [[Roaming alloc] initWithRegion:region BSSID:bssid andSSID:ssid];
+}
+
+- (void)exitedRegion {
+    // call the network to remove the person from the Zone
+    [[LibwhereyClient sharedClient] userExitsZoneWithId:self.currentZone.idNumber];
+    
+    //set the user state to NotInRegion
+    self.userState = [[NotInRegionLS alloc] init];
+}
+
 - (NSString *)description {
-    return [NSString stringWithFormat:@"STUDYING - region: %@, Zone: %@", self.currentRegion.identifier, self.currentZone.identifier];
+    return [NSString stringWithFormat:@"STUDYING // "];
 }
 
 @end

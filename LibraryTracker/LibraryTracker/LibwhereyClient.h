@@ -10,7 +10,6 @@
 
 typedef void (^UniversitiesRequestCompletionBlock)(BOOL success, NSError **error, NSArray *universities);
 typedef void (^RegionsRequestCompletionBlock)(BOOL success, NSError **error, NSArray *regions);
-typedef void (^UpdateUserLocationCompletionBlock)(BOOL success, NSError **error);
 
 @interface LibwhereyClient : NSObject
 
@@ -40,28 +39,13 @@ typedef void (^UpdateUserLocationCompletionBlock)(BOOL success, NSError **error)
 - (void)getRegionsFromUniversityWithId:(int)universityId completion:(RegionsRequestCompletionBlock)completionBlock;
 
 /*
- Returns the Region with the specified id
- 
- @param completionBlock: A completion block with a NSArray of the regions
+ Tells the database that a user has entered the zone and is studying there
  */
-- (void)getRegionWithId:(int)regionId completion:(RegionsRequestCompletionBlock)completionBlock;
+- (void)userEntersZoneWithId:(int)zoneId;
 
 /*
- Tells the database that a user has entered the region and is studying there
- 
- Returns the updated Region
- 
- @param completionBlock: A completion block with a NSArray of the regions
+ Tells the database that a user has exited the zone
  */
-- (void)userEntersRegionWithId:(int)regionId completion:(UpdateUserLocationCompletionBlock)completionBlock;
-
-/*
- Tells the database that a user has exited the region
- 
- Returns the updated Region
- 
- @param completionBlock: A completion block with a NSArray of the regions
- */
-- (void)userExitsRegionWithId:(int)regionId completion:(UpdateUserLocationCompletionBlock)completionBlock;
+- (void)userExitsZoneWithId:(int)zoneId;
 
 @end

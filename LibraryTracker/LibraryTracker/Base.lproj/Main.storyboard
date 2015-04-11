@@ -522,6 +522,21 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Location State: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SBa-js-nxF">
+                                <rect key="frame" x="16" y="196" width="568" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mbe-DQ-TWq">
+                                <rect key="frame" x="202" y="513" width="197" height="30"/>
+                                <state key="normal" title="Update Location State Label">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="updateLocationStateLabel:" destination="wSX-iw-cQF" eventType="touchUpInside" id="97w-GL-cRt"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -534,14 +549,17 @@
                             <constraint firstItem="MNi-Nd-u6s" firstAttribute="trailing" secondItem="ouc-ek-ACx" secondAttribute="trailingMargin" id="TP1-3K-dYw"/>
                             <constraint firstItem="Ipw-VH-q8E" firstAttribute="trailing" secondItem="ouc-ek-ACx" secondAttribute="trailingMargin" id="d7d-OP-F8i"/>
                             <constraint firstItem="8AQ-tF-JXF" firstAttribute="top" secondItem="SBd-wf-GhT" secondAttribute="bottom" constant="8" id="esw-B1-oE1"/>
+                            <constraint firstItem="uyc-N5-wIk" firstAttribute="top" secondItem="Mbe-DQ-TWq" secondAttribute="bottom" constant="8" id="fTK-eo-nSd"/>
                             <constraint firstItem="8AQ-tF-JXF" firstAttribute="trailing" secondItem="ouc-ek-ACx" secondAttribute="trailingMargin" id="g9h-fI-Nii"/>
                             <constraint firstItem="SBd-wf-GhT" firstAttribute="trailing" secondItem="ouc-ek-ACx" secondAttribute="trailingMargin" id="orA-77-vAV"/>
                             <constraint firstItem="SBd-wf-GhT" firstAttribute="leading" secondItem="ouc-ek-ACx" secondAttribute="leadingMargin" id="vhP-WE-7uZ"/>
+                            <constraint firstAttribute="centerX" secondItem="Mbe-DQ-TWq" secondAttribute="centerX" constant="-0.5" id="yeE-HF-dyD"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="bssidLabel" destination="8AQ-tF-JXF" id="tiy-1a-t1a"/>
                         <outlet property="locationLabel" destination="Ipw-VH-q8E" id="fd3-Wj-JBX"/>
+                        <outlet property="locationStateLabel" destination="SBa-js-nxF" id="j0V-wA-g6E"/>
                         <outlet property="regionLabel" destination="SBd-wf-GhT" id="bGc-1N-Koh"/>
                         <outlet property="zoneLabel" destination="MNi-Nd-u6s" id="NQu-MY-Asj"/>
                     </connections>

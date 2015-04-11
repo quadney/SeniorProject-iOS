@@ -18,6 +18,8 @@
 
 @interface ApplicationState : NSObject
 
+@property (nonatomic, strong) LocationState *locationState;
+
 + (id)sharedInstance;
 
 //sets the university

@@ -153,16 +153,53 @@
     
 }
 
-- (void)getRegionWithId:(int)regionId completion:(RegionsRequestCompletionBlock)completionBlock {
+- (void)userEntersZoneWithId:(int)zoneId {
+    NSURL *url = [NSURL URLWithString:[self enterZoneURLWithZoneId:zoneId]];
     
+    if (self.dataTask) {
+        // dataTask is already alive, need to stop it
+        [self.dataTask cancel];
+    }
+    
+    self.dataTask = [self.session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error) {
+            if (error.code != -999) {
+                NSLog(@"THERE WAS AN ERROR: %@", error);
+            }
+        }
+        else {
+            NSLog(@"it worked");
+        }
+    }];
+    
+    if (self.dataTask) {
+        [self.dataTask resume];
+    }
+
 }
 
-- (void)userEntersRegionWithId:(int)regionId completion:(UpdateUserLocationCompletionBlock)completionBlock {
+- (void)userExitsZoneWithId:(int)zoneId {
+    NSURL *url = [NSURL URLWithString:[self exitZoneURLWithZoneId:zoneId]];
     
-}
-
-- (void)userExitsRegionWithId:(int)regionId completion:(UpdateUserLocationCompletionBlock)completionBlock {
+    if (self.dataTask) {
+        // dataTask is already alive, need to stop it
+        [self.dataTask cancel];
+    }
     
+    self.dataTask = [self.session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error) {
+            if (error.code != -999) {
+                NSLog(@"THERE WAS AN ERROR: %@", error);
+            }
+        }
+        else {
+            NSLog(@"it worked");
+        }
+    }];
+    
+    if (self.dataTask) {
+        [self.dataTask resume];
+    }
 }
 
 #pragma mark - URL Creation methods for the api url string

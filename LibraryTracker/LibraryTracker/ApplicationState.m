@@ -64,7 +64,8 @@
     self.university = [[ModelFactory modelStore] createUniversityWithName:[defaults valueForKey:@"university_name"]
                                                                  latitude:[defaults floatForKey:@"university_latitude"]
                                                                 longitude:[defaults floatForKey:@"university_longitude"]
-                                                                 idNumber:(int)[defaults integerForKey:@"university_idNum"]];
+                                                                 idNumber:(int)[defaults integerForKey:@"university_idNum"]
+                                                           commonWifiName:[defaults valueForKey:@"university_commonWifiName"]];
 }
 
 - (University *)getUniversity {

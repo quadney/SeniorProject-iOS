@@ -19,8 +19,8 @@
     return modelFactoryInstance;
 }
 
-- (University *)createUniversityWithName:(NSString *)name latitude:(float)latitude longitude:(float)longitude idNumber:(int)idNum {
-    return [[University alloc] initWithName:name latitude:latitude longitude:longitude idNumber:idNum];
+- (University *)createUniversityWithName:(NSString *)name latitude:(float)latitude longitude:(float)longitude idNumber:(int)idNum commonWifiName:(NSString *)globalWifiName{
+    return [[University alloc] initWithName:name latitude:latitude longitude:longitude idNumber:idNum commonWifiName:globalWifiName];
 }
 
 - (Region *)createRegionWithIdentifier:(NSString *)identifier latitude:(float)latitude longitude:(float)longitude radius:(CLLocationDistance)radius idNumber:(int)idNum zones:(NSArray *)zones {

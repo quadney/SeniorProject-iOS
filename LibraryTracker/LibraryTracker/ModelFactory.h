@@ -15,7 +15,7 @@
 
 + (id)modelStore;
 
-- (University *)createUniversityWithName:(NSString *)name latitude:(float)latitude longitude:(float)longitude idNumber:(int)idNum;
+- (University *)createUniversityWithName:(NSString *)name latitude:(float)latitude longitude:(float)longitude idNumber:(int)idNum commonWifiName:(NSString *)globalWifiName;
 
 - (Region *)createRegionWithIdentifier:(NSString *)identifier latitude:(float)latitude longitude:(float)longitude radius:(CLLocationDistance)radius idNumber:(int)idNum zones:(NSArray *)zones;
 

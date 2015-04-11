@@ -237,7 +237,8 @@
         [universities addObject:[[ModelFactory modelStore] createUniversityWithName:[obj objectForKey:@"name"]
                                                                             latitude:[[obj objectForKey:@"latitude"] floatValue]
                                                                            longitude:[[obj objectForKey:@"longitude"] floatValue]
-                                                                            idNumber:(int)[[obj objectForKey:@"id"] longValue]]];
+                                                                           idNumber:(int)[[obj objectForKey:@"id"] longValue]
+                                                                     commonWifiName:[obj objectForKey:@"common_wifi_name"]]];
     }
     return [NSArray arrayWithArray:universities];
 }

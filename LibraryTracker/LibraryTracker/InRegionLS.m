@@ -16,25 +16,13 @@
         self.currentRegion = region;
         self.currentZone = [region findZoneInRegionWithBssid:bssid];
         self.currentBSSID = bssid;
-        self.currentIpAddress = ipAddress;
+        self.universityCommonIPAddress = ipAddress;
     }
     return self;
 }
 
 - (Region *)getRegion {
     return self.currentRegion;
-}
-
-- (BOOL)updatedZone:(Zone *)zone {
-    @throw [[NSException alloc] initWithName:@"InRegionsLS - hook method" reason:@"updatedZone to be implemented in subclasses" userInfo:nil];
-}
-
-- (BOOL)updatedBSSID:(NSString *)bssid {
-    @throw [[NSException alloc] initWithName:@"InRegionsLS - hook method" reason:@"updatedBSSID to be implemented in subclasses" userInfo:nil];
-}
-
-- (BOOL)updatedIpAddress:(NSString *)ipAddress {
-    @throw [[NSException alloc] initWithName:@"InRegionsLS - hook method" reason:@"updatedIpAddress to be implemented in subclasses" userInfo:nil];
 }
 
 @end

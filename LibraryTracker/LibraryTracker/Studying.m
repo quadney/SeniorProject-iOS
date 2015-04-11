@@ -7,8 +7,6 @@
 //
 
 #import "Studying.h"
-#import "Roaming.h"
-#import "NotInRegionLS.h"
 
 @implementation Studying
 
@@ -17,21 +15,6 @@
     self = [super initWithRegion:region BSSID:bssid andIPAddress:ipAddress];
 
     return self;
-}
-
-- (BOOL)updatedZone:(Zone *)zone {
-    self.currentZone = zone;
-    return YES;
-}
-
-- (BOOL)updatedBSSID:(NSString *)bssid {
-    self.currentBSSID = bssid;
-    return YES;
-}
-
-- (BOOL)updatedIpAddress:(NSString *)ipAddress {
-    self.currentIpAddress = ipAddress;
-    return YES;
 }
 
 - (NSString *)description {

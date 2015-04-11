@@ -13,11 +13,8 @@
 @property (strong, nonatomic) Region *currentRegion;
 @property (strong, nonatomic) Zone *currentZone;
 @property (strong, nonatomic) NSString *currentBSSID;
-@property (strong, nonatomic) NSString *currentIpAddress;
+@property (strong, nonatomic) NSString *universityCommonIPAddress;
 
 - (id)initWithRegion:(Region *)region BSSID:(NSString *)bssid andIPAddress:(NSString *)ipAddress;
-
-- (BOOL)updatedBSSID:(NSString *)bssid;
-- (BOOL)updatedIpAddress:(NSString *)ipAddress;
 
 @end

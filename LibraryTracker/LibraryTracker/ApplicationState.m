@@ -76,6 +76,10 @@
     return [self.university idNum];
 }
 
+- (NSString *)getUniversityCommonWifiName {
+    return self.university.commonWifiName;
+}
+
 - (void)setNewRegionsToTrack:(NSArray *)regions {
     // when new regions are set, need to also change what is being monitored
     self.regions = regions;

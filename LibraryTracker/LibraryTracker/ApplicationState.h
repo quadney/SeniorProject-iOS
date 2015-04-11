@@ -31,6 +31,10 @@
 // returns the University id in the database
 - (int)getUniversityId;
 
+// returns the university's common wifi name,
+// important because the BSSID's depend on it
+- (NSString *)getUniversityCommonWifiName;
+
 // update the regions that the unviersity has
 - (void)setNewRegionsToTrack:(NSArray *)regions;
 

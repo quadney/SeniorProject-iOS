@@ -120,7 +120,8 @@
             self.state = [[Roaming alloc] initWithRegion:enteredRegion
                                                 withZone:[self getCurrentZoneFromRegion:enteredRegion
                                                                                andBSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]]
-                                                andBSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]];
+                                                   BSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]
+                                            andIPAddress:[[LocationMonitor sharedLocation] getCurrentIPAddress]];
         }
     }
     
@@ -133,21 +134,7 @@
 
 - (Zone *)getCurrentZoneFromRegion:(Region *)currentRegion andBSSID:(NSString *)currentBSSID {
     
-    for (Zone *zone in [currentRegion zones]) {
-        // go through each zone to see if BSSID matches
-        if ([zone.identifier isEqualToString:@"Unknown Floor"]) {
-            // if the wifi is not on, then return unknown zone
-            return zone;
-        }
-        for (NSString *bssid in [zone bssidWifiData]) {
-            if ([bssid isEqualToString:currentBSSID]) {
-                // found it
-                return zone;
-            }
-        }
-    }
-    
-    return nil;
+    return [currentRegion findZoneInRegionWithBssid:currentBSSID];
 }
 
 - (UIColor *)convertRegionPopulationToColorWithCurrentPop:(int)currentPopulation andMaxCapacity:(int)maxCapacity {

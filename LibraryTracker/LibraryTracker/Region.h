@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CLCircularRegion.h>
+#import "Zone.h"
 
 @interface Region : CLCircularRegion
 
@@ -18,5 +19,6 @@
 - (id)initWithIdentifier:(NSString *)name centerLatitude:(float)latitude centerLongitude:(float)longitude radius:(CLLocationDistance)radius idNumber:(int)idNum andZones:(NSArray *)zones;
 
 - (int)calculateCurrentPopulation;
+- (Zone *)findZoneInRegionWithBssid:(NSString *)bssid;
 
 @end

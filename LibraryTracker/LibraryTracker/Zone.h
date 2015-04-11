@@ -18,4 +18,6 @@
 
 - (id)initWithIdentifier:(NSString *)identifier wifiBssidValues:(NSArray *)bssids idNumber:(int)idNum currentPopulation:(int)currentPop capacity:(int)maxCapacity;
 
+- (BOOL)bssidIsInZone:(NSString *)bssid;
+
 @end

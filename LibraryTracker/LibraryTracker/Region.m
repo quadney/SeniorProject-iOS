@@ -7,7 +7,6 @@
 //
 
 #import "Region.h"
-#import "Zone.h"
 
 @implementation Region
 
@@ -20,6 +19,20 @@
     self.zones = zones;
     self.totalCapacity = [self calculateTotalCapacity];
     return self;
+}
+
+- (Zone *)findZoneInRegionWithBssid:(NSString *)bssid {
+    for (Zone *zone in self.zones) {
+        // go through each zone to see if BSSID matches
+        if ([zone.identifier isEqualToString:@"Unknown Floor"]) {
+            // if the wifi is not on, then return unknown zone
+            return zone;
+        }
+        if ([zone bssidIsInZone:bssid]) {
+            return zone;
+        }
+    }
+    return nil;
 }
 
 - (int)calculateCurrentPopulation {

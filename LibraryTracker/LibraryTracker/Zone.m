@@ -21,4 +21,14 @@
     return self;
 }
 
+- (BOOL)bssidIsInZone:(NSString *)currentBSSID {
+    for (NSString *bssid in self.bssidWifiData) {
+        if ([bssid isEqualToString:currentBSSID]) {
+            // found it
+            return YES;
+        }
+    }
+    return NO;
+}
+
 @end

@@ -12,25 +12,15 @@
 
 @implementation Studying
 
-- (id)initWithRegion:(Region *)region withZone:(Zone *)zone BSSID:(NSString *)bssid andIPAddress:(NSString *)ipAddress {
+- (id)initWithRegion:(Region *)region BSSID:(NSString *)bssid andIPAddress:(NSString *)ipAddress {
     
-    self = [super initWithRegion:region withZone:zone BSSID:bssid andIPAddress:ipAddress];
+    self = [super initWithRegion:region BSSID:bssid andIPAddress:ipAddress];
 
     return self;
 }
 
-//- (void)enteredRegion:(Region *)region withZone:(Zone *)zone andBssid:(NSString *)bssid {
-//    // reigons may be next to each other, so entering another region is valid
-//    self.userState = [[Roaming alloc] initWithRegion:region withZone:zone andBSSID:bssid];
-//}
-//
-//- (void)exitedRegion {
-//    self.userState = [[NotInRegionLS alloc] init];
-//    NSLog(@"Studying - exited region: %@", self.userState);
-//}
-
 - (BOOL)updatedZone:(Zone *)zone {
-    self.userCurrentZone = zone;
+    self.currentZone = zone;
     return YES;
 }
 
@@ -45,7 +35,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"STUDYING - userState: %@, region: %@", self.userState, self.userCurrentRegion.identifier];
+    return [NSString stringWithFormat:@"STUDYING - userState: %@, region: %@", self.userState, self.currentRegion.identifier];
 }
 
 @end

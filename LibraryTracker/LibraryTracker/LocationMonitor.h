@@ -23,5 +23,7 @@
 - (CLLocation *)getCurrentLocation;
 
 - (NSString *)getCurrentBSSID;
+- (NSString *)getCurrentIPAddress;
+
 
 @end

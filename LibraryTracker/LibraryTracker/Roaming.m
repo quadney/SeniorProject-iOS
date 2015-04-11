@@ -20,14 +20,12 @@
 
 @implementation Roaming
 
-- (instancetype)initWithRegion:(Region *)region withZone:(Zone *)zone BSSID:(NSString *)bssid andIPAddress:(NSString *)ipAddress {
+- (instancetype)initWithRegion:(Region *)region BSSID:(NSString *)bssid andIPAddress:(NSString *)ipAddress {
     // when Roaming is instantiated, the system needs to evaluate where the user is frequently
     // need to conjur up some fancy algorithm to work with this
     // probably having to do with threads and timers and background stuff
     
-    self = [super initWithRegion:region withZone:zone BSSID:bssid andIPAddress:ipAddress];
-    
-    self.pastZones = [[NSMutableArray alloc] init];
+    self = [super initWithRegion:region BSSID:bssid andIPAddress:ipAddress];
     
     NSLog(@"Starting timer to update background stuff");
     [self startTimer];
@@ -85,20 +83,19 @@
 
 - (void)regionConfirmed {
     // called when the user has been in the region for an extended period of time
-    self.userState = [[Studying alloc] initWithRegion:self.userCurrentRegion
-                                             withZone:self.userCurrentZone
+    self.userState = [[Studying alloc] initWithRegion:self.currentRegion
                                                 BSSID:self.currentBSSID
                                          andIPAddress:self.currentIpAddress];
 }
 
 - (BOOL)updatedZone:(Zone *)zone {
-    if ([zone.identifier isEqualToString:self.userCurrentZone.identifier]) {
+    if ([zone.identifier isEqualToString:self.currentZone.identifier]) {
         // user has not moved, potentially need to change state to studying
         return NO;
     }
     else {
         // user is on a different floor, update things
-        self.userCurrentZone = zone;
+        self.currentZone = zone;
         return YES;
     }
 }
@@ -110,7 +107,8 @@
     }
     else {
         self.currentBSSID = bssid;  // current BSSID has changed, so need to find the Zone associated with that BSSID
-        //[self updatedZone:<#(Zone *)#>] //find the current zone
+        // check if the zone has changed
+        [self updatedZone:[self.currentRegion findZoneInRegionWithBssid:self.currentBSSID]];
         return YES;
     }
     
@@ -125,7 +123,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"ROAMING - user is in the region: %@", self.userCurrentRegion.identifier];
+    return [NSString stringWithFormat:@"ROAMING - user is in the region: %@", self.currentRegion.identifier];
 }
 
 @end

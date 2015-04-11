@@ -220,8 +220,7 @@
 
 // http://stackoverflow.com/questions/4872196/how-to-get-the-wifi-gateway-address-on-the-iphone
 // http://zachwaugh.me/posts/programmatically-retrieving-ip-address-of-iphone/
-- (NSString *)getIPAddress
-{
+- (NSString *)getCurrentIPAddress {
     NSString *address = @"error";
     struct ifaddrs *interfaces = NULL;
     struct ifaddrs *temp_addr = NULL;

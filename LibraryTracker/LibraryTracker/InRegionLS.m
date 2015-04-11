@@ -10,11 +10,11 @@
 
 @implementation InRegionLS
 
-- (id)initWithRegion:(Region *)region withZone:(Zone *)zone BSSID:(NSString *)bssid andIPAddress:(NSString *)ipAddress {
+- (id)initWithRegion:(Region *)region BSSID:(NSString *)bssid andIPAddress:(NSString *)ipAddress {
     self = [super init];
     if (self) {
-        self.userCurrentRegion = region;
-        self.userCurrentZone = zone;
+        self.currentRegion = region;
+        self.currentZone = [region findZoneInRegionWithBssid:bssid];
         self.currentBSSID = bssid;
         self.currentIpAddress = ipAddress;
     }
@@ -22,7 +22,7 @@
 }
 
 - (Region *)getRegion {
-    return self.userCurrentRegion;
+    return self.currentRegion;
 }
 
 - (BOOL)updatedZone:(Zone *)zone {

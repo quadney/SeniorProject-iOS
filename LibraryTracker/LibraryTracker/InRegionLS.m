@@ -10,13 +10,13 @@
 
 @implementation InRegionLS
 
-- (id)initWithRegion:(Region *)region BSSID:(NSString *)bssid andIPAddress:(NSString *)ipAddress {
+- (id)initWithRegion:(Region *)region BSSID:(NSString *)bssid andSSID:(NSString *)ssid {
     self = [super init];
     if (self) {
         self.currentRegion = region;
         self.currentZone = [region findZoneInRegionWithBssid:bssid];
         self.currentBSSID = bssid;
-        self.universityCommonIPAddress = ipAddress;
+        self.universityCommonSSID = ssid;
     }
     return self;
 }

@@ -15,7 +15,6 @@
 @property (nonatomic, strong) LocationState *state;
 @property (nonatomic, strong) University *university;
 @property (nonatomic, strong) NSArray *regions;
-@property int currentRegionInt;
 
 @end
 
@@ -124,7 +123,7 @@
             
             self.state = [[Roaming alloc] initWithRegion:enteredRegion
                                                    BSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]
-                                            andIPAddress:[[LocationMonitor sharedLocation] getCurrentIPAddress]];
+                                                 andSSID:[[LocationMonitor sharedLocation] getCurrentSSID]];
         }
     }
     
@@ -133,6 +132,14 @@
 - (void)userExitedRegion:(CLCircularRegion *)region {
     // when user exits a region, then state goes to NotInRegion
     self.state = [[NotInRegionLS alloc] init];
+}
+
+// region has been confirmed
+- (void)regionConfirmed {
+    NSLog(@"Region Confirmed!!!");
+    NSLog(@"User State: %@", self.state);
+    
+    [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"Region has been confirmed, Zone: %@", self.state]];
 }
 
 - (UIColor *)convertRegionPopulationToColorWithCurrentPop:(int)currentPopulation andMaxCapacity:(int)maxCapacity {

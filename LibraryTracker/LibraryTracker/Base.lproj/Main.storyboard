@@ -486,10 +486,10 @@
             </objects>
             <point key="canvasLocation" x="223" y="1282"/>
         </scene>
-        <!--Region Detail View Controller-->
+        <!--Region Identification View Controller-->
         <scene sceneID="rcc-NH-2rQ">
             <objects>
-                <viewController id="wSX-iw-cQF" customClass="RegionDetailViewController" sceneMemberID="viewController">
+                <viewController id="wSX-iw-cQF" customClass="RegionIdentificationViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Oun-es-Qag"/>
                         <viewControllerLayoutGuide type="bottom" id="uyc-N5-wIk"/>

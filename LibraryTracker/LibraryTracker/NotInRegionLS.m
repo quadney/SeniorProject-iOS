@@ -10,6 +10,13 @@
 
 @implementation NotInRegionLS
 
+- (id)init {
+    self = [super init];
+    //self.userState = self;
+    
+    return self;
+}
+
 - (Region *)getRegion {
     return nil;
 }

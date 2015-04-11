@@ -7,18 +7,22 @@
 //
 
 #import "Studying.h"
+#import "LibwhereyClient.h"
+#import "ApplicationState.h"
 
 @implementation Studying
 
-- (id)initWithRegion:(Region *)region BSSID:(NSString *)bssid andIPAddress:(NSString *)ipAddress {
+- (id)initWithRegion:(Region *)region BSSID:(NSString *)bssid andSSID:(NSString *)ssid {
     
-    self = [super initWithRegion:region BSSID:bssid andIPAddress:ipAddress];
+    self = [super initWithRegion:region BSSID:bssid andSSID:ssid];
+    
+    [[ApplicationState sharedInstance] regionConfirmed];
 
     return self;
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"STUDYING - userState: %@, region: %@", self.userState, self.currentRegion.identifier];
+    return [NSString stringWithFormat:@"STUDYING - region: %@, Zone: %@", self.currentRegion.identifier, self.currentZone.identifier];
 }
 
 @end

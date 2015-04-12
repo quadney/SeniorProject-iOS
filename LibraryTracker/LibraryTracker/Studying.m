@@ -18,13 +18,20 @@
     
     self = [super initWithRegion:region BSSID:bssid andSSID:ssid];
     
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (![defaults boolForKey:@"user_studying"]) {
+        [self userStartedStudying];
+    }
+
+    return self;
+}
+
+- (void)userStartedStudying {
     [[LibwhereyClient sharedClient] userEntersZoneWithId:self.currentZone.idNumber];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setBool:YES forKey:@"user_studying"];
     [defaults synchronize];
-
-    return self;
 }
 
 - (void)enteredRegion:(Region *)region withBSSID:(NSString *)bssid andSSID:(NSString *)ssid {

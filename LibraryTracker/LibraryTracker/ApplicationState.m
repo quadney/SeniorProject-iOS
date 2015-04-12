@@ -39,17 +39,17 @@
 - (id)initPrivate {
     self = [super init];
     if (self) {
+        // initialize the location monitor to start getting location updates
+        [LocationMonitor sharedLocation];
+        
         // set the LocationState to be the default
         self.locationState = [[NotInRegionLS alloc] init];
         
         //check if there is a university in the NSUserDefaults
         
         if ([[NSUserDefaults standardUserDefaults] valueForKey:@"university_existence"]) {
-            [self loadUniversityFromUserDefaults];
+            [self loadDefaults];
         }
-        
-        // initialize the location monitor to start getting location updates
-        [LocationMonitor sharedLocation];
         
     }
     return self;
@@ -63,7 +63,7 @@
     return [self.university saveSelfInUserDefaults];
 }
 
-- (void)loadUniversityFromUserDefaults {
+- (void)loadDefaults {
     NSLog(@"ApplicationState loadUniversityDefaults");
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -97,6 +97,30 @@
         self.regions = updatedRegions;
         [[LocationMonitor sharedLocation] checkIfAlreadyInRegion];
     }
+    
+    // also need to check for the defaults, if the user is studying
+    [self checkIfUserIsAlreadyStudying];
+}
+
+- (void)checkIfUserIsAlreadyStudying {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults boolForKey:@"user_studying"]) {
+        Region *region = [self findRegionWithIdentifier:[[LocationMonitor sharedLocation] getCurrentRegionIdentifier]];
+        if (region) {
+            self.locationState = [[Studying alloc] initWithRegion:region
+                                                            BSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]
+                                                          andSSID:[[LocationMonitor sharedLocation] getCurrentSSID]];
+        }
+    }
+}
+
+- (Region *)findRegionWithIdentifier:(NSString *)identifier {
+    for (Region *reg in [self getRegions]) {
+        if ([reg.identifier isEqualToString:identifier]) {
+            return reg;
+        }
+    }
+    return nil;
 }
 
 - (void)setNewRegionsToTrack:(NSArray *)regions {

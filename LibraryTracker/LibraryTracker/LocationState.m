@@ -11,6 +11,12 @@
 
 @implementation LocationState
 
+- (id)initWithContext:(LocationStateContext *)context {
+    self = [super init];
+    self.context = context;
+    return self;
+}
+
 - (Region *)getRegion {
     @throw [NSException exceptionWithName:@"InvalidState" reason:@"User not in Region" userInfo:nil];
 }
@@ -25,10 +31,6 @@
     @throw [NSException exceptionWithName:@"AbstractClass"
                                    reason:@"This method must be overridden in subclasses"
                                  userInfo:nil];
-}
-
-- (NSString *)description {
-    return self.userState.description;
 }
 
 @end

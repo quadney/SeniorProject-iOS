@@ -12,7 +12,7 @@
 
 @interface LocationStateContext : NSObject
 
-//@property (nonatomic) LocationState *userState;
+@property (nonatomic, strong) LocationState *userState;
 
 - (void)enteredRegion:(Region *)region withBSSID:(NSString *)bssid andSSID:(NSString *)ssid;
 - (void)exitedRegion;

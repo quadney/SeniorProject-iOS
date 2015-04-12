@@ -9,16 +9,14 @@
 #import <Foundation/Foundation.h>
 
 //import LocationState classes
-#import "NotInRegionLS.h"
-#import "Studying.h"
-#import "Roaming.h"
+#import "LocationStateContext.m"
 
 //import University information
 #import "University.h"
 
 @interface ApplicationState : NSObject
 
-@property (nonatomic, strong) LocationState *locationState;
+@property (nonatomic, strong) LocationStateContext *locationState;
 
 + (id)sharedInstance;
 
@@ -58,7 +56,7 @@
 - (void)userExitedRegion:(CLCircularRegion *)region;
 
 // region has been confirmed
-- (void)regionConfirmed;
+//- (void)regionConfirmed;
 
 // don't hate me for puttin this here even though it doesn't belong...
 - (UIColor *)convertRegionPopulationToColorWithCurrentPop:(int)currentPopulation andMaxCapacity:(int)maxCapacity;

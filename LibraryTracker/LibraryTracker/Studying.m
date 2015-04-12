@@ -13,37 +13,39 @@
 
 @implementation Studying
 
-- (id)initWithRegion:(Region *)region BSSID:(NSString *)bssid andSSID:(NSString *)ssid {
-    NSLog(@"LOCATION STATE CHANGED TO STUDYING");
+- (id)initWithContext:(LocationStateContext *)context region:(Region *)region BSSID:(NSString *)bssid andSSID:(NSString *)ssid {
     
-    self = [super initWithRegion:region BSSID:bssid andSSID:ssid];
+    self = [super initWithContext:context region:region BSSID:bssid andSSID:ssid];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if (![defaults boolForKey:@"user_studying"]) {
+        // if Studying is init'd and the user was not already studying
         [self userStartedStudying];
     }
-
+    
     return self;
 }
 
 - (void)userStartedStudying {
+    // tell the database to
     [[LibwhereyClient sharedClient] userEntersZoneWithId:self.currentZone.idNumber];
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setBool:YES forKey:@"user_studying"];
-    [defaults synchronize];
+    [self setUserDefaultsWithBool:YES];
 }
 
 - (void)enteredRegion:(Region *)region withBSSID:(NSString *)bssid andSSID:(NSString *)ssid {
-    self.userState = [[Roaming alloc] initWithRegion:region BSSID:bssid andSSID:ssid];
+    [self setUserDefaultsWithBool:NO];
 }
 
 - (void)exitedRegion {
     // call the network to remove the person from the Zone
     [[LibwhereyClient sharedClient] userExitsZoneWithId:self.currentZone.idNumber];
-    
-    //set the user state to NotInRegion
-    self.userState = [[NotInRegionLS alloc] init];
+}
+
+- (void)setUserDefaultsWithBool:(BOOL)studying {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:studying forKey:@"user_studying"];
+    [defaults synchronize];
 }
 
 - (NSString *)description {

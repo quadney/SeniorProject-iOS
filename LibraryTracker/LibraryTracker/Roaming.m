@@ -22,12 +22,12 @@
 @implementation Roaming
 
 
-- (instancetype)initWithRegion:(Region *)region BSSID:(NSString *)bssid andSSID:(NSString *)ssid {
+- (id)initWithContext:(LocationStateContext *)context region:(Region *)region BSSID:(NSString *)bssid andSSID:(NSString *)ssid {
     // when Roaming is instantiated, the system needs to evaluate where the user is frequently
     // need to conjur up some fancy algorithm to work with this
     // probably having to do with threads and timers and background stuff
     
-    self = [super initWithRegion:region BSSID:bssid andSSID:ssid];
+    self = [super initWithContext:context region:region BSSID:bssid andSSID:ssid];
     
     [self startTimer];
     
@@ -35,14 +35,12 @@
 }
 
 - (void)enteredRegion:(Region *)region withBSSID:(NSString *)bssid andSSID:(NSString *)ssid {
-    //when user enters region from not in region, set the current region to be Roaming
+    [self invalidateBackgroundTasks];
     
-    self.userState = [[Roaming alloc] initWithRegion:region BSSID:bssid andSSID:ssid];
 }
 
 - (void)exitedRegion {
-    // invalid state
-    self.userState = [[NotInRegionLS alloc] init];
+    [self invalidateBackgroundTasks];
 }
 
 - (void)startTimer {
@@ -150,10 +148,8 @@
     [self invalidateBackgroundTasks];
     // called when the user has been in the region for an extended period of time
     
-    [[ApplicationState sharedInstance] regionConfirmed];
-//    self.userState = [[Studying alloc] initWithRegion:self.currentRegion
-//                                                BSSID:self.currentBSSID
-//                                              andSSID:self.universityCommonSSID];
+    [self.context regionConfirmedWithRegion:self.currentRegion
+                                      BSSID:self.currentBSSID andSSID:self.universityCommonSSID];
 }
 
 - (void)invalidateBackgroundTasks {

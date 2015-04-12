@@ -11,16 +11,18 @@
 
 @implementation NotInRegionLS
 
-- (id)init {
-    self = [super init];
+- (id)initWithContext:(LocationStateContext *)context {
+    self = [super initWithContext:context];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:NO forKey:@"user_studying"];
+    [defaults synchronize];
     
     return self;
 }
 
 - (void)enteredRegion:(Region *)region withBSSID:(NSString *)bssid andSSID:(NSString *)ssid {
-    //when user enters region from not in region, set the current region to be Roaming
     
-    self.userState = [[Roaming alloc] initWithRegion:region BSSID:bssid andSSID:ssid];
 }
 
 - (void)exitedRegion {
@@ -37,5 +39,4 @@
 - (NSString *)description {
     return [NSString stringWithFormat:@"NOT IN REGION // "];
 }
-
 @end

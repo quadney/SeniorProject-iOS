@@ -10,17 +10,14 @@
 
 @implementation InRegionLS
 
-- (id)initWithRegion:(Region *)region BSSID:(NSString *)bssid andSSID:(NSString *)ssid {
-    self = [super init];
+- (id)initWithContext:(LocationStateContext *)context region:(Region *)region BSSID:(NSString *)bssid andSSID:(NSString *)ssid {
+    self = [super initWithContext:context];
+    
     if (self) {
         self.currentRegion = region;
         self.currentZone = [region findZoneInRegionWithBssid:bssid];
         self.currentBSSID = bssid;
         self.universityCommonSSID = ssid;
-        
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setBool:NO forKey:@"user_studying"];
-        [defaults synchronize];
     }
     return self;
 }

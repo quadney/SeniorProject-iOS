@@ -24,10 +24,9 @@
     UIEdgeInsets inset = UIEdgeInsetsMake(20, 0, 0, 0);
     self.tableView.contentInset = inset;
     
-    // start a spinner loading
-    UIActivityIndicatorView *loadingSpinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    loadingSpinner.center = self.view.center;
-    [self.tableView addSubview:loadingSpinner];
+    // setup the loading spinner
+    UIActivityIndicatorView *loadingSpinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    loadingSpinner.center = CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2);
     [loadingSpinner startAnimating];
     
     // connect to the api
@@ -40,6 +39,7 @@
             
                 // stop the spinner
                 [loadingSpinner stopAnimating];
+                [loadingSpinner removeFromSuperview];
             
                 // reload the table data
                 [self.tableView reloadData];

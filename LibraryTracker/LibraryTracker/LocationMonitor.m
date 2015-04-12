@@ -134,6 +134,7 @@
     [self getCurrentLocation];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSLog(@"User is studying? %i", [defaults boolForKey:@"user_studying"]);
     if (![defaults boolForKey:@"user_studying"]) {
         // only check if already in a region IF we don't already know that the user is not studying
         

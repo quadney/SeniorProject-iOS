@@ -84,7 +84,6 @@
         
         // setup the loading spinner
         UIActivityIndicatorView *loadingSpinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        //[self.view addSubview:loadingSpinner];
         loadingSpinner.center = CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2);
         [loadingSpinner startAnimating];
         

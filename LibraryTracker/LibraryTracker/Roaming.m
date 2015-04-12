@@ -15,12 +15,12 @@
 @interface Roaming()
 
 @property (nonatomic) NSTimer *timer;
+@property int numTimesRanTimer;
 
 @end
 
 @implementation Roaming
 
-static int numTimesRanTimer = 0;
 
 - (instancetype)initWithRegion:(Region *)region BSSID:(NSString *)bssid andSSID:(NSString *)ssid {
     // when Roaming is instantiated, the system needs to evaluate where the user is frequently
@@ -29,7 +29,12 @@ static int numTimesRanTimer = 0;
     
     self = [super initWithRegion:region BSSID:bssid andSSID:ssid];
     
-    NSLog(@"Starting timer to update background stuff");
+    UIBackgroundTaskIdentifier bgTask;
+    UIApplication  *app = [UIApplication sharedApplication];
+    bgTask = [app beginBackgroundTaskWithExpirationHandler:^{
+        [app endBackgroundTask:bgTask];
+    }];
+    
     [self startTimer];
     
     return self;
@@ -47,19 +52,13 @@ static int numTimesRanTimer = 0;
 }
 
 - (void)startTimer {
-    UIBackgroundTaskIdentifier bgTask;
-    UIApplication  *app = [UIApplication sharedApplication];
-    bgTask = [app beginBackgroundTaskWithExpirationHandler:^{
-        [app endBackgroundTask:bgTask];
-    }];
-    
     //starts a timer for 30 seconds, in the background
     [self startTimerForSeconds:30.0f];
     
 }
 
 - (void)startTimerForSeconds:(float)seconds {
-    ++numTimesRanTimer;
+    self.numTimesRanTimer++;
     self.timer = [NSTimer scheduledTimerWithTimeInterval:seconds
                                                   target:self
                                                 selector:@selector(timerUpdateInfo:)
@@ -80,7 +79,7 @@ static int numTimesRanTimer = 0;
         // if they aren't on the wifi, then we don't care about the bssid
         // reset the num times timer has run
         NSLog(@"SSID is null");
-        numTimesRanTimer = 0;
+        self.numTimesRanTimer = 0;
         [self startTimerForSeconds:300.0f];
     }
     else {
@@ -137,16 +136,15 @@ static int numTimesRanTimer = 0;
 }
 
 - (BOOL)updatedZone:(Zone *)zone {
-    NSLog(@"Updating zone");
     if ([zone.identifier isEqualToString:self.currentZone.identifier]) {
-        NSLog(@"Zones are the same, Number of times ran timer: %i", numTimesRanTimer);
+        NSLog(@"Zones are the same, Number of times ran timer: %i", self.numTimesRanTimer);
         // user has not moved, potentially need to change state to studying
         // if the num times that the timer has started is above 3, then we can set the state to studying
         // also make sure that the background tasks are stopped
         
-//        if (numTimesRanTimer > 2) {
+        if (self.numTimesRanTimer > 2) {
             [self regionConfirmed];
-//        }
+        }
         return NO;
     }
     else {
@@ -155,13 +153,6 @@ static int numTimesRanTimer = 0;
         self.currentZone = zone;
         return YES;
     }
-}
-
-- (void)invalidateBackgroundTasks {
-    // TODO
-    // invalidate the background tasks inorder to save battery power and stuff
-    NSLog(@"Attempting to invalidate the background task");
-    [self.timer invalidate];
 }
 
 - (void)regionConfirmed {
@@ -173,6 +164,13 @@ static int numTimesRanTimer = 0;
 //    self.userState = [[Studying alloc] initWithRegion:self.currentRegion
 //                                                BSSID:self.currentBSSID
 //                                              andSSID:self.universityCommonSSID];
+}
+
+- (void)invalidateBackgroundTasks {
+    // TODO
+    // invalidate the background tasks inorder to save battery power and stuff
+    NSLog(@"Attempting to invalidate the background task");
+    [self.timer invalidate];
 }
 
 - (NSString *)description {

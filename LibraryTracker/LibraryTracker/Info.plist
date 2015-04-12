@@ -27,9 +27,7 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>When in Use Authorization Test</string>
 	<key>UIBackgroundModes</key>
-	<array>
-		<string>location</string>
-	</array>
+	<array/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

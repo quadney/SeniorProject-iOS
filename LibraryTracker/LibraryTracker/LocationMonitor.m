@@ -9,7 +9,6 @@
 #import "LocationMonitor.h"
 #import "ApplicationState.h"
 #import <CoreLocation/CoreLocation.h>
-#import <UIKit/UIKit.h>
 
 #import <SystemConfiguration/CaptiveNetwork.h>
 #include <ifaddrs.h>
@@ -112,7 +111,6 @@
     if ([self checkLocationManagerPermissions]) {
         [self.locationManager startUpdatingLocation];
     }
-
     return self.currentLocation;
 }
 
@@ -123,6 +121,7 @@
 }
 
 - (void)checkIfAlreadyInRegion {
+    NSLog(@"Checking if already in a region");
     [self getCurrentLocation];
     
     for (CLCircularRegion *region in [self.locationManager monitoredRegions]) {
@@ -152,7 +151,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
     
-    [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"Entered Region: %@", region.identifier]];
+    NSLog(@"Entered Region %@", region.identifier);
     
     // when user enters region - need to change user state to Roaming
     [[ApplicationState sharedInstance] userEnteredRegion:(CLCircularRegion *)region];
@@ -160,7 +159,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
     
-    [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"Exited Region: %@", region.identifier]];
+    NSLog(@"Exited Region %@", region.identifier);
     
     // when user exits region - need to change user state to NotInRegion
     [[ApplicationState sharedInstance] userExitedRegion:(CLCircularRegion *)region];
@@ -171,7 +170,9 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     self.currentLocation = [locations lastObject];
     
-    [self.locationManager stopUpdatingLocation];
+    if (self.currentLocation) {
+        [self.locationManager stopUpdatingLocation];
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {
@@ -225,16 +226,6 @@
     }
     
     return SSIDInfo;
-}
-
-#pragma mark - Local Notification Methods
-
-- (void)createLocalNotificationWithAlertBody:(NSString *)alert {
-    UILocalNotification *notification = [[UILocalNotification alloc] init];
-    notification.alertBody = alert;
-    notification.fireDate = [[NSDate date] dateByAddingTimeInterval:5];
-    notification.applicationIconBadgeNumber = 1;
-    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 }
 
 @end

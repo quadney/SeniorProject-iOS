@@ -48,6 +48,9 @@
             [self loadUniversityFromUserDefaults];
         }
         
+        // initialize the location monitor to start getting location updates
+        [LocationMonitor sharedLocation];
+        
     }
     return self;
 }
@@ -79,14 +82,6 @@
     return self.university.commonWifiName;
 }
 
-- (void)setNewRegionsToTrack:(NSArray *)regions {
-    // when new regions are set, need to also change what is being monitored
-    self.regions = regions;
-    
-    // when the regions that the app is tracking is updated, we need to also refresh the RegionTableView and RegionMapView Controller's
-    [self setRegionsInLocationMonitorWithRegions:regions];
-}
-
 - (void)updateRegions:(NSArray *)updatedRegions {
     if ([self.regions count] != [updatedRegions count]) {
         // the count is different, so need to track those new ones
@@ -97,6 +92,15 @@
     }
     
     [[LocationMonitor sharedLocation] checkIfAlreadyInRegion];
+}
+
+- (void)setNewRegionsToTrack:(NSArray *)regions {
+    NSLog(@"Setting new regions to track");
+    // when new regions are set, need to also change what is being monitored
+    self.regions = regions;
+    
+    // when the regions that the app is tracking is updated, we need to also refresh the RegionTableView and RegionMapView Controller's
+    [self setRegionsInLocationMonitorWithRegions:regions];
 }
 
 - (void)setRegionsInLocationMonitorWithRegions:(NSArray *)regions {

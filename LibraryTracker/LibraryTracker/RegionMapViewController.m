@@ -80,6 +80,7 @@
 }
 
 - (void)refreshRegions {
+    NSLog(@"Refreshing the Regions");
     if ([[[ApplicationState sharedInstance] getRegions] count] == 0) {
         // need to refresh the regions
         
@@ -95,6 +96,7 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
                     //update the regions
+                    NSLog(@"Updating the regions");
                     [[ApplicationState sharedInstance] updateRegions:regions];
                     
                     // stop the spinner
@@ -108,6 +110,7 @@
         }];
     }
     else {
+        NSLog(@"Placing the google map markers, the regions assocaited was not 0");
         [self placeGoogleMapMarkers:[[ApplicationState sharedInstance] getRegions]];
     }
 }

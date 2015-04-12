@@ -25,8 +25,6 @@
         [self getRegionsFromLibwhereyClient];
     }
     
-    NSLog(@"viewDidLoad ApplicationTabBarController called");
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated  {

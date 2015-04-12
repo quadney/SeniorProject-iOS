@@ -14,10 +14,15 @@
 @implementation Studying
 
 - (id)initWithRegion:(Region *)region BSSID:(NSString *)bssid andSSID:(NSString *)ssid {
+    NSLog(@"LOCATION STATE CHANGED TO STUDYING");
     
     self = [super initWithRegion:region BSSID:bssid andSSID:ssid];
     
     [[LibwhereyClient sharedClient] userEntersZoneWithId:self.currentZone.idNumber];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:YES forKey:@"user_studying"];
+    [defaults synchronize];
 
     return self;
 }

@@ -56,12 +56,16 @@
 }
 
 - (BOOL)saveUniversityDefaults {
+    NSLog(@"ApplicationState saveUniversityDefaults");
+    
     [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"university_existence"];
     
     return [self.university saveSelfInUserDefaults];
 }
 
 - (void)loadUniversityFromUserDefaults {
+    NSLog(@"ApplicationState loadUniversityDefaults");
+    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.university = [[ModelFactory modelStore] createUniversityWithName:[defaults valueForKey:@"university_name"]
                                                                  latitude:[defaults floatForKey:@"university_latitude"]
@@ -83,19 +87,21 @@
 }
 
 - (void)updateRegions:(NSArray *)updatedRegions {
+    NSLog(@"ApplicationState updateRegions");
+    
     if ([self.regions count] != [updatedRegions count]) {
         // the count is different, so need to track those new ones
         [self setNewRegionsToTrack:updatedRegions];
     }
     else {
         self.regions = updatedRegions;
+        [[LocationMonitor sharedLocation] checkIfAlreadyInRegion];
     }
-    
-    [[LocationMonitor sharedLocation] checkIfAlreadyInRegion];
 }
 
 - (void)setNewRegionsToTrack:(NSArray *)regions {
-    NSLog(@"Setting new regions to track");
+    NSLog(@"ApplicationState setNewRegionsToTrack");
+    
     // when new regions are set, need to also change what is being monitored
     self.regions = regions;
     
@@ -104,6 +110,7 @@
 }
 
 - (void)setRegionsInLocationMonitorWithRegions:(NSArray *)regions {
+    NSLog(@"ApplicationState setRegionsInLocationMonitorWithRegions");
     [[LocationMonitor sharedLocation] setRegionsToMonitor:regions];
 }
 
@@ -116,35 +123,37 @@
 }
 
 - (void)userEnteredRegion:(CLCircularRegion *)region {
-    // This will probably be done in the background
+    NSLog(@"ApplicationState userEnteredRegion");
+    
     // The Roaming functionality takes in a Region, this method has access to the CLCircularRegion
             // aka I need to find the region that it is associated with
     
     // get the Region with the same identifier as the one we have access to
     // go through the list and find it
+    NSLog(@"Regions comparing to: %@", [self getRegions]);
     for (Region *enteredRegion in [self getRegions]) {
         if ([enteredRegion.identifier isEqualToString:region.identifier]) {
-            
-//            [self.locationState enteredRegion:enteredRegion
-//                            withBSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]
-//                              andSSID:[[LocationMonitor sharedLocation] getCurrentSSID]];
+            NSLog(@"User State: %@", self.locationState);
+
+//                [self.locationState enteredRegion:enteredRegion
+//                                        withBSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]
+//                                          andSSID:[[LocationMonitor sharedLocation] getCurrentSSID]];
 
             
             self.locationState = [[Roaming alloc] initWithRegion:enteredRegion
-                                                   BSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]
-                                                 andSSID:[[LocationMonitor sharedLocation] getCurrentSSID]];
-            
-            NSLog(@"LocationState: %@", self.locationState);
+                                                           BSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]
+                                                         andSSID:[[LocationMonitor sharedLocation] getCurrentSSID]];
         }
     }
     
 }
 
 - (void)userExitedRegion:(CLCircularRegion *)region {
+    NSLog(@"ApplicationState userExitedRegion");
     // when user exits a region, then state goes to NotInRegion
     //self.locationState = [[NotInRegionLS alloc] init];
     [self.locationState exitedRegion];
-    NSLog(@"LocationState: %@", self.locationState);
+    //NSLog(@"LocationState: %@", self.locationState);
     // if the user was in a region, then call the database and call the method
     
     self.locationState = [[NotInRegionLS alloc] init];
@@ -152,6 +161,8 @@
 
 // region has been confirmed
 - (void)regionConfirmed{
+    NSLog(@"ApplicationState regionConfirmed");
+    
     self.locationState = [[Studying alloc] initWithRegion:[self getUserCurrentRegion]
                                             BSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]
                                           andSSID:[[LocationMonitor sharedLocation] getCurrentSSID]];
@@ -170,16 +181,6 @@
     // subtract 1.0 from what the value is to invert it, then constrain it to [0.0, 0.33] by dividing by 3.0
     float color = (1.0f - ((float)currentPopulation/maxCapacity)) / 3.0f;
     return [UIColor colorWithHue:color saturation:0.75f brightness:0.9f alpha:0.7f];
-}
-
-#pragma mark - Local Notification Methods
-
-- (void)createLocalNotificationWithAlertBody:(NSString *)alert {
-    UILocalNotification *notification = [[UILocalNotification alloc] init];
-    notification.alertBody = alert;
-    notification.fireDate = [[NSDate date] dateByAddingTimeInterval:5];
-    notification.applicationIconBadgeNumber = 1;
-    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 }
 
 @end

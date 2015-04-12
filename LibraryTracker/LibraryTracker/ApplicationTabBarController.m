@@ -45,6 +45,8 @@
 }
 
 - (void)getRegionsFromLibwhereyClient {
+    NSLog(@"ApplicationTabBarController getRegionsFromLibwhereyClient");
+    
     // if regions do not exist, but the university does, then need to refresh the regions from the database
     
     [[LibwhereyClient sharedClient] getRegionsFromUniversityWithId:[[ApplicationState sharedInstance] getUniversityId] completion:^(BOOL success, NSError *__autoreleasing *error, NSArray *regions) {

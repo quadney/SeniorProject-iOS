@@ -29,12 +29,6 @@
     
     self = [super initWithRegion:region BSSID:bssid andSSID:ssid];
     
-    UIBackgroundTaskIdentifier bgTask;
-    UIApplication  *app = [UIApplication sharedApplication];
-    bgTask = [app beginBackgroundTaskWithExpirationHandler:^{
-        [app endBackgroundTask:bgTask];
-    }];
-    
     [self startTimer];
     
     return self;
@@ -53,20 +47,25 @@
 
 - (void)startTimer {
     //starts a timer for 30 seconds, in the background
-    [self startTimerForSeconds:30.0f];
+    self.numTimesRanTimer = 0;
     
-}
-
-- (void)startTimerForSeconds:(float)seconds {
-    self.numTimesRanTimer++;
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:seconds
+    UIBackgroundTaskIdentifier bgTask;
+    UIApplication  *app = [UIApplication sharedApplication];
+    bgTask = [app beginBackgroundTaskWithExpirationHandler:^{
+        [app endBackgroundTask:bgTask];
+    }];
+    
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:180.0
                                                   target:self
                                                 selector:@selector(timerUpdateInfo:)
                                                 userInfo:nil
                                                  repeats:YES];
+    
 }
 
 - (void)timerUpdateInfo:(id)sender {
+    self.numTimesRanTimer++;
+    
     //when the timer is fired, grabs the user's current location, wifi, etc
     NSString *newSSID = [[LocationMonitor sharedLocation] getCurrentSSID];
 
@@ -74,30 +73,21 @@
     
     NSLog(@"Checking SSID, %@", newSSID);
     if (!newSSID) {
-        // if the IP address is null, then the person is not connected to wifi
-        // start the timer again, we'll check again in 5 minutes
+        // if the SSID is null, then the person is not connected to wifi
         // if they aren't on the wifi, then we don't care about the bssid
         // reset the num times timer has run
-        NSLog(@"SSID is null");
+        NSLog(@"SSID is null, reset num times the timer has run");
         self.numTimesRanTimer = 0;
-        [self startTimerForSeconds:300.0f];
     }
     else {
         // get the new location and bssid
         // we don't actually need location, but need it so we can run this in the background shhhhh
-        [[LocationMonitor sharedLocation] getCurrentLocation];
         NSString *newBssid = [[LocationMonitor sharedLocation] getCurrentBSSID];
         
         if ([self checkSSID:newSSID]){
             // the IP address is the correct one that is associated with the university
-            
-            NSLog(@"User is in the correct wifi, updating the BSSID and stuff");
             // compare how the new location and BSSID
-            if ([self updatedBSSID:newBssid]) {
-                // if yes, then the user has moved
-                // need to set a timer again, for 3 minutes
-                [self startTimerForSeconds:180.0];
-            }
+            [self updatedBSSID:newBssid];
         }
         else {
             // the wifi is not null, and the user is on the wrong wifi.

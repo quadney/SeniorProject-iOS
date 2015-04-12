@@ -20,11 +20,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
+    // Do any additional setup after loading the view.    
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {    
     University *university = [[ApplicationState sharedInstance] getUniversity];
     
     if (university) {
@@ -80,7 +79,6 @@
 }
 
 - (void)refreshRegions {
-    NSLog(@"Refreshing the Regions");
     if ([[[ApplicationState sharedInstance] getRegions] count] == 0) {
         // need to refresh the regions
         
@@ -96,7 +94,7 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
                     //update the regions
-                    NSLog(@"Updating the regions");
+                    NSLog(@"RegionMapViewController updating the regions");
                     [[ApplicationState sharedInstance] updateRegions:regions];
                     
                     // stop the spinner
@@ -110,7 +108,7 @@
         }];
     }
     else {
-        NSLog(@"Placing the google map markers, the regions assocaited was not 0");
+        //NSLog(@"Placing the google map markers, the regions assocaited was not 0");
         [self placeGoogleMapMarkers:[[ApplicationState sharedInstance] getRegions]];
     }
 }

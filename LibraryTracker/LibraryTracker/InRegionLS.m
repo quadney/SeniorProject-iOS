@@ -17,6 +17,10 @@
         self.currentZone = [region findZoneInRegionWithBssid:bssid];
         self.currentBSSID = bssid;
         self.universityCommonSSID = ssid;
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setBool:NO forKey:@"user_studying"];
+        [defaults synchronize];
     }
     return self;
 }

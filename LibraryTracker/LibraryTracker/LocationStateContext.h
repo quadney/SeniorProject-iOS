@@ -1,22 +1,22 @@
 //
-//  LocationState.h
+//  LocationStateHolder.h
 //  LibraryTracker
 //
-//  Created by Sydney Richardson on 2/1/15.
+//  Created by Sydney Richardson on 4/12/15.
 //  Copyright (c) 2015 Sydney Richardson. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import "Region.h"
-#import "Zone.h"
-#import "LocationStateContext.h"
+#import "LocationState.h"
 
-@interface LocationState : NSObject
+@interface LocationStateContext : NSObject
 
-@property LocationState *userState;
+//@property (nonatomic) LocationState *userState;
 
 - (void)enteredRegion:(Region *)region withBSSID:(NSString *)bssid andSSID:(NSString *)ssid;
 - (void)exitedRegion;
+- (void)regionConfirmedWithRegion:(Region *)region BSSID:(NSString *)bssid andSSID:(NSString *)ssid;
 - (Region *)getRegion;
 
 @end

@@ -20,6 +20,7 @@
 		C96EEDCA1A8476410010DC90 /* AddRegionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C96EEDC91A8476410010DC90 /* AddRegionViewController.m */; };
 		C96EEDCD1A8479E30010DC90 /* ModelFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = C96EEDCC1A8479E30010DC90 /* ModelFactory.m */; };
 		C97FF30E1A816E7A00F09F55 /* LocationMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = C97FF30D1A816E7A00F09F55 /* LocationMonitor.m */; };
+		C9936C9F1ADADA4000CBA599 /* LocationStateContext.m in Sources */ = {isa = PBXBuildFile; fileRef = C9936C9E1ADADA4000CBA599 /* LocationStateContext.m */; };
 		C9A38A961A7F02700065DE8D /* RegionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A38A951A7F02700065DE8D /* RegionTableViewController.m */; };
 		C9A38A991A7F02AB0065DE8D /* RegionMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A38A981A7F02AB0065DE8D /* RegionMapViewController.m */; };
 		C9A38A9C1A7F03400065DE8D /* SelectUniversityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A38A9B1A7F03400065DE8D /* SelectUniversityTableViewController.m */; };
@@ -84,6 +85,8 @@
 		C96EEDCC1A8479E30010DC90 /* ModelFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelFactory.m; sourceTree = "<group>"; };
 		C97FF30C1A816E7A00F09F55 /* LocationMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationMonitor.h; sourceTree = "<group>"; };
 		C97FF30D1A816E7A00F09F55 /* LocationMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationMonitor.m; sourceTree = "<group>"; };
+		C9936C9D1ADADA4000CBA599 /* LocationStateContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationStateContext.h; sourceTree = "<group>"; };
+		C9936C9E1ADADA4000CBA599 /* LocationStateContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationStateContext.m; sourceTree = "<group>"; };
 		C9A38A941A7F02700065DE8D /* RegionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegionTableViewController.h; sourceTree = "<group>"; };
 		C9A38A951A7F02700065DE8D /* RegionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegionTableViewController.m; sourceTree = "<group>"; };
 		C9A38A971A7F02AB0065DE8D /* RegionMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegionMapViewController.h; sourceTree = "<group>"; };
@@ -270,6 +273,8 @@
 		C9A38AAE1A7F0DD30065DE8D /* LocationState */ = {
 			isa = PBXGroup;
 			children = (
+				C9936C9D1ADADA4000CBA599 /* LocationStateContext.h */,
+				C9936C9E1ADADA4000CBA599 /* LocationStateContext.m */,
 				C9A38AAF1A7F0DE30065DE8D /* LocationState.h */,
 				C9A38AB01A7F0DE30065DE8D /* LocationState.m */,
 				C9A38AB21A7F0E030065DE8D /* NotInRegionLS.h */,
@@ -443,6 +448,7 @@
 				C92F402F1AD5D3A7003DCC08 /* RegionIdentificationViewController.m in Sources */,
 				C9EBA40F1A8D31A70041C68B /* KeyboardViewController.m in Sources */,
 				C9A38A9F1A7F095C0065DE8D /* ApplicationTabBarController.m in Sources */,
+				C9936C9F1ADADA4000CBA599 /* LocationStateContext.m in Sources */,
 				C9A38A991A7F02AB0065DE8D /* RegionMapViewController.m in Sources */,
 				C9A38AAD1A7F0D560065DE8D /* University.m in Sources */,
 				C9A38ABD1A7F0E3A0065DE8D /* Studying.m in Sources */,

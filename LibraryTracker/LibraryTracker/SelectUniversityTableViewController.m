@@ -20,7 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+        
     UIEdgeInsets inset = UIEdgeInsetsMake(20, 0, 0, 0);
     self.tableView.contentInset = inset;
     
@@ -80,27 +80,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // sets the University to the ApplicationState,
     // but this Unviersity doesn't know about it's regions
-    NSLog(@"Setting the University");
     [[ApplicationState sharedInstance] setUniversity:[self.universities objectAtIndex:indexPath.row]];
     [[ApplicationState sharedInstance] saveUniversityDefaults];
     
-    // now that the application knows which university to track, we need to refresh the Regions
-    // this is going to be here, because this needs to happen whenever the user chooses a new University
-    [[LibwhereyClient sharedClient] getRegionsFromUniversityWithId:[[ApplicationState sharedInstance] getUniversityId] completion:^(BOOL success, NSError *__autoreleasing *error, NSArray *regions) {
-    
-        if (success) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [[ApplicationState sharedInstance] setNewRegionsToTrack:regions];
-                [self.returningViewController viewWillAppear:NO];
-            });
-        }
-    }];
-    
     //when the university is selected, we need to add the University's Regions to the geofence
-    [self dismissViewControllerAnimated:YES completion:^{
-        // have it check if the user is in a zone
-        
-    }];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

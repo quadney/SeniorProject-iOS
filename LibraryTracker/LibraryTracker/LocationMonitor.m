@@ -68,7 +68,7 @@
 // method to check whether there is permissions for location monitoring
 // this is important!
 - (BOOL)checkLocationManagerPermissions {
-    //NSLog(@"Authorization status: %i", [CLLocationManager authorizationStatus]);
+    
     if (![CLLocationManager authorizationStatus]) {
         [self.locationManager requestAlwaysAuthorization];
     }
@@ -91,6 +91,8 @@
 
 // call this method when setting a new university
 - (void)setRegionsToMonitor:(NSArray *)regions {
+    NSLog(@"LocationMonitor setRegionsToMonitor");
+    
     // clear out the current regions that it's monitoring
     [self clearRegionsMonitoring];
         
@@ -102,12 +104,16 @@
 }
 
 - (void)addRegionsToMonitor:(NSArray *)regions {
+    NSLog(@"LocationMonitor addRegionsToMonitor");
+    
     for (CLCircularRegion *region in regions) {
         [self.locationManager startMonitoringForRegion:region];
     }
 }
 
 - (CLLocation *)getCurrentLocation {
+    NSLog(@"LocationMonitor getCurrentLocation");
+    
     if ([self checkLocationManagerPermissions]) {
         [self.locationManager startUpdatingLocation];
     }
@@ -115,13 +121,16 @@
 }
 
 - (void)clearRegionsMonitoring {
+    NSLog(@"LocationMonitor clearRegionsMonitoring");
+    
     for(CLRegion *region in [[self.locationManager monitoredRegions] allObjects]) {
         [self.locationManager stopMonitoringForRegion:region];
     }
 }
 
 - (void)checkIfAlreadyInRegion {
-    NSLog(@"Checking if already in a region");
+    NSLog(@"LocationMonitor checkIfAlreadyInRegion");
+    
     [self getCurrentLocation];
     
     for (CLCircularRegion *region in [self.locationManager monitoredRegions]) {
@@ -175,7 +184,7 @@
     }
 }
 
-- (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {
+- (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {    
     //use this if the user is already in a region
     NSLog(@"User already in region - %@", region.identifier);
     
@@ -184,7 +193,8 @@
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    NSLog(@"didFailWithError: %@", error);
+    NSLog(@"LocationMonitor didFailWithError: %@", error);
+    
     UIAlertView *errorAlert = [[UIAlertView alloc]
                                initWithTitle:@"Error"
                                message:@"Failed to Get Your Location"

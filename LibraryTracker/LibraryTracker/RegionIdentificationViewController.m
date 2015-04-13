@@ -34,11 +34,11 @@
     self.bssidLabel.text = [NSString stringWithFormat:@"BSSID: %@", BSSID];
     self.zoneLabel.text = [NSString stringWithFormat:@"Zone: %@", zone.identifier];
     
-    //self.locationStateLabel.text = [[ApplicationState sharedInstance] locationState].description;
+    self.locationStateLabel.text = [[ApplicationState sharedInstance] getLocationState];
 }
 
 - (IBAction)updateLocationStateLabel:(id)sender {
-    //self.locationStateLabel.text = [[ApplicationState sharedInstance] locationState].description;
+    self.locationStateLabel.text = [[ApplicationState sharedInstance] getLocationState];
 }
 
 

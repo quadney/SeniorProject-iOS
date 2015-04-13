@@ -113,8 +113,8 @@
             [self.locationStateContext regionConfirmedWithRegion:region
                                                            BSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]
                                                          andSSID:[[LocationMonitor sharedLocation] getCurrentSSID]];
+            return YES;
         }
-        return YES;
     }
     return NO;
 }
@@ -181,6 +181,10 @@
     [self.locationStateContext exitedRegion];
     
     [self createLocalNotificationWithAlertBody:@"User exited Region"];
+}
+
+- (NSString *)getLocationState {
+    return self.locationStateContext.description;
 }
 
 - (UIColor *)convertRegionPopulationToColorWithCurrentPop:(int)currentPopulation andMaxCapacity:(int)maxCapacity {

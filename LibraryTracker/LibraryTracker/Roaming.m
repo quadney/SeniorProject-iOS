@@ -30,7 +30,13 @@
     
     self = [super initWithContext:context region:region BSSID:bssid andSSID:ssid];
     
-    [self startTimer];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSLog(@"INIT ROAMING: user defaults, %i", [defaults boolForKey:@"user_roaming"]);
+    if (![defaults boolForKey:@"user_roaming"]) {
+        // if Roaming is init'd and the user was already roaming
+        [self startTimer];
+        [self setUserDefaultsWithBool:YES];
+    }
     
     return self;
 }
@@ -170,6 +176,7 @@
 - (void)regionConfirmed {
     NSLog(@"Confirming region");
     [self invalidateBackgroundTasks];
+    
     // called when the user has been in the region for an extended period of time
     NSLog(@"Context: %@", self.context);
     [self.context regionConfirmedWithRegion:self.currentRegion
@@ -182,10 +189,19 @@
     // invalidate the background tasks inorder to save battery power and stuff
     NSLog(@"Attempting to invalidate the background task");
     [self.timer invalidate];
+    
+    // set that the user is no longer roaming
+    [self setUserDefaultsWithBool:NO];
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"ROAMING // "];
+    return [NSString stringWithFormat:@"ROAMING // numTimesRanTimer: %i", self.numTimesRanTimer];
+}
+
+- (void)setUserDefaultsWithBool:(BOOL)studying {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:studying forKey:@"user_roaming"];
+    [defaults synchronize];
 }
 
 #pragma mark - Local Notification Methods

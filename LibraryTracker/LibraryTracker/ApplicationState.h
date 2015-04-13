@@ -51,8 +51,8 @@
 // reacts when the user exits a region
 - (void)userExitedRegion:(CLCircularRegion *)region;
 
-// region has been confirmed
-//- (void)regionConfirmed;
+// get location state
+- (NSString *)getLocationState;
 
 // don't hate me for puttin this here even though it doesn't belong...
 - (UIColor *)convertRegionPopulationToColorWithCurrentPop:(int)currentPopulation andMaxCapacity:(int)maxCapacity;

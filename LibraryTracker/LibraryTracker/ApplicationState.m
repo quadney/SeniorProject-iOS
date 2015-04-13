@@ -115,6 +115,9 @@
                                                          andSSID:[[LocationMonitor sharedLocation] getCurrentSSID]];
             return YES;
         }
+        else {
+            [self.locationStateContext exitedRegion];
+        }
     }
     return NO;
 }

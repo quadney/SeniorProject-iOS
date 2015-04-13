@@ -20,12 +20,18 @@
 @property (weak, nonatomic) IBOutlet UILabel *bssidLabel;
 @property (weak, nonatomic) IBOutlet UILabel *zoneLabel;
 @property (weak, nonatomic) IBOutlet UILabel *locationStateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *userStudying;
+@property (weak, nonatomic) IBOutlet UILabel *userRoaming;
 
 @end
 
 @implementation RegionIdentificationViewController
 
 - (void)viewDidLoad {
+    [self updateLocationStateLabel:nil];
+}
+
+- (IBAction)updateLocationStateLabel:(id)sender {
     Region *region = [[ApplicationState sharedInstance] getUserCurrentRegion];
     NSString *BSSID = [[LocationMonitor sharedLocation] getCurrentBSSID];
     Zone *zone = [region findZoneInRegionWithBssid:BSSID];
@@ -35,10 +41,10 @@
     self.zoneLabel.text = [NSString stringWithFormat:@"Zone: %@", zone.identifier];
     
     self.locationStateLabel.text = [[ApplicationState sharedInstance] getLocationState];
-}
-
-- (IBAction)updateLocationStateLabel:(id)sender {
-    self.locationStateLabel.text = [[ApplicationState sharedInstance] getLocationState];
+    
+    NSUserDefaults *defualts = [NSUserDefaults standardUserDefaults];
+    self.userStudying.text = [NSString stringWithFormat:@"User Studying userDefualts: %i", [defualts boolForKey:@"user_studying"]];
+    self.userRoaming.text = [NSString stringWithFormat:@"User Roaming userDefualts: %i", [defualts boolForKey:@"user_roaming"]];
 }
 
 

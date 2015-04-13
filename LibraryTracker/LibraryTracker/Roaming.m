@@ -16,6 +16,7 @@
 
 @property (nonatomic) NSTimer *timer;
 @property int numTimesRanTimer;
+@property int numTimesNotInWifi;
 
 @end
 
@@ -53,6 +54,7 @@
 - (void)startTimer {
     //starts a timer for 30 seconds, in the background
     self.numTimesRanTimer = 0;
+    self.numTimesNotInWifi = 0;
     
     UIBackgroundTaskIdentifier bgTask;
     UIApplication  *app = [UIApplication sharedApplication];
@@ -87,6 +89,7 @@
         NSLog(@"SSID is null, reset num times the timer has run");
         [self createLocalNotificationWithAlertBody:@"SSID is null, resetting run times"];
         self.numTimesRanTimer = 0;
+        self.numTimesNotInWifi++;
     }
     else {
         // get the new location and bssid
@@ -149,6 +152,10 @@
         if (self.numTimesRanTimer > 2) {
             [self createLocalNotificationWithAlertBody:@"user confirmed in zone"];
             [self regionConfirmed];
+        }
+        else if (self.numTimesNotInWifi > 2) {
+            // the user probably won't turn on their wifi, so remove the user from the region
+            [self.context exitedRegion];
         }
         return NO;
     }

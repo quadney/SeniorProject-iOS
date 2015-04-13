@@ -27,19 +27,29 @@
 }
 
 - (void)userStartedStudying {
+    NSLog(@"STUDYING userStartedStudying");
+    
     // tell the database to
     [[LibwhereyClient sharedClient] userEntersZoneWithId:self.currentZone.idNumber];
     
     [self setUserDefaultsWithBool:YES];
 }
 
-- (void)enteredRegion:(Region *)region withBSSID:(NSString *)bssid andSSID:(NSString *)ssid {
+- (Roaming *)enteredRegion:(Region *)region withBSSID:(NSString *)bssid andSSID:(NSString *)ssid {
+    NSLog(@"STUDYING enteredRegion");
+    
     [self setUserDefaultsWithBool:NO];
+    
+    return [[Roaming alloc] initWithContext:self.context region:region BSSID:bssid andSSID:ssid];
 }
 
-- (void)exitedRegion {
+- (NotInRegionLS *)exitedRegion {
+    NSLog(@"STUDYING exitedRegion");
+    
     // call the network to remove the person from the Zone
     [[LibwhereyClient sharedClient] userExitsZoneWithId:self.currentZone.idNumber];
+    
+    return [[NotInRegionLS alloc] initWithContext:self.context];
 }
 
 - (void)setUserDefaultsWithBool:(BOOL)studying {

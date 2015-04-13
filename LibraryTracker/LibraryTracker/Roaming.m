@@ -34,13 +34,20 @@
     return self;
 }
 
-- (void)enteredRegion:(Region *)region withBSSID:(NSString *)bssid andSSID:(NSString *)ssid {
+- (Roaming *)enteredRegion:(Region *)region withBSSID:(NSString *)bssid andSSID:(NSString *)ssid {
+    NSLog(@"ROAMING enteredRegion");
+    
     [self invalidateBackgroundTasks];
     
+    return [[Roaming alloc] initWithContext:self.context region:region BSSID:bssid andSSID:ssid];
 }
 
-- (void)exitedRegion {
+- (NotInRegionLS *)exitedRegion {
+    NSLog(@"ROAMING exitedRegion");
+    
     [self invalidateBackgroundTasks];
+    
+    return [[NotInRegionLS alloc] initWithContext:self.context];
 }
 
 - (void)startTimer {
@@ -149,7 +156,8 @@
     // called when the user has been in the region for an extended period of time
     
     [self.context regionConfirmedWithRegion:self.currentRegion
-                                      BSSID:self.currentBSSID andSSID:self.universityCommonSSID];
+                                      BSSID:self.currentBSSID
+                                    andSSID:self.universityCommonSSID];
 }
 
 - (void)invalidateBackgroundTasks {

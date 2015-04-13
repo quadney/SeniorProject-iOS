@@ -11,41 +11,48 @@
 #import "Roaming.h"
 #import "Studying.h"
 
+
+@interface LocationStateContext()
+
+@property (nonatomic, strong) LocationState *state;
+
+@end
+
 @implementation LocationStateContext
 
 - (id)init {
     self = [super init];
-    self.userState = [[NotInRegionLS alloc] initWithContext:self];
+    self.state = [[NotInRegionLS alloc] init];
     
     return self;
 }
 
 - (void)enteredRegion:(Region *)region withBSSID:(NSString *)bssid andSSID:(NSString *)ssid {
+    NSLog(@"LOCATIONSTATECONTEXT enteredRegion");
+    
     //when user enters region from not in region, set the current region to be Roaming
     
-    [self.userState enteredRegion:region withBSSID:bssid andSSID:ssid];
-
-    self.userState = [[Roaming alloc] initWithContext:self region:region BSSID:bssid andSSID:ssid];
+    self.state = [self.state enteredRegion:region withBSSID:bssid andSSID:ssid];;
 }
 
 - (void)exitedRegion {
+    NSLog(@"LOCATIONSTATECONTEXT exitedRegion");
     
-    [self.userState exitedRegion];
-    
-    self.userState = [[NotInRegionLS alloc] initWithContext:self];
-    
+    self.state = [self.state exitedRegion];;
 }
 
 - (void)regionConfirmedWithRegion:(Region *)region BSSID:(NSString *)bssid andSSID:(NSString *)ssid {
-    self.userState = [[Studying alloc] initWithContext:self region:region BSSID:bssid andSSID:ssid];
+    NSLog(@"LOCATIONSTATECONTEXT regionConfirmed");
+    
+    self.state = [[Studying alloc] initWithContext:self region:region BSSID:bssid andSSID:ssid];
 }
 
 - (Region *)getRegion {
-    return [self.userState getRegion];
+    return [self.state getRegion];
 }
 
 - (NSString *)description {
-    return self.userState.description;
+    return self.state.description;
 }
 
 @end

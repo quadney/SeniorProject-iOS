@@ -10,6 +10,4 @@
 
 @interface Studying : InRegionLS
 
-- (void)userStartedStudying;
-
 @end

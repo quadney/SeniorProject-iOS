@@ -7,18 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LocationStateContext.h"
 #import "Region.h"
 #import "Zone.h"
+#import "LocationStateContext.h"
 
 @interface LocationState : NSObject
 
-@property (nonatomic, strong) LocationStateContext *context;
+@property (strong, nonatomic) LocationStateContext *context;
 
 - (id)initWithContext:(LocationStateContext *)context;
 
-- (void)enteredRegion:(Region *)region withBSSID:(NSString *)bssid andSSID:(NSString *)ssid;
-- (void)exitedRegion;
+- (LocationState *)enteredRegion:(Region *)region withBSSID:(NSString *)bssid andSSID:(NSString *)ssid;
+- (LocationState *)exitedRegion;
 - (Region *)getRegion;
 
 @end

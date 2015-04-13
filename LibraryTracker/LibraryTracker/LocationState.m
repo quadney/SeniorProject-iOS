@@ -14,6 +14,7 @@
 - (id)initWithContext:(LocationStateContext *)context {
     self = [super init];
     self.context = context;
+    
     return self;
 }
 
@@ -21,13 +22,13 @@
     @throw [NSException exceptionWithName:@"InvalidState" reason:@"User not in Region" userInfo:nil];
 }
 
-- (void)enteredRegion:(Region *)region withBSSID:(NSString *)bssid andSSID:(NSString *)ssid {
+- (LocationState *)enteredRegion:(Region *)region withBSSID:(NSString *)bssid andSSID:(NSString *)ssid {
     @throw [NSException exceptionWithName:@"AbstractClass"
                                    reason:@"This method must be overridden in subclasses"
                                  userInfo:nil];
 }
 
-- (void)exitedRegion {
+- (LocationState *)exitedRegion {
     @throw [NSException exceptionWithName:@"AbstractClass"
                                    reason:@"This method must be overridden in subclasses"
                                  userInfo:nil];

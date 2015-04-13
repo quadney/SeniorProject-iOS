@@ -8,11 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "Region.h"
-#import "LocationState.h"
 
 @interface LocationStateContext : NSObject
-
-@property (nonatomic, strong) LocationState *userState;
 
 - (void)enteredRegion:(Region *)region withBSSID:(NSString *)bssid andSSID:(NSString *)ssid;
 - (void)exitedRegion;

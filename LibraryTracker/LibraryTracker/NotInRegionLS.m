@@ -21,15 +21,17 @@
     return self;
 }
 
-- (void)enteredRegion:(Region *)region withBSSID:(NSString *)bssid andSSID:(NSString *)ssid {
+- (Roaming *)enteredRegion:(Region *)region withBSSID:(NSString *)bssid andSSID:(NSString *)ssid {
+    NSLog(@"NOT IN REGION enteredRegion");
     
+    return [[Roaming alloc] initWithContext:self.context region:region BSSID:bssid andSSID:ssid];
 }
 
-- (void)exitedRegion {
-    // invalid state
-    @throw [NSException exceptionWithName:@"IllegalState"
-                                   reason:@"User cannot exit a region if they are not in a region"
-                                 userInfo:nil];
+- (NotInRegionLS *)exitedRegion {
+    NSLog(@"NOT IN REGION enteredRegion");
+    
+    // invalid state, nothing should change, so return self
+    return self;
 }
 
 - (Region *)getRegion {

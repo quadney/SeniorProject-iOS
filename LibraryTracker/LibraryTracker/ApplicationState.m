@@ -9,10 +9,11 @@
 #import "ApplicationState.h"
 #import "ModelFactory.h"
 #import "LocationMonitor.h"
+#import "LocationStateContext.h"
 
 @interface ApplicationState()
 
-
+@property (nonatomic, strong) LocationStateContext *locationStateContext;
 @property (nonatomic, strong) University *university;
 @property (nonatomic, strong) NSArray *regions;
 
@@ -43,7 +44,7 @@
         [LocationMonitor sharedLocation];
         
         // set the LocationState to be the default
-        self.locationState = [[LocationStateContext alloc] init];
+        self.locationStateContext = [[LocationStateContext alloc] init];
         
         //check if there is a university in the NSUserDefaults
         
@@ -107,12 +108,9 @@
     if ([defaults boolForKey:@"user_studying"]) {
         Region *region = [self findRegionWithIdentifier:[[LocationMonitor sharedLocation] getCurrentRegionIdentifier]];
         if (region) {
-            [self.locationState regionConfirmedWithRegion:region
-                                                    BSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]
-                                                  andSSID:[[LocationMonitor sharedLocation] getCurrentSSID]];
-            //            self.locationState = [[Studying alloc] initWithRegion:region
-            //                                                            BSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]
-            //                                                          andSSID:[[LocationMonitor sharedLocation] getCurrentSSID]];
+            [self.locationStateContext regionConfirmedWithRegion:region
+                                                           BSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]
+                                                         andSSID:[[LocationMonitor sharedLocation] getCurrentSSID]];
         }
     }
 }
@@ -146,7 +144,7 @@
 }
 
 - (Region *)getUserCurrentRegion {
-    return [self.locationState getRegion];
+    return [self.locationStateContext getRegion];
 }
 
 - (void)userEnteredRegion:(CLCircularRegion *)region {
@@ -160,16 +158,11 @@
     NSLog(@"Regions comparing to: %@", [self getRegions]);
     for (Region *enteredRegion in [self getRegions]) {
         if ([enteredRegion.identifier isEqualToString:region.identifier]) {
-            NSLog(@"User State: %@", self.locationState);
+            NSLog(@"User State: %@", self.locationStateContext);
             
-            [self.locationState enteredRegion:enteredRegion
-                                    withBSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]
-                                      andSSID:[[LocationMonitor sharedLocation] getCurrentSSID]];
-            
-            
-            //            self.locationState = [[Roaming alloc] initWithRegion:enteredRegion
-            //                                                           BSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]
-            //                                                         andSSID:[[LocationMonitor sharedLocation] getCurrentSSID]];
+            [self.locationStateContext enteredRegion:enteredRegion
+                                           withBSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]
+                                             andSSID:[[LocationMonitor sharedLocation] getCurrentSSID]];
         }
     }
     
@@ -178,17 +171,8 @@
 - (void)userExitedRegion:(CLCircularRegion *)region {
     NSLog(@"ApplicationState userExitedRegion");
     // when user exits a region, then state goes to NotInRegion
-    [self.locationState exitedRegion];
+    [self.locationStateContext exitedRegion];
 }
-
-// region has been confirmed
-//- (void)regionConfirmed{
-//    NSLog(@"ApplicationState regionConfirmed");
-//
-//    self.locationState = [[Studying alloc] initWithRegion:[self getUserCurrentRegion]
-//                                            BSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]
-//                                          andSSID:[[LocationMonitor sharedLocation] getCurrentSSID]];
-//}
 
 - (UIColor *)convertRegionPopulationToColorWithCurrentPop:(int)currentPopulation andMaxCapacity:(int)maxCapacity {
     // hue of 0.0 == RED hue of .33 = GREEN

@@ -8,15 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-//import LocationState classes
-#import "LocationStateContext.m"
-
 //import University information
 #import "University.h"
+#import "Region.h"
 
 @interface ApplicationState : NSObject
-
-@property (nonatomic, strong) LocationStateContext *locationState;
 
 + (id)sharedInstance;
 

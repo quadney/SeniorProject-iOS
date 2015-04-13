@@ -18,6 +18,7 @@
     self = [super initWithContext:context region:region BSSID:bssid andSSID:ssid];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSLog(@"INIT STUDYING: user defaults, %i", [defaults boolForKey:@"user_studying"]);
     if (![defaults boolForKey:@"user_studying"]) {
         // if Studying is init'd and the user was not already studying
         [self userStartedStudying];
@@ -33,6 +34,8 @@
     [[LibwhereyClient sharedClient] userEntersZoneWithId:self.currentZone.idNumber];
     
     [self setUserDefaultsWithBool:YES];
+    
+    [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"User is now studying, region: %@, zone: %@", self.currentRegion, self.currentZone]];
 }
 
 - (Roaming *)enteredRegion:(Region *)region withBSSID:(NSString *)bssid andSSID:(NSString *)ssid {
@@ -60,6 +63,16 @@
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"STUDYING // "];
+}
+
+#pragma mark - Local Notification Methods
+
+- (void)createLocalNotificationWithAlertBody:(NSString *)alert {
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    notification.alertBody = alert;
+    notification.fireDate = [[NSDate date] dateByAddingTimeInterval:5];
+    notification.applicationIconBadgeNumber = 1;
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 }
 
 @end

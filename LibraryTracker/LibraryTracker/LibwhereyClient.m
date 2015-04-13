@@ -194,6 +194,7 @@
         }
         else {
             NSLog(@"it worked");
+            [self createLocalNotificationWithAlertBody:@"USER EXITED REGION AND NOW IT'S UPDATED IN THE DATABASE BOOM BITCH"];
         }
     }];
     
@@ -278,6 +279,16 @@
                                                                      commonWifiName:[obj objectForKey:@"common_wifi_name"]]];
     }
     return [NSArray arrayWithArray:universities];
+}
+
+#pragma mark - Local Notification Methods
+
+- (void)createLocalNotificationWithAlertBody:(NSString *)alert {
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    notification.alertBody = alert;
+    notification.fireDate = [[NSDate date] dateByAddingTimeInterval:5];
+    notification.applicationIconBadgeNumber = 1;
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 }
 
 @end

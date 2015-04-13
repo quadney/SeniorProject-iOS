@@ -22,7 +22,8 @@
 
 - (id)init {
     self = [super init];
-    self.state = [[NotInRegionLS alloc] init];
+
+    self.state = [[NotInRegionLS alloc] initWithContext:self];
     
     return self;
 }
@@ -31,8 +32,14 @@
     NSLog(@"LOCATIONSTATECONTEXT enteredRegion");
     
     //when user enters region from not in region, set the current region to be Roaming
-    
-    self.state = [self.state enteredRegion:region withBSSID:bssid andSSID:ssid];;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults boolForKey:@"user_studying"]) {
+        // user is already studying, starting Roaming is dumb. set to studying
+        [self regionConfirmedWithRegion:region BSSID:bssid andSSID:ssid];
+    }
+    else {
+        self.state = [self.state enteredRegion:region withBSSID:bssid andSSID:ssid];;
+    }
 }
 
 - (void)exitedRegion {

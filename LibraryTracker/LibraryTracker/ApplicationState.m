@@ -73,6 +73,8 @@
                                                                 longitude:[defaults floatForKey:@"university_longitude"]
                                                                  idNumber:(int)[defaults integerForKey:@"university_idNum"]
                                                            commonWifiName:[defaults valueForKey:@"university_commonWifiName"]];
+    
+    NSLog(@"IS THE USER ALREADY STUDYING??? %i", [defaults boolForKey:@"user_studying"]);
 }
 
 - (University *)getUniversity {
@@ -103,7 +105,7 @@
     [self checkIfUserIsAlreadyStudying];
 }
 
-- (void)checkIfUserIsAlreadyStudying {
+- (BOOL)checkIfUserIsAlreadyStudying {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if ([defaults boolForKey:@"user_studying"]) {
         Region *region = [self findRegionWithIdentifier:[[LocationMonitor sharedLocation] getCurrentRegionIdentifier]];
@@ -112,7 +114,9 @@
                                                            BSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]
                                                          andSSID:[[LocationMonitor sharedLocation] getCurrentSSID]];
         }
+        return YES;
     }
+    return NO;
 }
 
 - (Region *)findRegionWithIdentifier:(NSString *)identifier {
@@ -155,16 +159,19 @@
     
     // get the Region with the same identifier as the one we have access to
     // go through the list and find it
+    
     NSLog(@"Regions comparing to: %@", [self getRegions]);
     for (Region *enteredRegion in [self getRegions]) {
         if ([enteredRegion.identifier isEqualToString:region.identifier]) {
             NSLog(@"User State: %@", self.locationStateContext);
-            
+
             [self.locationStateContext enteredRegion:enteredRegion
                                            withBSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]
                                              andSSID:[[LocationMonitor sharedLocation] getCurrentSSID]];
         }
     }
+    
+    [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"User entered Region %@", [self getUserCurrentRegion]]];
     
 }
 
@@ -172,6 +179,8 @@
     NSLog(@"ApplicationState userExitedRegion");
     // when user exits a region, then state goes to NotInRegion
     [self.locationStateContext exitedRegion];
+    
+    [self createLocalNotificationWithAlertBody:@"User exited Region"];
 }
 
 - (UIColor *)convertRegionPopulationToColorWithCurrentPop:(int)currentPopulation andMaxCapacity:(int)maxCapacity {
@@ -187,6 +196,16 @@
     // subtract 1.0 from what the value is to invert it, then constrain it to [0.0, 0.33] by dividing by 3.0
     float color = (1.0f - ((float)currentPopulation/maxCapacity)) / 3.0f;
     return [UIColor colorWithHue:color saturation:0.75f brightness:0.9f alpha:0.7f];
+}
+
+#pragma mark - Local Notification Methods
+
+- (void)createLocalNotificationWithAlertBody:(NSString *)alert {
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    notification.alertBody = alert;
+    notification.fireDate = [[NSDate date] dateByAddingTimeInterval:5];
+    notification.applicationIconBadgeNumber = 1;
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 }
 
 @end

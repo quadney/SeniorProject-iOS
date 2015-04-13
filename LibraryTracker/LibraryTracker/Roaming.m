@@ -60,6 +60,8 @@
         [app endBackgroundTask:bgTask];
     }];
     
+    [self createLocalNotificationWithAlertBody:@"starting background tasks"];
+    
     self.timer = [NSTimer scheduledTimerWithTimeInterval:180.0
                                                   target:self
                                                 selector:@selector(timerUpdateInfo:)
@@ -69,6 +71,7 @@
 }
 
 - (void)timerUpdateInfo:(id)sender {
+    [self createLocalNotificationWithAlertBody:@"checking where user is"];
     self.numTimesRanTimer++;
     
     //when the timer is fired, grabs the user's current location, wifi, etc
@@ -82,6 +85,7 @@
         // if they aren't on the wifi, then we don't care about the bssid
         // reset the num times timer has run
         NSLog(@"SSID is null, reset num times the timer has run");
+        [self createLocalNotificationWithAlertBody:@"SSID is null, resetting run times"];
         self.numTimesRanTimer = 0;
     }
     else {
@@ -100,6 +104,7 @@
             // of they are connected to a different wifi
             // do I just add them to the unknown zone?
             NSLog(@"User is not in the wifi, confirming region");
+            [self createLocalNotificationWithAlertBody:@"user is not on wifi, confirming region"];
             [self regionConfirmed];
         }
     }
@@ -118,10 +123,14 @@
     if ([bssid isEqualToString:self.currentBSSID]) {
         // user has not moved, one more check that the zones are the same
         NSLog(@"User has not moved");
+        [self createLocalNotificationWithAlertBody:@"User has not moved"];
+        
         return [self updatedZone:[self.currentRegion findZoneInRegionWithBssid:self.currentBSSID]];
     }
     else {
         NSLog(@"BSSID has changed");
+        [self createLocalNotificationWithAlertBody:@"BSSID has changed"];
+        
         self.currentBSSID = bssid;
         // current BSSID has changed, so need to find the Zone associated with that BSSID
         // check if the zone has changed
@@ -138,6 +147,7 @@
         // also make sure that the background tasks are stopped
         
         if (self.numTimesRanTimer > 2) {
+            [self createLocalNotificationWithAlertBody:@"user confirmed in zone"];
             [self regionConfirmed];
         }
         return NO;
@@ -154,7 +164,7 @@
     NSLog(@"Confirming region");
     [self invalidateBackgroundTasks];
     // called when the user has been in the region for an extended period of time
-    
+    NSLog(@"Context: %@", self.context);
     [self.context regionConfirmedWithRegion:self.currentRegion
                                       BSSID:self.currentBSSID
                                     andSSID:self.universityCommonSSID];
@@ -169,6 +179,16 @@
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"ROAMING // "];
+}
+
+#pragma mark - Local Notification Methods
+
+- (void)createLocalNotificationWithAlertBody:(NSString *)alert {
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    notification.alertBody = alert;
+    notification.fireDate = [[NSDate date] dateByAddingTimeInterval:5];
+    notification.applicationIconBadgeNumber = 1;
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 }
 
 @end

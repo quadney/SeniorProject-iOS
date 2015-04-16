@@ -37,8 +37,7 @@
     // tell the database to
     [[LibwhereyClient sharedClient] userEntersZoneWithId:self.currentZone.idNumber];
     
-    [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"User is now studying, region_id: %i, zone_id: %i", self.currentRegion.idNum, self.currentZone.idNumber]];
-    
+    //[self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"User is now studying, region_id: %i, zone_id: %i", self.currentRegion.idNum, self.currentZone.idNumber]];
 }
 
 - (InRegionLS *)enteredRegion:(Region *)region withBSSID:(NSString *)bssid andSSID:(NSString *)ssid {
@@ -47,7 +46,7 @@
     if (![self.currentRegion.identifier isEqualToString:region.identifier]) {
         
         NSLog(@"STUDYING userEnteringAntoherRegion ZONE BEFORE: %i", self.currentZone.currentPopulation);
-        [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"STUDYING User entered another region, exiting zone with id: %i", self.currentZone.idNumber]];
+        //[self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"STUDYING User entered another region, exiting zone with id: %i", self.currentZone.idNumber]];
         // call the network to remove the person from the Zone
         [[LibwhereyClient sharedClient] userExitsZoneWithId:self.currentZone.idNumber];
         
@@ -64,7 +63,7 @@
 
 - (NotInRegionLS *)exitedRegion {
     NSLog(@"STUDYING exitedRegion ZONE BEFORE: %i", self.currentZone.currentPopulation);
-    [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"STUDYING, exitingRegion with region_id: %i, zone_id: %i", self.currentRegion.idNum, self.currentZone.idNumber]];
+    //[self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"STUDYING, exitingRegion with region_id: %i, zone_id: %i", self.currentRegion.idNum, self.currentZone.idNumber]];
     
     // call the network to remove the person from the Zone
     [[LibwhereyClient sharedClient] userExitsZoneWithId:self.currentZone.idNumber];
@@ -74,16 +73,6 @@
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"STUDYING // "];
-}
-
-#pragma mark - Local Notification Methods
-
-- (void)createLocalNotificationWithAlertBody:(NSString *)alert {
-    UILocalNotification *notification = [[UILocalNotification alloc] init];
-    notification.alertBody = alert;
-    notification.fireDate = [[NSDate date] dateByAddingTimeInterval:5];
-    notification.applicationIconBadgeNumber = 1;
-    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 }
 
 @end

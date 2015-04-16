@@ -20,8 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *bssidLabel;
 @property (weak, nonatomic) IBOutlet UILabel *zoneLabel;
 @property (weak, nonatomic) IBOutlet UILabel *locationStateLabel;
-@property (weak, nonatomic) IBOutlet UILabel *userStudying;
-@property (weak, nonatomic) IBOutlet UILabel *userRoaming;
+@property (weak, nonatomic) IBOutlet UILabel *userState;
 
 @end
 
@@ -43,8 +42,7 @@
     self.locationStateLabel.text = [[ApplicationState sharedInstance] getLocationState];
     
     NSUserDefaults *defualts = [NSUserDefaults standardUserDefaults];
-    self.userStudying.text = [NSString stringWithFormat:@"User Studying userDefualts: %i", [defualts boolForKey:@"user_studying"]];
-    self.userRoaming.text = [NSString stringWithFormat:@"User Roaming userDefualts: %i", [defualts boolForKey:@"user_roaming"]];
+    self.userState.text = [NSString stringWithFormat:@"User State: %lu", [defualts integerForKey:@"user_state"]];
 }
 
 

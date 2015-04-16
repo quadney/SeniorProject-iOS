@@ -543,12 +543,6 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="User Roaming User Defaults" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Dq-8V-DPZ">
-                                <rect key="frame" x="16" y="254" width="568" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -573,8 +567,7 @@
                         <outlet property="locationLabel" destination="Ipw-VH-q8E" id="fd3-Wj-JBX"/>
                         <outlet property="locationStateLabel" destination="SBa-js-nxF" id="j0V-wA-g6E"/>
                         <outlet property="regionLabel" destination="SBd-wf-GhT" id="bGc-1N-Koh"/>
-                        <outlet property="userRoaming" destination="9Dq-8V-DPZ" id="TrQ-vz-dqd"/>
-                        <outlet property="userStudying" destination="5Ua-3X-pql" id="JA7-sq-YC1"/>
+                        <outlet property="userState" destination="5Ua-3X-pql" id="XjL-X0-VwN"/>
                         <outlet property="zoneLabel" destination="MNi-Nd-u6s" id="NQu-MY-Asj"/>
                     </connections>
                 </viewController>

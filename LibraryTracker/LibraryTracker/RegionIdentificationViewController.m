@@ -42,7 +42,7 @@
     self.locationStateLabel.text = [[ApplicationState sharedInstance] getLocationState];
     
     NSUserDefaults *defualts = [NSUserDefaults standardUserDefaults];
-    self.userState.text = [NSString stringWithFormat:@"User State: %lu", [defualts integerForKey:@"user_state"]];
+    self.userState.text = [NSString stringWithFormat:@"User State: %@", [defualts objectForKey:@"user_state"]];
 }
 
 

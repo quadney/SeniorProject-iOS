@@ -87,20 +87,18 @@
 
 - (void)updateRegions:(NSArray *)updatedRegions {
     NSLog(@"ApplicationState updateRegions");
-    
-    // exit the user out of the current Region they are in, if in one
-    // regions are updated when there are regions added to the database,
-    // or if the user selects another university
-    [self.locationStateContext exitedRegion];
-    
-    if ([self.regions count] != [updatedRegions count]) {
+
+    if ([[[LocationMonitor sharedLocation] getMonitoredRegions] count] != [updatedRegions count]) {
+        // exit the user out of the current Region they are in, if in one
+        // regions are updated when there are regions added to the database,
+        // or if the user selects another university
+        [self.locationStateContext exitedRegion];
         // the count is different, so need to track those new ones
         [self setNewRegionsToTrack:updatedRegions];
     }
     else {
+        // set the new Regions for display purposes
         self.regions = updatedRegions;
-        // if the user is in a region, then check if alreay in region will re-do what exitingRegion undid
-        [[LocationMonitor sharedLocation] checkIfAlreadyInRegion];
     }
 }
 
@@ -155,6 +153,7 @@
             [self.locationStateContext enteredRegion:enteredRegion
                                            withBSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]
                                              andSSID:[[LocationMonitor sharedLocation] getCurrentSSID]];
+            NSLog(@"New User State: %@", self.locationStateContext);
         }
     }
     

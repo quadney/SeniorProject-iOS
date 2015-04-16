@@ -43,38 +43,34 @@
         // initialize the location monitor to start getting location updates
         [LocationMonitor sharedLocation];
         
-        // set the LocationState to be the default
-        self.locationStateContext = [[LocationStateContext alloc] init];
-        
         //check if there is a university in the NSUserDefaults
         
         if ([[NSUserDefaults standardUserDefaults] valueForKey:@"university_existence"]) {
             [self loadDefaults];
         }
         
+        // set the LocationState to be the default
+        self.locationStateContext = [[LocationStateContext alloc] init];
     }
     return self;
 }
 
-- (BOOL)saveUniversityDefaults {
+- (void)saveUniversityDefaults {
     NSLog(@"ApplicationState saveUniversityDefaults");
     
     [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"university_existence"];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:self.university] forKey:@"university"];
     
-    return [self.university saveSelfInUserDefaults];
 }
 
 - (void)loadDefaults {
     NSLog(@"ApplicationState loadUniversityDefaults");
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    self.university = [[ModelFactory modelStore] createUniversityWithName:[defaults valueForKey:@"university_name"]
-                                                                 latitude:[defaults floatForKey:@"university_latitude"]
-                                                                longitude:[defaults floatForKey:@"university_longitude"]
-                                                                 idNumber:(int)[defaults integerForKey:@"university_idNum"]
-                                                           commonWifiName:[defaults valueForKey:@"university_commonWifiName"]];
+    NSData *universityData = [defaults objectForKey:@"university"];
     
-    NSLog(@"IS THE USER ALREADY STUDYING??? %i", [defaults boolForKey:@"user_studying"]);
+    self.university = [NSKeyedUnarchiver unarchiveObjectWithData:universityData];
+    
 }
 
 - (University *)getUniversity {
@@ -92,37 +88,25 @@
 - (void)updateRegions:(NSArray *)updatedRegions {
     NSLog(@"ApplicationState updateRegions");
     
+    // exit the user out of the current Region they are in, if in one
+    // regions are updated when there are regions added to the database,
+    // or if the user selects another university
+    [self.locationStateContext exitedRegion];
+    
     if ([self.regions count] != [updatedRegions count]) {
         // the count is different, so need to track those new ones
         [self setNewRegionsToTrack:updatedRegions];
     }
     else {
         self.regions = updatedRegions;
+        // if the user is in a region, then check if alreay in region will re-do what exitingRegion undid
         [[LocationMonitor sharedLocation] checkIfAlreadyInRegion];
     }
-    
-    // also need to check for the defaults, if the user is studying
-    [self checkIfUserIsAlreadyStudying];
-}
-
-- (BOOL)checkIfUserIsAlreadyStudying {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults boolForKey:@"user_studying"]) {
-        Region *region = [self findRegionWithIdentifier:[[LocationMonitor sharedLocation] getCurrentRegionIdentifier]];
-        if (region) {
-            [self.locationStateContext regionConfirmedWithRegion:region
-                                                           BSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]
-                                                         andSSID:[[LocationMonitor sharedLocation] getCurrentSSID]];
-            return YES;
-        }
-        else {
-            [self.locationStateContext exitedRegion];
-        }
-    }
-    return NO;
 }
 
 - (Region *)findRegionWithIdentifier:(NSString *)identifier {
+    NSLog(@"Finding region with identifier: %@", identifier);
+    NSLog(@"The regions: %@", [self getRegions]);
     for (Region *reg in [self getRegions]) {
         if ([reg.identifier isEqualToString:identifier]) {
             return reg;

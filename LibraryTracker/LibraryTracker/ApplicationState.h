@@ -19,7 +19,7 @@
 //sets the university
 - (void)setUniversity:(University *)university;
 
-- (BOOL)saveUniversityDefaults;
+- (void)saveUniversityDefaults;
 
 // gets the university
 - (University *)getUniversity;
@@ -41,6 +41,8 @@
 
 // returns the Region that the User is currently in, if any
 - (Region *)getUserCurrentRegion;
+
+- (Region *)findRegionWithIdentifier:(NSString *)identifier;
 
 // sets the Regions that the phone should be tracking
 - (void)setRegionsInLocationMonitorWithRegions:(NSArray *)regions;

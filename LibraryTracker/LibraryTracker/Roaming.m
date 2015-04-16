@@ -68,7 +68,7 @@
     
     [self createLocalNotificationWithAlertBody:@"starting background tasks"];
     
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:180.0
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:120.0
                                                   target:self
                                                 selector:@selector(timerUpdateInfo:)
                                                 userInfo:nil

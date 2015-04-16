@@ -57,7 +57,7 @@
 
 - (void)startTimer {
     //starts a timer for 30 seconds, in the background
-    self.numTimesRanTimer = -1;
+    self.numTimesRanTimer = 0;
     self.numTimesNotInWifi = 0;
     
     UIBackgroundTaskIdentifier bgTask;

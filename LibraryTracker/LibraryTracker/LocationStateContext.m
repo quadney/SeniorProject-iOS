@@ -39,12 +39,14 @@
     if (state == UserStateRoaming) {
         NSLog(@"Instantiating Roaming from restored state");
 
-        return [[Roaming alloc] initToRestoreState:state withContext:self];
+        return [[Roaming alloc] initToRestoreState:state withContext:self
+                                          wifiName:[[ApplicationState sharedInstance] getUniversityCommonWifiName]];
     }
     else if (state == UserStateStudying) {
         NSLog(@"Instantiating Studying from restored state");
         
-        return [[Studying alloc] initToRestoreState:state withContext:self];
+        return [[Studying alloc] initToRestoreState:state withContext:self
+                                           wifiName:[[ApplicationState sharedInstance] getUniversityCommonWifiName]];
     }
     
     NSLog(@"Instantiating NotInRegion");

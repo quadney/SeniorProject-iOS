@@ -28,9 +28,6 @@
     
     self = [super initWithContext:context region:region BSSID:bssid andSSID:ssid];
     
-    self.userState = UserStateRoaming;
-    [self saveUserState];
-    
     [self startTimer];
     
     return self;

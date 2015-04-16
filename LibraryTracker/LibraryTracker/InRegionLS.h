@@ -16,6 +16,5 @@
 @property (strong, nonatomic) NSString *universityCommonSSID;
 
 - (id)initWithContext:(LocationStateContext *)context region:(Region *)region BSSID:(NSString *)bssid andSSID:(NSString *)ssid;
-- (id)initToRestoreState:(UserState)state withContext:(LocationStateContext *)context wifiName:(NSString *)ssid;
 
 @end

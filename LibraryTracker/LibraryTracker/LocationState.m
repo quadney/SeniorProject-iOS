@@ -36,7 +36,15 @@
 
 - (void)saveUserState {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setInteger:self.userState forKey:@"user_state"];
+    [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:self] forKey:@"user_state"];
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    return [self init];
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    // nothing to save in this class in particular
 }
 
 @end

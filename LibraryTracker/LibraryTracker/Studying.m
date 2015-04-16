@@ -17,10 +17,6 @@
     
     self = [super initWithContext:context region:region BSSID:bssid andSSID:ssid];
     
-    // save the states
-    self.userState = UserStateStudying;
-    [self saveUserState];
-    
     // the user is now studying
     [self userStartedStudying];
     

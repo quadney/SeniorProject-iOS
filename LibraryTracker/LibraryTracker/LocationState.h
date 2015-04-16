@@ -11,15 +11,8 @@
 #import "Zone.h"
 #import "LocationStateContext.h"
 
-typedef NS_ENUM(NSInteger, UserState) {
-    UserStateNotInRegion,
-    UserStateRoaming,
-    UserStateStudying
-};
+@interface LocationState : NSObject <NSCoding>
 
-@interface LocationState : NSObject
-
-@property UserState userState;
 @property (strong, nonatomic) LocationStateContext *context;
 
 - (id)initWithContext:(LocationStateContext *)context;

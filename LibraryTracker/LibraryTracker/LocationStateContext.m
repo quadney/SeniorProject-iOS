@@ -24,32 +24,21 @@
 - (id)init {
     self = [super init];
     
-    //self.state = [[NotInRegionLS alloc] initWithContext:self];
-    // user may or may not be restoring this from a state, so do that
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    self.state = [self restoreLocationStateWithUserState:[defaults integerForKey:@"user_state"]];
-    
+    self.state = [self restoreLocationState];
+    NSLog(@"Location State: %@", self.state);
     
     return self;
 }
 
-- (LocationState *)restoreLocationStateWithUserState:(UserState)state {
+- (LocationState *)restoreLocationState {
     
-    NSLog(@"user state: %lu", state);
-    if (state == UserStateRoaming) {
-        NSLog(@"Instantiating Roaming from restored state");
-
-        return [[Roaming alloc] initToRestoreState:state withContext:self
-                                          wifiName:[[ApplicationState sharedInstance] getUniversityCommonWifiName]];
-    }
-    else if (state == UserStateStudying) {
-        NSLog(@"Instantiating Studying from restored state");
-        
-        return [[Studying alloc] initToRestoreState:state withContext:self
-                                           wifiName:[[ApplicationState sharedInstance] getUniversityCommonWifiName]];
+    NSData *stateData = [[NSUserDefaults standardUserDefaults] objectForKey:@"user_state"];
+    if (stateData) {
+        LocationState *restoredState = [NSKeyedUnarchiver unarchiveObjectWithData:stateData];
+        restoredState.context = self;
+        return restoredState;
     }
     
-    NSLog(@"Instantiating NotInRegion");
     return [[NotInRegionLS alloc] initWithContext:self];
 }
 

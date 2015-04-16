@@ -8,6 +8,12 @@
 
 #import "InRegionLS.h"
 
+#define kCurrentRegion  @"region"
+#define kCurrentZone    @"zone"
+#define kCurrentBSSID   @"bssid"
+#define kCommonSSID     @"ssid"
+
+
 @implementation InRegionLS
 
 - (id)initWithContext:(LocationStateContext *)context region:(Region *)region BSSID:(NSString *)bssid andSSID:(NSString *)ssid {
@@ -18,41 +24,34 @@
         self.currentZone = [region findZoneInRegionWithBssid:bssid];
         self.currentBSSID = bssid;
         self.universityCommonSSID = ssid;
+        
+        [self saveUserState];
     }
     return self;
 }
 
-- (id)initToRestoreState:(UserState)state withContext:(LocationStateContext *)context wifiName:(NSString *)ssid {
-    NSLog(@"initToRestoreState, state: %lu", state);
-    self = [super initWithContext:context];
-    // now need to set the Region based on what the identifier is, and find the appropriate zone
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
     
-    if (self) {
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSData *regionData = [defaults objectForKey:@"user_region"];
-        
-        self.userState = state;
-        self.currentRegion = [NSKeyedUnarchiver unarchiveObjectWithData:regionData];
-        NSLog(@"Current Region from unarchived data: %@", self.currentRegion);
-        
-        
-        self.currentZone = [self.currentRegion findZoneWithIdentifier:[defaults objectForKey:@"user_zone"]];
-        self.currentBSSID = [defaults objectForKey:@"user_bssid"];
-        self.universityCommonSSID = ssid;
-    }
+    self.currentRegion = [aDecoder decodeObjectForKey:kCurrentRegion];
+    self.currentZone = [aDecoder decodeObjectForKey:kCurrentZone];
+    self.currentBSSID = [aDecoder decodeObjectForKey:kCurrentBSSID];
+    self.universityCommonSSID = [aDecoder decodeObjectForKey:kCommonSSID];
     
     return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [super encodeWithCoder:aCoder];
+    
+    [aCoder encodeObject:self.currentRegion forKey:kCurrentRegion];
+    [aCoder encodeObject:self.currentZone forKey:kCurrentZone];
+    [aCoder encodeObject:self.currentBSSID forKey:kCurrentBSSID];
+    [aCoder encodeObject:self.universityCommonSSID forKey:kCommonSSID];
 }
 
 - (Region *)getRegion {
     return self.currentRegion;
-}
-
-- (void)saveUserState {
-    [super saveUserState];
-    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:self.currentRegion] forKey:@"user_region"];
-    [[NSUserDefaults standardUserDefaults] setObject:self.currentZone.identifier forKey:@"user_zone"];
-    [[NSUserDefaults standardUserDefaults] setObject:self.currentBSSID forKey:@"user_bssid"];
 }
 
 @end

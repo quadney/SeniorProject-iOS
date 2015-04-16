@@ -14,9 +14,9 @@
 - (id)initWithContext:(LocationStateContext *)context {
     self = [super initWithContext:context];
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setBool:NO forKey:@"user_studying"];
-    [defaults synchronize];
+    self.userState = UserStateNotInRegion;
+    
+    [self saveUserState];
     
     return self;
 }
@@ -41,4 +41,13 @@
 - (NSString *)description {
     return [NSString stringWithFormat:@"NOT IN REGION // "];
 }
+
+- (void)saveUserState {
+    [super saveUserState];
+    [[NSUserDefaults standardUserDefaults] setObject:@"none" forKey:@"user_region"];
+    [[NSUserDefaults standardUserDefaults] setObject:@"none" forKey:@"user_zone"];
+    [[NSUserDefaults standardUserDefaults] setObject:@"none" forKey:@"user_bssid"];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 @end

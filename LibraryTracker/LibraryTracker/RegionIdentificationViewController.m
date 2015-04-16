@@ -33,7 +33,7 @@
 - (IBAction)updateLocationStateLabel:(id)sender {
     Region *region = [[ApplicationState sharedInstance] getUserCurrentRegion];
     NSString *BSSID = [[LocationMonitor sharedLocation] getCurrentBSSID];
-    Zone *zone = [region findZoneInRegionWithBssid:BSSID];
+    Zone *zone = [[ApplicationState sharedInstance] getUserCurrentZone];
     self.locationLabel.text = [NSString stringWithFormat:@"Location: lat: %f, long: %f", [[LocationMonitor sharedLocation] getCurrentLocation].coordinate.latitude, [[LocationMonitor sharedLocation] getCurrentLocation].coordinate.longitude];
     self.regionLabel.text = [NSString stringWithFormat:@"Region: %@", region.identifier];
     self.bssidLabel.text = [NSString stringWithFormat:@"BSSID: %@", BSSID];

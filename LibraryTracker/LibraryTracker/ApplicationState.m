@@ -136,6 +136,10 @@
     return [self.locationStateContext getRegion];
 }
 
+- (Zone *)getUserCurrentZone {
+    return [self.locationStateContext getZone];
+}
+
 - (void)userEnteredRegion:(CLCircularRegion *)region {
     NSLog(@"ApplicationState userEnteredRegion");
     

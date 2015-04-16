@@ -42,6 +42,8 @@
 // returns the Region that the User is currently in, if any
 - (Region *)getUserCurrentRegion;
 
+- (Zone *)getUserCurrentZone;
+
 - (Region *)findRegionWithIdentifier:(NSString *)identifier;
 
 // sets the Regions that the phone should be tracking

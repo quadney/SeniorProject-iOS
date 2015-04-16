@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Zone : NSObject
+@interface Zone : NSObject <NSCoding>
 
 @property int idNumber;
 @property (nonatomic, strong) NSString *identifier;

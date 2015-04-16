@@ -8,6 +8,12 @@
 
 #import "University.h"
 
+#define kName       @"name"
+#define kLatitude   @"latitude"
+#define kLongitude  @"longitude"
+#define kIdNumber   @"idNumer"
+#define kWifiName   @"wifiName"
+
 @implementation University
 
 - (id)initWithName:(NSString *)name latitude:(float)latitude longitude:(float)longitude idNumber:(int)idNum commonWifiName:(NSString *)wifiName {
@@ -22,15 +28,20 @@
     return self;
 }
 
-- (BOOL)saveSelfInUserDefaults {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    [defaults setValue:self.name forKey:@"university_name"];
-    [defaults setFloat:self.latitude forKey:@"university_latitude"];
-    [defaults setFloat:self.longitude forKey:@"university_longitude"];
-    [defaults setInteger:self.idNum forKey:@"university_idNum"];
-    [defaults setValue:self.commonWifiName forKey:@"university_commonWifiName"];
-    return [defaults synchronize];
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    return [self initWithName:[aDecoder decodeObjectForKey:kName]
+                     latitude:[aDecoder decodeFloatForKey:kLatitude]
+                    longitude:[aDecoder decodeFloatForKey:kLongitude]
+                     idNumber:(int)[aDecoder decodeIntegerForKey:kIdNumber]
+               commonWifiName:[aDecoder decodeObjectForKey:kWifiName]];
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:self.name forKey:kName];
+    [aCoder encodeFloat:self.latitude forKey:kLatitude];
+    [aCoder encodeFloat:self.longitude forKey:kLongitude];
+    [aCoder encodeInteger:self.idNum forKey:kIdNumber];
+    [aCoder encodeObject:self.commonWifiName forKey:kWifiName];
 }
 
 @end

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface University : NSObject
+@interface University : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSString *name;
 @property float latitude;
@@ -17,6 +17,5 @@
 @property (nonatomic, strong) NSString *commonWifiName;
 
 - (id)initWithName:(NSString *)name latitude:(float)latitude longitude:(float)longitude idNumber:(int)idNum commonWifiName:(NSString *)wifiName;
-- (BOOL)saveSelfInUserDefaults;
 
 @end

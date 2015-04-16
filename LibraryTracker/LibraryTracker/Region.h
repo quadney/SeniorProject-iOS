@@ -10,7 +10,7 @@
 #import <CoreLocation/CLCircularRegion.h>
 #import "Zone.h"
 
-@interface Region : CLCircularRegion
+@interface Region : CLCircularRegion <NSCoding>
 
 @property int idNum;
 @property (nonatomic, strong) NSArray *zones;
@@ -20,5 +20,6 @@
 
 - (int)calculateCurrentPopulation;
 - (Zone *)findZoneInRegionWithBssid:(NSString *)bssid;
+- (Zone *)findZoneWithIdentifier:(NSString *)zoneIdentifier;
 
 @end

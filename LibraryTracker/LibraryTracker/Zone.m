@@ -8,6 +8,10 @@
 
 #import "Zone.h"
 
+#define kIdentifier     @"identifier"
+#define kBssids         @"bssids"
+#define kIdNumber       @"idNumber"
+
 @implementation Zone
 
 - (id)initWithIdentifier:(NSString *)identifier wifiBssidValues:(NSArray *)bssids idNumber:(int)idNum currentPopulation:(int)currentPop capacity:(int)maxCapacity{
@@ -19,6 +23,20 @@
         self.maxCapacity = maxCapacity;
     }
     return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    return [self initWithIdentifier:[aDecoder decodeObjectForKey:kIdentifier]
+                    wifiBssidValues:[aDecoder decodeObjectForKey:kBssids]
+                           idNumber:(int)[aDecoder decodeObjectForKey:kIdNumber]
+                  currentPopulation:0
+                           capacity:0];
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:self.identifier forKey:kIdentifier];
+    [aCoder encodeObject:self.bssidWifiData forKey:kBssids];
+    [aCoder encodeInteger:self.idNumber forKey:kIdNumber];
 }
 
 - (BOOL)bssidIsInZone:(NSString *)currentBSSID {

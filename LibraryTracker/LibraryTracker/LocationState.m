@@ -18,7 +18,19 @@
     return self;
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    return [self init];
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    // nothing to save in this class in particular
+}
+
 - (Region *)getRegion {
+    @throw [NSException exceptionWithName:@"InvalidState" reason:@"User not in Region" userInfo:nil];
+}
+
+- (Zone *)getZone {
     @throw [NSException exceptionWithName:@"InvalidState" reason:@"User not in Region" userInfo:nil];
 }
 
@@ -39,12 +51,6 @@
     [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:self] forKey:@"user_state"];
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
-    return [self init];
-}
 
-- (void)encodeWithCoder:(NSCoder *)aCoder {
-    // nothing to save in this class in particular
-}
 
 @end

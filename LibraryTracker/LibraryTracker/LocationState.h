@@ -20,6 +20,7 @@
 - (LocationState *)enteredRegion:(Region *)region withBSSID:(NSString *)bssid andSSID:(NSString *)ssid;
 - (LocationState *)exitedRegion;
 - (Region *)getRegion;
+- (Zone *)getZone;
 - (void)saveUserState;
 
 @end

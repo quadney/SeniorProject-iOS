@@ -16,12 +16,12 @@
 
 @implementation InRegionLS
 
-- (id)initWithContext:(LocationStateContext *)context region:(Region *)region BSSID:(NSString *)bssid andSSID:(NSString *)ssid {
+- (id)initWithContext:(LocationStateContext *)context region:(Region *)region zone:(Zone *)zone BSSID:(NSString *)bssid andSSID:(NSString *)ssid {
     self = [super initWithContext:context];
     
     if (self) {
         self.currentRegion = region;
-        self.currentZone = [region findZoneInRegionWithBssid:bssid];
+        self.currentZone = zone;
         self.currentBSSID = bssid;
         self.universityCommonSSID = ssid;
         
@@ -52,6 +52,10 @@
 
 - (Region *)getRegion {
     return self.currentRegion;
+}
+
+- (Zone *)getZone {
+    return self.currentZone;
 }
 
 @end

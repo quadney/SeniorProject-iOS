@@ -54,14 +54,18 @@
     self.state = [self.state exitedRegion];;
 }
 
-- (void)regionConfirmedWithRegion:(Region *)region BSSID:(NSString *)bssid andSSID:(NSString *)ssid {
+- (void)regionConfirmedWithRegion:(Region *)region zone:(Zone *)zone BSSID:(NSString *)bssid andSSID:(NSString *)ssid {
     NSLog(@"LOCATIONSTATECONTEXT regionConfirmed");
     
-    self.state = [[Studying alloc] initWithContext:self region:region BSSID:bssid andSSID:ssid];
+    self.state = [[Studying alloc] initWithContext:self region:region zone:zone BSSID:bssid andSSID:ssid];
 }
 
 - (Region *)getRegion {
     return [self.state getRegion];
+}
+
+- (Zone *)getZone {
+    return [self.state getZone];
 }
 
 - (NSString *)description {

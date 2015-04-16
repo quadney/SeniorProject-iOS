@@ -19,10 +19,18 @@
     return self;
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    return [super initWithCoder:aDecoder];
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [super encodeWithCoder:aCoder];
+}
+
 - (Roaming *)enteredRegion:(Region *)region withBSSID:(NSString *)bssid andSSID:(NSString *)ssid {
     NSLog(@"NOT IN REGION enteredRegion");
     
-    return [[Roaming alloc] initWithContext:self.context region:region BSSID:bssid andSSID:ssid];
+    return [[Roaming alloc] initWithContext:self.context region:region zone:[region findZoneInRegionWithBssid:bssid] BSSID:bssid andSSID:ssid];
 }
 
 - (NotInRegionLS *)exitedRegion {
@@ -33,6 +41,10 @@
 }
 
 - (Region *)getRegion {
+    return nil;
+}
+
+- (Zone *)getZone {
     return nil;
 }
 

@@ -13,7 +13,8 @@
 
 - (void)enteredRegion:(Region *)region withBSSID:(NSString *)bssid andSSID:(NSString *)ssid;
 - (void)exitedRegion;
-- (void)regionConfirmedWithRegion:(Region *)region BSSID:(NSString *)bssid andSSID:(NSString *)ssid;
+- (void)regionConfirmedWithRegion:(Region *)region zone:(Zone *)zone BSSID:(NSString *)bssid andSSID:(NSString *)ssid;
 - (Region *)getRegion;
+- (Zone *)getZone;
 
 @end

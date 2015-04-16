@@ -15,6 +15,6 @@
 @property (strong, nonatomic) NSString *currentBSSID;
 @property (strong, nonatomic) NSString *universityCommonSSID;
 
-- (id)initWithContext:(LocationStateContext *)context region:(Region *)region BSSID:(NSString *)bssid andSSID:(NSString *)ssid;
+- (id)initWithContext:(LocationStateContext *)context region:(Region *)region zone:(Zone *)zone BSSID:(NSString *)bssid andSSID:(NSString *)ssid;
 
 @end

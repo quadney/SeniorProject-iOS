@@ -13,14 +13,22 @@
 
 @implementation Studying
 
-- (id)initWithContext:(LocationStateContext *)context region:(Region *)region BSSID:(NSString *)bssid andSSID:(NSString *)ssid {
+- (id)initWithContext:(LocationStateContext *)context region:(Region *)region zone:(Zone *)zone BSSID:(NSString *)bssid andSSID:(NSString *)ssid {
     
-    self = [super initWithContext:context region:region BSSID:bssid andSSID:ssid];
+    self = [super initWithContext:context region:region zone:zone BSSID:bssid andSSID:ssid];
     
     // the user is now studying
     [self userStartedStudying];
     
     return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    return [super initWithCoder:aDecoder];
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [super encodeWithCoder:aCoder];
 }
 
 - (void)userStartedStudying {
@@ -39,7 +47,11 @@
         // call the network to remove the person from the Zone
         [[LibwhereyClient sharedClient] userExitsZoneWithId:self.currentZone.idNumber];
     
-        return [[Roaming alloc] initWithContext:self.context region:region BSSID:bssid andSSID:ssid];
+        return [[Roaming alloc] initWithContext:self.context
+                                         region:region
+                                           zone:[region findZoneInRegionWithBssid:bssid]
+                                          BSSID:bssid
+                                        andSSID:ssid];
     }
     
     return self;

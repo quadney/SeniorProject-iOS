@@ -23,14 +23,22 @@
 @implementation Roaming
 
 
-- (id)initWithContext:(LocationStateContext *)context region:(Region *)region BSSID:(NSString *)bssid andSSID:(NSString *)ssid {
+- (id)initWithContext:(LocationStateContext *)context region:(Region *)region zone:(Zone *)zone BSSID:(NSString *)bssid andSSID:(NSString *)ssid {
     // when Roaming is instantiated, the system needs to evaluate where the user is frequently
     
-    self = [super initWithContext:context region:region BSSID:bssid andSSID:ssid];
+    self = [super initWithContext:context region:region zone:(Zone *)zone BSSID:bssid andSSID:ssid];
     
     [self startTimer];
     
     return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    return [super initWithCoder:aDecoder];
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [super encodeWithCoder:aCoder];
 }
 
 - (Roaming *)enteredRegion:(Region *)region withBSSID:(NSString *)bssid andSSID:(NSString *)ssid {
@@ -38,7 +46,7 @@
     
     if (![self.currentRegion.identifier isEqualToString:region.identifier]) {
         [self invalidateBackgroundTasks];
-        return [[Roaming alloc] initWithContext:self.context region:region BSSID:bssid andSSID:ssid];
+        return [[Roaming alloc] initWithContext:self.context region:region zone:[region findZoneInRegionWithBssid:bssid] BSSID:bssid andSSID:ssid];
     }
     
     return self;
@@ -53,8 +61,8 @@
 }
 
 - (void)startTimer {
-    //starts a timer for 30 seconds, in the background
-    self.numTimesRanTimer = 0;
+    //starts a timer for 2 minutes, in the background
+    self.numTimesRanTimer = -1;
     self.numTimesNotInWifi = 0;
     
     UIBackgroundTaskIdentifier bgTask;
@@ -89,8 +97,8 @@
         // if the SSID is null, then the person is not connected to wifi
         // if they aren't on the wifi, then we don't care about the bssid
         // reset the num times timer has run
-        NSLog(@"SSID is null, reset num times the timer has run");
-        [self createLocalNotificationWithAlertBody:@"SSID is null, resetting run times"];
+        NSLog(@"SSID is null, increasing num Times not on wifi");
+        [self createLocalNotificationWithAlertBody:@"SSID is null, resetting num times not on wifi"];
         self.numTimesNotInWifi++;
     }
     else {
@@ -101,7 +109,16 @@
         if ([self checkSSID:newSSID]){
             // the IP address is the correct one that is associated with the university
             // compare how the new location and BSSID
-            [self updatedBSSID:newBssid];
+            
+            [self updateBSSID:newBssid];
+            
+            // if the user has moved, the zone may or may not be the same
+            // if the zone is null, then, there is a possibilty that the person has moved, and connected to a wifi in a different location
+            // or that the system is making a mistake, because it does that more often that I'd like it to
+            // if the zone is null, then the user may not actually be in this region
+            // the user is in the correct Region with a registered Zone
+            // if updateZone returns true, then the user has moved floors and we need to perform the algorithm again
+            [self updatedZone:[self.currentRegion findZoneInRegionWithBssid:newBssid]];
         }
         else {
             // the wifi is not null, and the user is on the wrong wifi.
@@ -124,52 +141,57 @@
     return NO;
 }
 
-- (BOOL)updatedBSSID:(NSString *)bssid {
+- (void)updateBSSID:(NSString *)bssid {
     NSLog(@"Checking the updated BSSID");
-    if ([bssid isEqualToString:self.currentBSSID]) {
-        // user has not moved, one more check that the zones are the same
-        NSLog(@"User has not moved");
-        [self createLocalNotificationWithAlertBody:@"User has not moved"];
-        
-        return [self updatedZone:[self.currentRegion findZoneInRegionWithBssid:self.currentBSSID]];
-    }
-    else {
-        NSLog(@"BSSID has changed");
-        [self createLocalNotificationWithAlertBody:@"BSSID has changed"];
-        
+    if (![bssid isEqualToString:self.currentBSSID]) {
+        NSLog(@"BSSID has changed, user on the move");
+        [self createLocalNotificationWithAlertBody:@"BSSID has changed, user on the move"];
         self.currentBSSID = bssid;
-        // current BSSID has changed, so need to find the Zone associated with that BSSID
-        // check if the zone has changed
-        [self updatedZone:[self.currentRegion findZoneInRegionWithBssid:self.currentBSSID]];
-        return YES;
     }
+   
+    // user has not moved, one more check that the zones are the same
+    NSLog(@"User has not moved");
+    [self createLocalNotificationWithAlertBody:@"User has not moved"];
 }
 
 - (BOOL)updatedZone:(Zone *)zone {
+    
     if (self.numTimesRanTimer > 2) {
-        if (![zone.identifier isEqualToString:self.currentZone.identifier]) {
+        if (self.numTimesNotInWifi > 2) {
+            NSLog(@"The zone cannot be confirmed, wifi issues or physical location not in library");
+            [self createLocalNotificationWithAlertBody:@"Zone cannot be confirmed, exiting region"];
+            // the user is not connected to the wifi, or is connected to the wifi but not actually in the library
+            [self.context exitedRegion];
+            return YES;
+        }
+        else if (![zone.identifier isEqualToString:self.currentZone.identifier]) {
             NSLog(@"Zones are the same, Number of times ran timer: %i", self.numTimesRanTimer);
             // user has not moved, potentially need to change state to studying
             // if the num times that the timer has started is above 3, then we can set the state to studying
             // also make sure that the background tasks are stopped
             [self createLocalNotificationWithAlertBody:@"user confirmed in zone"];
-            [self setCurrentZoneToUnknownFloor];
+            [self regionConfirmed];
+            return YES;
         }
         
+        // everything checks out and the user is studying!
         [self regionConfirmed];
         return NO;
     }
-    else if ((self.numTimesRanTimer + self.numTimesNotInWifi) > 2) {
-        // the user probably won't turn on their wifi, so remove the user from the region
-        [self.context exitedRegion];
-        return NO;
+    
+    if (!zone) {
+        // zone is null
+        self.numTimesNotInWifi++;   //increment this because the user is not on the right wifi
+        return YES;
     }
-    else {
+    else if (![zone.identifier isEqualToString:self.currentZone.identifier]) {
+        // check if the zones are different, if they are, then change the zone
         NSLog(@"Updating the Zone");
-        // user is on a different floor, update things
         self.currentZone = zone;
         return YES;
     }
+    
+    return NO;
 }
 
 - (void)setCurrentZoneToUnknownFloor {
@@ -182,6 +204,7 @@
     
     // called when the user has been in the region for an extended period of time
     [self.context regionConfirmedWithRegion:self.currentRegion
+                                       zone:self.currentZone
                                       BSSID:self.currentBSSID
                                     andSSID:self.universityCommonSSID];
 }

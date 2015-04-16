@@ -133,16 +133,10 @@
     
     [self getCurrentLocation];
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSLog(@"User is studying? %i", [defaults boolForKey:@"user_studying"]);
-    if (![defaults boolForKey:@"user_studying"]) {
-        // only check if already in a region IF we don't already know that the user is not studying
-        
-        for (CLCircularRegion *region in [self.locationManager monitoredRegions]) {
-            if ([region containsCoordinate:self.currentLocation.coordinate]) {
-                NSLog(@"Already in the Region: %@", region.identifier);
-                [self locationManager:self.locationManager didEnterRegion:region];
-            }
+    for (CLCircularRegion *region in [self.locationManager monitoredRegions]) {
+        if ([region containsCoordinate:self.currentLocation.coordinate]) {
+            NSLog(@"Already in the Region: %@", region.identifier);
+            [self locationManager:self.locationManager didEnterRegion:region];
         }
     }
 }

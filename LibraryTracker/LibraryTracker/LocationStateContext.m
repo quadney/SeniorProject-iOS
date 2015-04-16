@@ -10,7 +10,8 @@
 #import "NotInRegionLS.h"
 #import "Roaming.h"
 #import "Studying.h"
-
+#import "ApplicationState.h"
+#import "Region.h"
 
 @interface LocationStateContext()
 
@@ -22,24 +23,38 @@
 
 - (id)init {
     self = [super init];
-
-    self.state = [[NotInRegionLS alloc] initWithContext:self];
+    
+    //self.state = [[NotInRegionLS alloc] initWithContext:self];
+    // user may or may not be restoring this from a state, so do that
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    self.state = [self restoreLocationStateWithUserState:[defaults integerForKey:@"user_state"]];
+    
     
     return self;
+}
+
+- (LocationState *)restoreLocationStateWithUserState:(UserState)state {
+    
+    NSLog(@"user state: %lu", state);
+    if (state == UserStateRoaming) {
+        NSLog(@"Instantiating Roaming from restored state");
+
+        return [[Roaming alloc] initToRestoreState:state withContext:self];
+    }
+    else if (state == UserStateStudying) {
+        NSLog(@"Instantiating Studying from restored state");
+        
+        return [[Studying alloc] initToRestoreState:state withContext:self];
+    }
+    
+    NSLog(@"Instantiating NotInRegion");
+    return [[NotInRegionLS alloc] initWithContext:self];
 }
 
 - (void)enteredRegion:(Region *)region withBSSID:(NSString *)bssid andSSID:(NSString *)ssid {
     NSLog(@"LOCATIONSTATECONTEXT enteredRegion");
     
-    //when user enters region from not in region, set the current region to be Roaming
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults boolForKey:@"user_studying"]) {
-        // user is already studying, starting Roaming is dumb. set to studying
-        [self regionConfirmedWithRegion:region BSSID:bssid andSSID:ssid];
-    }
-    else {
-        self.state = [self.state enteredRegion:region withBSSID:bssid andSSID:ssid];;
-    }
+    self.state = [self.state enteredRegion:region withBSSID:bssid andSSID:ssid];;
 }
 
 - (void)exitedRegion {

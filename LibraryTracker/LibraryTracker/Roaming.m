@@ -25,18 +25,13 @@
 
 - (id)initWithContext:(LocationStateContext *)context region:(Region *)region BSSID:(NSString *)bssid andSSID:(NSString *)ssid {
     // when Roaming is instantiated, the system needs to evaluate where the user is frequently
-    // need to conjur up some fancy algorithm to work with this
-    // probably having to do with threads and timers and background stuff
     
     self = [super initWithContext:context region:region BSSID:bssid andSSID:ssid];
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSLog(@"INIT ROAMING: user defaults, %i", [defaults boolForKey:@"user_roaming"]);
-    if (![defaults boolForKey:@"user_roaming"]) {
-        // if Roaming is init'd and the user was already roaming
-        [self startTimer];
-        [self setUserDefaultsWithBool:YES];
-    }
+    self.userState = UserStateRoaming;
+    [self saveUserState];
+    
+    [self startTimer];
     
     return self;
 }
@@ -44,9 +39,12 @@
 - (Roaming *)enteredRegion:(Region *)region withBSSID:(NSString *)bssid andSSID:(NSString *)ssid {
     NSLog(@"ROAMING enteredRegion");
     
-    [self invalidateBackgroundTasks];
+    if (![self.currentRegion.identifier isEqualToString:region.identifier]) {
+        [self invalidateBackgroundTasks];
+        return [[Roaming alloc] initWithContext:self.context region:region BSSID:bssid andSSID:ssid];
+    }
     
-    return [[Roaming alloc] initWithContext:self.context region:region BSSID:bssid andSSID:ssid];
+    return self;
 }
 
 - (NotInRegionLS *)exitedRegion {
@@ -96,7 +94,6 @@
         // reset the num times timer has run
         NSLog(@"SSID is null, reset num times the timer has run");
         [self createLocalNotificationWithAlertBody:@"SSID is null, resetting run times"];
-        self.numTimesRanTimer = 0;
         self.numTimesNotInWifi++;
     }
     else {
@@ -113,9 +110,10 @@
             // the wifi is not null, and the user is on the wrong wifi.
             // this could be many things - maybe the user is tethering off their own or a friend's wifi?
             // of they are connected to a different wifi
-            // do I just add them to the unknown zone?
+            // set them to unknown floor
             NSLog(@"User is not in the wifi, confirming region");
             [self createLocalNotificationWithAlertBody:@"user is not on wifi, confirming region"];
+            [self setCurrentZoneToUnknownFloor];
             [self regionConfirmed];
         }
     }
@@ -151,28 +149,34 @@
 }
 
 - (BOOL)updatedZone:(Zone *)zone {
-    if ([zone.identifier isEqualToString:self.currentZone.identifier]) {
-        NSLog(@"Zones are the same, Number of times ran timer: %i", self.numTimesRanTimer);
-        // user has not moved, potentially need to change state to studying
-        // if the num times that the timer has started is above 3, then we can set the state to studying
-        // also make sure that the background tasks are stopped
-        
-        if (self.numTimesRanTimer > 2) {
+    if (self.numTimesRanTimer > 2) {
+        if (![zone.identifier isEqualToString:self.currentZone.identifier]) {
+            NSLog(@"Zones are the same, Number of times ran timer: %i", self.numTimesRanTimer);
+            // user has not moved, potentially need to change state to studying
+            // if the num times that the timer has started is above 3, then we can set the state to studying
+            // also make sure that the background tasks are stopped
             [self createLocalNotificationWithAlertBody:@"user confirmed in zone"];
-            [self regionConfirmed];
+            [self setCurrentZoneToUnknownFloor];
         }
-        else if (self.numTimesNotInWifi > 2) {
-            // the user probably won't turn on their wifi, so remove the user from the region
-            [self.context exitedRegion];
-        }
+        
+        [self regionConfirmed];
+        return NO;
+    }
+    else if ((self.numTimesRanTimer + self.numTimesNotInWifi) > 2) {
+        // the user probably won't turn on their wifi, so remove the user from the region
+        [self.context exitedRegion];
         return NO;
     }
     else {
-        NSLog(@"Zones are not the same");
+        NSLog(@"Updating the Zone");
         // user is on a different floor, update things
         self.currentZone = zone;
         return YES;
     }
+}
+
+- (void)setCurrentZoneToUnknownFloor {
+    self.currentZone = [self.currentRegion findZoneWithIdentifier:@"Unknown Floor"];
 }
 
 - (void)regionConfirmed {
@@ -180,30 +184,20 @@
     [self invalidateBackgroundTasks];
     
     // called when the user has been in the region for an extended period of time
-    NSLog(@"Context: %@", self.context);
     [self.context regionConfirmedWithRegion:self.currentRegion
                                       BSSID:self.currentBSSID
                                     andSSID:self.universityCommonSSID];
 }
 
 - (void)invalidateBackgroundTasks {
-    // TODO
     // invalidate the background tasks inorder to save battery power and stuff
+    // dont need to save the user state becuase the change of state does that for us
     NSLog(@"Attempting to invalidate the background task");
     [self.timer invalidate];
-    
-    // set that the user is no longer roaming
-    [self setUserDefaultsWithBool:NO];
 }
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"ROAMING // numTimesRanTimer: %i", self.numTimesRanTimer];
-}
-
-- (void)setUserDefaultsWithBool:(BOOL)studying {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setBool:studying forKey:@"user_roaming"];
-    [defaults synchronize];
 }
 
 #pragma mark - Local Notification Methods

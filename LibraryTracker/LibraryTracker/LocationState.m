@@ -34,4 +34,9 @@
                                  userInfo:nil];
 }
 
+- (void)saveUserState {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setInteger:self.userState forKey:@"user_state"];
+}
+
 @end

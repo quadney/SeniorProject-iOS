@@ -22,8 +22,39 @@
     return self;
 }
 
+- (id)initToRestoreState:(UserState)state withContext:(LocationStateContext *)context {
+    NSLog(@"initToRestoreState, state: %lu", state);
+    self = [super initWithContext:context];
+    // now need to set the Region based on what the identifier is, and find the appropriate zone
+    
+    if (self) {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSData *regionData = [defaults objectForKey:@"user_region"];
+        
+        self.userState = state;
+        self.currentRegion = [NSKeyedUnarchiver unarchiveObjectWithData:regionData];
+        NSLog(@"Current Region from unarchived data: %@", self.currentRegion);
+        
+        
+        self.currentZone = [self.currentRegion findZoneWithIdentifier:[defaults objectForKey:@"user_zone"]];
+        self.currentBSSID = [defaults objectForKey:@"user_bssid"];
+        self.universityCommonSSID = [defaults objectForKey:@"university_commonWifiName"];
+    }
+    
+    return self;
+}
+
 - (Region *)getRegion {
     return self.currentRegion;
+}
+
+- (void)saveUserState {
+    [super saveUserState];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:self.currentRegion] forKey:@"user_region"];
+    //[[NSUserDefaults standardUserDefaults] setObject:self.currentRegion.identifier forKey:@"user_region"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.currentZone.identifier forKey:@"user_zone"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.currentBSSID forKey:@"user_bssid"];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end

@@ -17,12 +17,12 @@
     
     self = [super initWithContext:context region:region BSSID:bssid andSSID:ssid];
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSLog(@"INIT STUDYING: user defaults, %i", [defaults boolForKey:@"user_studying"]);
-    if (![defaults boolForKey:@"user_studying"]) {
-        // if Studying is init'd and the user was not already studying
-        [self userStartedStudying];
-    }
+    // save the states
+    self.userState = UserStateStudying;
+    [self saveUserState];
+    
+    // the user is now studying
+    [self userStartedStudying];
     
     return self;
 }
@@ -33,17 +33,20 @@
     // tell the database to
     [[LibwhereyClient sharedClient] userEntersZoneWithId:self.currentZone.idNumber];
     
-    [self setUserDefaultsWithBool:YES];
-    
     [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"User is now studying, region: %@, zone: %@", self.currentRegion, self.currentZone]];
 }
 
-- (Roaming *)enteredRegion:(Region *)region withBSSID:(NSString *)bssid andSSID:(NSString *)ssid {
+- (InRegionLS *)enteredRegion:(Region *)region withBSSID:(NSString *)bssid andSSID:(NSString *)ssid {
     NSLog(@"STUDYING enteredRegion");
     
-    [self setUserDefaultsWithBool:NO];
+    if (![self.currentRegion.identifier isEqualToString:region.identifier]) {
+        // call the network to remove the person from the Zone
+        [[LibwhereyClient sharedClient] userExitsZoneWithId:self.currentZone.idNumber];
     
-    return [[Roaming alloc] initWithContext:self.context region:region BSSID:bssid andSSID:ssid];
+        return [[Roaming alloc] initWithContext:self.context region:region BSSID:bssid andSSID:ssid];
+    }
+    
+    return self;
 }
 
 - (NotInRegionLS *)exitedRegion {
@@ -53,12 +56,6 @@
     [[LibwhereyClient sharedClient] userExitsZoneWithId:self.currentZone.idNumber];
     
     return [[NotInRegionLS alloc] initWithContext:self.context];
-}
-
-- (void)setUserDefaultsWithBool:(BOOL)studying {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setBool:studying forKey:@"user_studying"];
-    [defaults synchronize];
 }
 
 - (NSString *)description {

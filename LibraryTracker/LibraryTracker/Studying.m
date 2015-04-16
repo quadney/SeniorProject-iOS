@@ -36,9 +36,6 @@
     
     // tell the database to
     [[LibwhereyClient sharedClient] userEntersZoneWithId:self.currentZone.idNumber];
-    
-    [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"User is now studying, region: %@, zone: %@", self.currentRegion, self.currentZone]];
-    
 }
 
 - (InRegionLS *)enteredRegion:(Region *)region withBSSID:(NSString *)bssid andSSID:(NSString *)ssid {
@@ -72,16 +69,6 @@
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"STUDYING // "];
-}
-
-#pragma mark - Local Notification Methods
-
-- (void)createLocalNotificationWithAlertBody:(NSString *)alert {
-    UILocalNotification *notification = [[UILocalNotification alloc] init];
-    notification.alertBody = alert;
-    notification.fireDate = [[NSDate date] dateByAddingTimeInterval:5];
-    notification.applicationIconBadgeNumber = 1;
-    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 }
 
 @end

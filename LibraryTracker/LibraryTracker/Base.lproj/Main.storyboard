@@ -577,8 +577,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="list_tabBarIcon" width="66" height="66"/>
-        <image name="map_tabBarIcon" width="66" height="66"/>
+        <image name="list_tabBarIcon" width="25" height="25"/>
+        <image name="map_tabBarIcon" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="A0l-yx-BWm"/>

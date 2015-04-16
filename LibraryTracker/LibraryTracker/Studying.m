@@ -32,12 +32,12 @@
 }
 
 - (void)userStartedStudying {
-    NSLog(@"STUDYING userStartedStudying ZONE BEFORE: %i", self.currentZone.currentPopulation);
+    NSLog(@"STUDYING userStartedStudying zone_id: %i, ZONE Population BEFORE: %i", self.currentZone.idNumber, self.currentZone.currentPopulation);
     
     // tell the database to
     [[LibwhereyClient sharedClient] userEntersZoneWithId:self.currentZone.idNumber];
     
-    [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"User is now studying, region: %@, zone: %@", self.currentRegion, self.currentZone]];
+    [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"User is now studying, region_id: %i, zone_id: %i", self.currentRegion.idNum, self.currentZone.idNumber]];
     
 }
 
@@ -47,6 +47,7 @@
     if (![self.currentRegion.identifier isEqualToString:region.identifier]) {
         
         NSLog(@"STUDYING userEnteringAntoherRegion ZONE BEFORE: %i", self.currentZone.currentPopulation);
+        [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"STUDYING User entered another region, exiting zone with id: %i", self.currentZone.idNumber]];
         // call the network to remove the person from the Zone
         [[LibwhereyClient sharedClient] userExitsZoneWithId:self.currentZone.idNumber];
         
@@ -63,6 +64,7 @@
 
 - (NotInRegionLS *)exitedRegion {
     NSLog(@"STUDYING exitedRegion ZONE BEFORE: %i", self.currentZone.currentPopulation);
+    [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"STUDYING, exitingRegion with region_id: %i, zone_id: %i", self.currentRegion.idNum, self.currentZone.idNumber]];
     
     // call the network to remove the person from the Zone
     [[LibwhereyClient sharedClient] userExitsZoneWithId:self.currentZone.idNumber];

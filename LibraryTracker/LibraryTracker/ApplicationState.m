@@ -142,6 +142,7 @@
 
 - (void)userEnteredRegion:(CLCircularRegion *)region {
     NSLog(@"ApplicationState userEnteredRegion");
+    bool foundRegion = false;
     
     // The Roaming functionality takes in a Region, this method has access to the CLCircularRegion
     // aka I need to find the region that it is associated with
@@ -149,20 +150,45 @@
     // get the Region with the same identifier as the one we have access to
     // go through the list and find it
     
-    NSLog(@"Regions comparing to: %@", [self getRegions]);
-    for (Region *enteredRegion in [self getRegions]) {
-        if ([enteredRegion.identifier isEqualToString:region.identifier]) {
-            NSLog(@"User State: %@", self.locationStateContext);
-
-            [self.locationStateContext enteredRegion:enteredRegion
-                                           withBSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]
-                                             andSSID:[[LocationMonitor sharedLocation] getCurrentSSID]];
-            NSLog(@"New User State: %@", self.locationStateContext);
+    // however, the BSSID also needs to check out, because LocationServices is proving to be unreliable...
+    // check if the user actually entered that region, based off the BSSID and the identifier
+    for (Region *reg in [self getRegions]) {
+        if ([reg findZoneInRegionWithBssid:[[LocationMonitor sharedLocation] getCurrentBSSID]]) {
+            // if user actually entered this region
+            [self enterRegion:reg];
+            
+            foundRegion = true;
+            break;
+        }
+        
+    }
+    if (!foundRegion) {
+        // if they dont have matching BSSIDs, then maybe the user isn't in wifi or something yet
+        // if that is the case, then check with identifiers
+        for (Region *enteredRegion in [self getRegions]) {
+            if ([enteredRegion.identifier isEqualToString:region.identifier]) {
+                [self enterRegion:enteredRegion];
+                foundRegion = true;
+                break;
+            }
         }
     }
     
-    [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"User entered Region %@", [self getUserCurrentRegion]]];
+    if (!foundRegion) {
+        NSLog(@"Entered Region but didn't actually");
+        [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"Entered Region but didn't actually: %@", region]];
+    }
+}
+
+- (void)enterRegion:(Region *)enteredRegion {
+    NSLog(@"User State: %@", self.locationStateContext);
     
+    [self.locationStateContext enteredRegion:enteredRegion
+                                   withBSSID:[[LocationMonitor sharedLocation] getCurrentBSSID]
+                                     andSSID:[[LocationMonitor sharedLocation] getCurrentSSID]];
+    NSLog(@"New User State: %@", self.locationStateContext);
+    
+    [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"User entered Region %@", [self getUserCurrentRegion]]];
 }
 
 - (void)userExitedRegion:(CLCircularRegion *)region {

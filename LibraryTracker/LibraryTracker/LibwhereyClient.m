@@ -180,6 +180,7 @@
 
 - (void)userExitsZoneWithId:(int)zoneId {
     NSURL *url = [NSURL URLWithString:[self exitZoneURLWithZoneId:zoneId]];
+    NSLog(@"Libwherey Client - user exiting zone: %i", zoneId);
     
     if (self.dataTask) {
         // dataTask is already alive, need to stop it
@@ -195,6 +196,7 @@
         else {
             NSLog(@"it worked");
             [self createLocalNotificationWithAlertBody:@"USER EXITED REGION AND NOW IT'S UPDATED IN THE DATABASE BOOM BITCH"];
+            NSLog(@"STUDYING exitedRegion ZONE AFTER: %@", [[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil] objectForKey:@"current_population"]);
         }
     }];
     

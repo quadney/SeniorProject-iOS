@@ -273,7 +273,7 @@
                             <outlet property="delegate" destination="r2Z-3C-yY1" id="JZI-vU-qEp"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="List" selectedImage="list_tabBarIcon" id="4K5-vL-66y"/>
+                    <tabBarItem key="tabBarItem" title="List" image="list_tabBarIcon" id="4K5-vL-66y"/>
                     <navigationItem key="navigationItem" id="a5v-5r-Deg">
                         <barButtonItem key="rightBarButtonItem" title="Settings" id="Ksi-i6-vJ0">
                             <connections>
@@ -336,7 +336,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Map" selectedImage="map_tabBarIcon" id="1O5-cw-kf9"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="map_tabBarIcon" id="1O5-cw-kf9"/>
                     <navigationItem key="navigationItem" id="O0k-RI-5BR">
                         <barButtonItem key="rightBarButtonItem" title="Settings" id="zga-qa-di0">
                             <connections>
@@ -581,6 +581,6 @@
         <image name="map_tabBarIcon" width="66" height="66"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="8G9-nQ-Nby"/>
+        <segue reference="A0l-yx-BWm"/>
     </inferredMetricsTieBreakers>
 </document>

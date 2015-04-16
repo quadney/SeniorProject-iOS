@@ -47,7 +47,7 @@
     self.mapView.camera = camera;
     self.mapView.myLocationEnabled = YES;
     self.mapView.settings.compassButton = YES;
-    self.mapView.settings.myLocationButton = YES;
+    self.mapView.settings.myLocationButton = NO;
     self.mapView.delegate = self;
 }
 

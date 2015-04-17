@@ -106,16 +106,20 @@
         if ([self checkSSID:newSSID]){
             // the IP address is the correct one that is associated with the university
             // compare how the new location and BSSID
-            
-            [self updateBSSID:newBssid];
-            
-            // if the user has moved, the zone may or may not be the same
-            // if the zone is null, then, there is a possibilty that the person has moved, and connected to a wifi in a different location
-            // or that the system is making a mistake, because it does that more often that I'd like it to
-            // if the zone is null, then the user may not actually be in this region
-            // the user is in the correct Region with a registered Zone
-            // if updateZone returns true, then the user has moved floors and we need to perform the algorithm again
-            [self updatedZone:[self.currentRegion findZoneInRegionWithBssid:newBssid]];
+            if (![self isRegionTheSame]) {
+                [self.context exitedRegion];
+            }
+            else {
+                [self updateBSSID:newBssid];
+                
+                // if the user has moved, the zone may or may not be the same
+                // if the zone is null, then, there is a possibilty that the person has moved, and connected to a wifi in a different location
+                // or that the system is making a mistake, because it does that more often that I'd like it to
+                // if the zone is null, then the user may not actually be in this region
+                // the user is in the correct Region with a registered Zone
+                // if updateZone returns true, then the user has moved floors and we need to perform the algorithm again
+                [self updatedZone:[self.currentRegion findZoneInRegionWithBssid:newBssid]];
+            }
         }
         else {
             // the wifi is not null, and the user is on the wrong wifi.
@@ -127,6 +131,10 @@
             [self regionConfirmed];
         }
     }
+}
+
+- (BOOL)isRegionTheSame {
+    return [self.currentRegion.identifier isEqualToString:[[LocationMonitor sharedLocation] getCurrentRegionIdentifier]];
 }
 
 - (BOOL)checkSSID:(NSString *)ssid {

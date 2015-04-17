@@ -142,7 +142,6 @@
 }
 
 - (NSString *)getCurrentRegionIdentifier {
-    // THIS METHOD IS ONLY FOR WHEN RESTORING STATE AFTER APP TERMINATED
     [self getCurrentLocation];
     
     for (CLCircularRegion *region in [self.locationManager monitoredRegions]) {

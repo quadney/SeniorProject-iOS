@@ -176,7 +176,7 @@
     
     if (!foundRegion) {
         NSLog(@"Entered Region but didn't actually");
-        //[self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"Entered Region but didn't actually: %@", region]];
+        [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"Entered Region but didn't actually: %@", region]];
     }
 }
 
@@ -188,7 +188,7 @@
                                      andSSID:[[LocationMonitor sharedLocation] getCurrentSSID]];
     NSLog(@"New User State: %@", self.locationStateContext);
     
-    //[self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"User entered Region %@", [self getUserCurrentRegion]]];
+    [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"User entered Region %@", [self getUserCurrentRegion]]];
 }
 
 - (void)userExitedRegion:(CLCircularRegion *)region {
@@ -214,6 +214,16 @@
     // subtract 1.0 from what the value is to invert it, then constrain it to [0.0, 0.33] by dividing by 3.0
     float color = (1.0f - ((float)currentPopulation/maxCapacity)) / 3.0f;
     return [UIColor colorWithHue:color saturation:0.75f brightness:0.9f alpha:0.7f];
+}
+
+#pragma mark - Local Notification Methods
+
+- (void)createLocalNotificationWithAlertBody:(NSString *)alert {
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    notification.alertBody = alert;
+    notification.fireDate = [[NSDate date] dateByAddingTimeInterval:5];
+    notification.applicationIconBadgeNumber = 1;
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 }
 
 @end

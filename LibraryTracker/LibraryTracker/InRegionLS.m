@@ -35,6 +35,7 @@
     
     self.currentRegion = [aDecoder decodeObjectForKey:kCurrentRegion];
     self.currentZone = [aDecoder decodeObjectForKey:kCurrentZone];
+    NSLog(@"Restoring state, zone: %@", self.currentZone);
     self.currentBSSID = [aDecoder decodeObjectForKey:kCurrentBSSID];
     self.universityCommonSSID = [aDecoder decodeObjectForKey:kCommonSSID];
     
@@ -45,6 +46,7 @@
     [super encodeWithCoder:aCoder];
     
     [aCoder encodeObject:self.currentRegion forKey:kCurrentRegion];
+    NSLog(@"Encoding Zone: %@", self.currentZone);
     [aCoder encodeObject:self.currentZone forKey:kCurrentZone];
     [aCoder encodeObject:self.currentBSSID forKey:kCurrentBSSID];
     [aCoder encodeObject:self.universityCommonSSID forKey:kCommonSSID];

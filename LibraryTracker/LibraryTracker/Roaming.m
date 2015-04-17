@@ -71,6 +71,8 @@
         [app endBackgroundTask:bgTask];
     }];
     
+    [self createLocalNotificationWithAlertBody:@"starting background tasks"];
+    
     
     self.timer = [NSTimer scheduledTimerWithTimeInterval:120.0
                                                   target:self
@@ -95,6 +97,7 @@
         // if the SSID is null, then the person is not connected to wifi
         // if they aren't on the wifi, then we don't care about the bssid
         // reset the num times timer has run
+        [self createLocalNotificationWithAlertBody:@"SSID is null, resetting num times not on wifi"];
         NSLog(@"SSID is null, increasing num Times not on wifi");
         self.numTimesNotInWifi++;
     }
@@ -107,6 +110,7 @@
             // the IP address is the correct one that is associated with the university
             // compare how the new location and BSSID
             if (![self isRegionTheSame]) {
+                [self createLocalNotificationWithAlertBody:@"User not in Region anymore"];
                 [self.context exitedRegion];
             }
             else {
@@ -127,6 +131,7 @@
             // of they are connected to a different wifi
             // set them to unknown floor
             NSLog(@"User is not in the wifi, confirming region");
+            [self createLocalNotificationWithAlertBody:@"user is not on wifi, confirming region"];
             [self setCurrentZoneToUnknownFloor];
             [self regionConfirmed];
         }
@@ -149,11 +154,14 @@
     NSLog(@"Checking the updated BSSID");
     if (![bssid isEqualToString:self.currentBSSID]) {
         NSLog(@"BSSID has changed, user on the move");
+        [self createLocalNotificationWithAlertBody:@"BSSID has changed, user on the move"];
         self.currentBSSID = bssid;
     }
-   
-    // user has not moved, one more check that the zones are the same
-    NSLog(@"User has not moved");
+    else {
+        [self createLocalNotificationWithAlertBody:@"User has not moved"];
+        // user has not moved, one more check that the zones are the same
+        NSLog(@"User has not moved");
+    }
 }
 
 - (BOOL)updatedZone:(Zone *)zone {
@@ -161,12 +169,14 @@
     if (self.numTimesRanTimer > 2) {
         if (self.numTimesNotInWifi > 2) {
             NSLog(@"The zone cannot be confirmed, wifi issues or physical location not in library");
+            [self createLocalNotificationWithAlertBody:@"Zone cannot be confirmed, exiting region"];
             // the user is not connected to the wifi, or is connected to the wifi but not actually in the library
             [self.context exitedRegion];
             return YES;
         }
         else if (![zone.identifier isEqualToString:self.currentZone.identifier]) {
             NSLog(@"Zones are the same, Number of times ran timer: %i", self.numTimesRanTimer);
+            [self createLocalNotificationWithAlertBody:@"user confirmed in zone"];
             // user has not moved, potentially need to change state to studying
             // if the num times that the timer has started is above 3, then we can set the state to studying
             // also make sure that the background tasks are stopped
@@ -218,6 +228,16 @@
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"ROAMING // numTimesRanTimer: %i", self.numTimesRanTimer];
+}
+
+#pragma mark - Local Notification Methods
+
+- (void)createLocalNotificationWithAlertBody:(NSString *)alert {
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    notification.alertBody = alert;
+    notification.fireDate = [[NSDate date] dateByAddingTimeInterval:5];
+    notification.applicationIconBadgeNumber = 1;
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 }
 
 @end

@@ -27,6 +27,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    self.navigationItem.title = [[[ApplicationState sharedInstance] getUniversity] name];
     [self.tableView reloadData];
 }
 

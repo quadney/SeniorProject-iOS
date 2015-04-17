@@ -13,7 +13,6 @@
 #define kLongitude      @"longitude"
 #define kRadius         @"radius"
 #define kIdNum          @"idNum"
-#define kZones          @"zones"
 
 @implementation Region
 
@@ -34,7 +33,7 @@
                     centerLongitude:[aDecoder decodeFloatForKey:kLongitude]
                              radius:[aDecoder decodeFloatForKey:kRadius]
                            idNumber:(int)[aDecoder decodeIntegerForKey:kIdNum]
-                           andZones:[aDecoder decodeObjectForKey:kZones]];
+                           andZones:nil];
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
@@ -43,7 +42,6 @@
     [aCoder encodeFloat:self.center.longitude forKey:kLongitude];
     [aCoder encodeFloat:self.radius forKey:kRadius];
     [aCoder encodeInteger:self.idNum forKey:kIdNum];
-    [aCoder encodeObject:self.zones forKey:kZones];
 }
 
 - (Zone *)findZoneInRegionWithBssid:(NSString *)bssid {
@@ -59,6 +57,15 @@
 - (Zone *)findZoneWithIdentifier:(NSString *)zoneIdentifier {
     for (Zone *zone in self.zones) {
         if ([zone.identifier isEqualToString:zoneIdentifier]) {
+            return zone;
+        }
+    }
+    return nil;
+}
+
+- (Zone *)findZoneWithIdNum:(NSInteger)zoneId {
+    for (Zone *zone in self.zones) {
+        if (zone.idNumber == zoneId) {
             return zone;
         }
     }

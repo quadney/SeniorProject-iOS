@@ -41,8 +41,7 @@
     
     self.locationStateLabel.text = [[ApplicationState sharedInstance] getLocationState];
     
-    NSUserDefaults *defualts = [NSUserDefaults standardUserDefaults];
-    self.userState.text = [NSString stringWithFormat:@"User State: %@", [defualts objectForKey:@"user_state"]];
+    self.userState.text = [NSString stringWithFormat:@"Region id: %i, Zone id: %i", [[ApplicationState sharedInstance] getUserCurrentRegion].idNum, [[ApplicationState sharedInstance] getUserCurrentZone].idNumber];
 }
 
 

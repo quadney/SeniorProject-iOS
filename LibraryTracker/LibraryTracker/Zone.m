@@ -28,7 +28,7 @@
 - (id)initWithCoder:(NSCoder *)aDecoder {
     return [self initWithIdentifier:[aDecoder decodeObjectForKey:kIdentifier]
                     wifiBssidValues:[aDecoder decodeObjectForKey:kBssids]
-                           idNumber:(int)[aDecoder decodeObjectForKey:kIdNumber]
+                           idNumber:(int)[aDecoder decodeIntegerForKey:kIdNumber]
                   currentPopulation:0
                            capacity:0];
 }
@@ -47,6 +47,10 @@
         }
     }
     return NO;
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Zone %@, idNum: %i", self.identifier, self.idNumber];
 }
 
 @end

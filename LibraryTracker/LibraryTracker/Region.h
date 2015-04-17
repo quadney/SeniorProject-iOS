@@ -21,5 +21,6 @@
 - (int)calculateCurrentPopulation;
 - (Zone *)findZoneInRegionWithBssid:(NSString *)bssid;
 - (Zone *)findZoneWithIdentifier:(NSString *)zoneIdentifier;
+- (Zone *)findZoneWithIdNum:(NSInteger)zoneId;
 
 @end

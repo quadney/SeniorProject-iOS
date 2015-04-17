@@ -180,7 +180,7 @@
 
 - (void)userExitsZoneWithId:(int)zoneId {
     NSURL *url = [NSURL URLWithString:[self exitZoneURLWithZoneId:zoneId]];
-    //[self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"Libwherey Client - user exiting zone: %i", zoneId]];
+    [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"Libwherey Client - user exiting zone: %i", zoneId]];
     NSLog(@"Libwherey Client - user exiting zone: %i", zoneId);
     
     if (self.dataTask) {
@@ -196,7 +196,7 @@
         }
         else {
             NSLog(@"it worked");
-            //[self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"USER EXITED REGION AND NOW IT'S UPDATED IN THE DATABASE, ZONE AFTER: %@", [[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil] objectForKey:@"current_population"]]];
+            [self createLocalNotificationWithAlertBody:[NSString stringWithFormat:@"USER EXITED REGION AND NOW IT'S UPDATED IN THE DATABASE, ZONE AFTER: %@", [[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil] objectForKey:@"current_population"]]];
             
             NSLog(@"STUDYING exitedRegion ZONE AFTER: %@", [[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil] objectForKey:@"current_population"]);
         }
@@ -283,6 +283,16 @@
                                                                      commonWifiName:[obj objectForKey:@"common_wifi_name"]]];
     }
     return [NSArray arrayWithArray:universities];
+}
+
+#pragma mark - Local Notification Methods
+
+- (void)createLocalNotificationWithAlertBody:(NSString *)alert {
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    notification.alertBody = alert;
+    notification.fireDate = [[NSDate date] dateByAddingTimeInterval:5];
+    notification.applicationIconBadgeNumber = 1;
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 }
 
 @end

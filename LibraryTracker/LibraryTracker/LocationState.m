@@ -49,6 +49,7 @@
 - (void)saveUserState {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:self] forKey:@"user_state"];
+    [defaults synchronize];
 }
 
 
